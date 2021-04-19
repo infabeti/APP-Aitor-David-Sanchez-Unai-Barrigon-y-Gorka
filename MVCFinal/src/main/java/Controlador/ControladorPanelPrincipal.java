@@ -39,4 +39,14 @@ public class ControladorPanelPrincipal {
 		return new PanelPrincipal(controladorPanelPrincipal, user.getTipoLocal(), user.getNombre(), user.getLocal());
 	}
 
+	public void accionadoBottonMostrarPanelAnalisis() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void accionadoBottonMostrarPanelPoblacion() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
