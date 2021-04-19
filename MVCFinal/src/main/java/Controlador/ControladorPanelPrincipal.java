@@ -33,32 +33,6 @@ public class ControladorPanelPrincipal {
 		this.panelPrincipal = makePanelPrincipal(this);
 		this.vista.mostrarPanel(this.panelPrincipal);
 	}
-
-	public void accionadoBottonMostrarPanelPedidos() {
-		this.controlador.navegarPanelPedidos();
-	}
-	
-
-	public void accionadoBottonMostrarPanelAprovisionamiento() {
-		this.controlador.navegarPanelAprovisionamiento();
-	}
-
-
-	public void accionadoBottonMostrarPanelTickets() {
-		this.controlador.navegarPanelTickets();
-	}
-
-	public void accionadoBottonMostrarPanelFacturas() {
-		this.controlador.navegarPanelFacturas();
-	}
-	
-	public void accionadoBottonMostrarPanelComandas() {
-		this.controlador.navegarPanelComandas();
-	}
-
-	public void accionadoBottonDesconectarPanelPrincipal() {
-		this.controlador.navegarPanelLogin();
-	}
 	
 	public PanelPrincipal makePanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal) {
 		Usuario user = this.modelo.getUser();
