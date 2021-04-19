@@ -4,47 +4,17 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.NumberFormat;
-
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import Controlador.ControladorPanelPoblacion;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.text.NumberFormatter;
 
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import java.awt.Color;
 
 public class PanelPoblacion extends JPanel {
 
 	private static final long serialVersionUID = -4866340972661290326L;
 	private ControladorPanelPoblacion controladorPanelPoblacion;
-	private JLabel lblTextoPanel;
 	private JButton btnVolver;
-	private JTextField textFieldNumTrans;
-	private JButton btnFinalizar;
-	private JLabel lblTransaccion;
-	private JList listaProductos;
-	private JButton btnAnadir;
-	private JList listaAnnadidos;
-	private JScrollPane scrollPane;
-	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
-	private JScrollPane scrollPane_1;
-	private JFormattedTextField TextFieldCantidad;
-	private JLabel lblCantidad;
-	private JLabel lblError;
-	private JTextField textLocal;
-	private JButton btnEliminar;
-	private JLabel lblTotal;
-	private JTextField textTotal;
-	private JTextField textFieldFecha;
 
 	public PanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
 		setBackground(SystemColor.activeCaption);
@@ -52,6 +22,16 @@ public class PanelPoblacion extends JPanel {
 		this.controladorPanelPoblacion = controladorPanelPoblacion;
 
 		setLayout(null);
+		
+		JLabel lblNombrePanel = new JLabel("Panel poblacion de datos");
+		lblNombrePanel.setFont(new Font("Arial", Font.BOLD, 30));
+		lblNombrePanel.setBounds(0, 0, 450, 45);
+		add(lblNombrePanel);
+		
+		btnVolver = new JButton("Volver");
+		btnVolver.setFont(new Font("Arial", Font.PLAIN, 13));
+		btnVolver.setBounds(329, 233, 121, 32);
+		add(btnVolver);
 		
 		/*
 		lblTextoPanel = new JLabel("PANEL POBLACION");
@@ -190,6 +170,21 @@ public class PanelPoblacion extends JPanel {
 		lblNewLabel_2.setBounds(300, 148, 46, 17);
 		add(lblNewLabel_2);
 		*/
+		
+		initializeEvents();
 
+	}
+	
+	private void initializeEvents() {
+		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelPoblacion));
+	}
+	
+	private ActionListener listenerBotonVolver(ControladorPanelPoblacion controladorPanelPoblacion) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Volver");
+				controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
+			}
+		};
 	}
 }

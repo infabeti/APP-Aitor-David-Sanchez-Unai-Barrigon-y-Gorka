@@ -35,8 +35,7 @@ public class ControladorPanelPrincipal {
 	}
 	
 	public PanelPrincipal makePanelPrincipal(ControladorPanelPrincipal controladorPanelPrincipal) {
-		Usuario user = this.modelo.getUser();
-		return new PanelPrincipal(controladorPanelPrincipal, user.getTipoLocal(), user.getNombre(), user.getLocal());
+		return new PanelPrincipal(controladorPanelPrincipal);
 	}
 
 	public void accionadoBottonMostrarPanelAnalisis() {
@@ -45,8 +44,7 @@ public class ControladorPanelPrincipal {
 	}
 
 	public void accionadoBottonMostrarPanelPoblacion() {
-		// TODO Auto-generated method stub
-		
+		this.controlador.controladorPoblacionMostrarPanelPoblacion();
 	}
 
 }
