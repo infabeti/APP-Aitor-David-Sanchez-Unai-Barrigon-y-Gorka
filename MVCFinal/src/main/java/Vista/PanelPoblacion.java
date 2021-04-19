@@ -12,7 +12,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Controlador.ControladorPanelTickets;
+import Controlador.ControladorPanelPoblacion;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
@@ -25,7 +25,7 @@ import java.awt.Color;
 public class PanelPoblacion extends JPanel {
 
 	private static final long serialVersionUID = -4866340972661290326L;
-	private ControladorPanelTickets controladorPanelTickets;
+	private ControladorPanelPoblacion controladorPanelPoblacion;
 	private JLabel lblTextoPanel;
 	private JButton btnVolver;
 	private JTextField textFieldNumTrans;
@@ -46,13 +46,14 @@ public class PanelPoblacion extends JPanel {
 	private JTextField textTotal;
 	private JTextField textFieldFecha;
 
-	public PanelPoblacion(ControladorPanelTickets controladorPanelTickets) {
+	public PanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
 		setBackground(SystemColor.activeCaption);
 
-		this.controladorPanelTickets = controladorPanelTickets;
+		this.controladorPanelPoblacion = controladorPanelPoblacion;
 
 		setLayout(null);
-
+		
+		/*
 		lblTextoPanel = new JLabel("PANEL POBLACION");
 		lblTextoPanel.setFont(new Font("Arial", Font.PLAIN, 31));
 		lblTextoPanel.setBounds(290, 11, 450, 67);
@@ -98,10 +99,10 @@ public class PanelPoblacion extends JPanel {
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(470, 237, 150, 160);
 		add(scrollPane_1);
-		
-				listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
-				scrollPane_1.setViewportView(listaProductos);
-				listaProductos.setBackground(Color.WHITE);
+
+		listaProductos = new JList(controladorPanelTickets.cogerListaProductos());
+		scrollPane_1.setViewportView(listaProductos);
+		listaProductos.setBackground(Color.WHITE);
 
 		lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -176,18 +177,19 @@ public class PanelPoblacion extends JPanel {
 		add(textTotal);
 		textTotal.setColumns(10);
 		textTotal.setText("0");
-		
+
 		JLabel lblNewLabel = new JLabel("NIF");
 		lblNewLabel.setBounds(300, 79, 46, 14);
 		add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Nombre");
 		lblNewLabel_1.setBounds(300, 113, 46, 14);
 		add(lblNewLabel_1);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Apellido");
 		lblNewLabel_2.setBounds(300, 148, 46, 17);
 		add(lblNewLabel_2);
-		
+		*/
+
 	}
 }
