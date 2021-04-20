@@ -2,7 +2,6 @@ package Controlador;
 
 import Modelo.Modelo;
 import Vista.Vista;
-import Modelo.Usuario;
 
 public class Controlador {
 

@@ -9,23 +9,17 @@ public class Modelo {
 
 	private ListaProductos listaProductos = new ListaProductos();
 	private ListaPlatos listaPlatos = new ListaPlatos();
-	private Usuario user;
 	public FuncionesProductos funProd;
 	public FuncionesPlatos funPlat;
 	private Inserciones inserciones;
 	private Consultas consultas;
 	private ConsultasListas consultasListas;
-	private Registro registro;
 	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
 	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	public java.sql.Connection conexionConn = conexion.getConn();
-
-	public Registro getRegistro() {
-		return registro;
-	}
 
 	private ConsultasComprobaciones consultasComprobaciones;
 
@@ -42,14 +36,12 @@ public class Modelo {
 	}
 
 	public Modelo() {
-		user = new Usuario("", "", "", "");
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
 		inserciones = new Inserciones(this);
 		consultasComprobaciones = new ConsultasComprobaciones(this);
 		consultas = new Consultas(this);
 		consultasListas = new ConsultasListas(this);
-		registro = new Registro(this);
 		insercionesActividades = new InsercionesActividades(this);
 		validaciones = new Validaciones();
 	}
@@ -109,16 +101,10 @@ public class Modelo {
 		int cantidad = Integer.parseInt(linea.substring(0, punt));
 		return cantidad;
 	}
-
+	/*
 	public void actualizarListaProductosLocal() {
-		this.listaProductos = consultasListas.cogerProductosLocal(user.getNifLocal());
+		this.listaProductos = consultasListas.cogerProductosLocal(Local.);
 	}
+	*/
 
-	public Usuario getUser() {
-		return this.user;
-	}
-
-	public void setUser(Usuario user) {
-		this.user = user;
-	}
 }

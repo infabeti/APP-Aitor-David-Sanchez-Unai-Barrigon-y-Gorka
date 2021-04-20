@@ -1,6 +1,5 @@
 package Controlador;
 import Modelo.Modelo;
-import Modelo.Usuario;
 import Vista.PanelPrincipal;
 import Vista.Vista;
 

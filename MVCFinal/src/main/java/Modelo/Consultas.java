@@ -15,31 +15,6 @@ public class Consultas {
 		this.modelo = modelo;
 		conexionConn =  this.modelo.conexionConn;
 	}
-	
-	public Usuario login(String dni, String password) {
-		try {
-			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULTALOGUEAR);
-			st.setString(1, dni);
-			st.setString(2, password);
-			ResultSet rs = st.executeQuery();
-			if (rs.next()) {
-				String nombre = rs.getString("nombre");
-				String local = rs.getString("es.nombre");
-				String tipoNegocio = rs.getString("tipoNegocio");
-				String NIF = rs.getString("NIF");
-				Usuario user = new Usuario(nombre, local, tipoNegocio, NIF);
-				return user;
-			} else {
-				Usuario user = new Usuario("", "", "", "");
-				return user;
-			}
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-		Usuario user = new Usuario("", "", "", "");
-		return user;
-	}
 
 	public int leerNumTransBBDD() {
 		try {
