@@ -47,6 +47,8 @@ public class PanelPrincipal extends JPanel {
 			btnAnalisis.setBounds(281, 123, 161, 60);
 			add(btnAnalisis);
 			
+		
+
 			initializeEvents();
 		
 	}
