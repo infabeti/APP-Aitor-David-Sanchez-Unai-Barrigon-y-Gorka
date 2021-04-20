@@ -17,7 +17,7 @@ public class Inserciones {
 		insercionesActividades = new InsercionesActividades(modelo);
 	}
 
-	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal) {
+	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal, String nif) {
 		try {
 			PreparedStatement st = null;
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
@@ -36,13 +36,13 @@ public class Inserciones {
 					ResultSet rs = st2.executeQuery();
 					rs.next();
 					if (rs.getString("tipo").equalsIgnoreCase("aprovisionamiento")) {
-						actualizarStockMenorQueCinco(codigoAlimento);
+						actualizarStockMenorQueCinco(codigoAlimento, nif);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				if (precioFinal != 0) {
-					actualizarStockMenorQueCinco(codigoAlimento);
+					actualizarStockMenorQueCinco(codigoAlimento, nif);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -52,9 +52,9 @@ public class Inserciones {
 		}
 	}
 
-	public void actualizarStockMenorQueCinco(String codigoAlimento) {
+	public void actualizarStockMenorQueCinco(String codigoAlimento, String nif) {
 
-		String nif = this.modelo.getUser().getNifLocal();
+		
 
 		try {
 			PreparedStatement st = null;
@@ -79,9 +79,9 @@ public class Inserciones {
 						double pcompra = rs1.getDouble("PCompra");
 						insercionesActividades.insertarActividad(transaccion,
 								this.modelo.validaciones.devolverFechaFormateada(this.modelo.getFechaHoraSys()),
-								pcompra * 50, "aprovisionamiento", this.modelo.getUser().getNifLocal());
+								pcompra * 50, "aprovisionamiento", nif);
 						insercionesActividades.insertarAprovisionamiento(transaccion);
-						insertarProductoActividad(transaccion, codigoAlimento, 50, pcompra);
+						insertarProductoActividad(transaccion, codigoAlimento, 50, pcompra, nif);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
