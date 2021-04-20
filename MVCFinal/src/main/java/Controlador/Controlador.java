@@ -31,7 +31,7 @@ public class Controlador {
 	
 	public void navegarPanelAnalisis() {
 		System.out.println("Navegar panel Analisis");
-		controladorPoblacionMostrarPanelPoblacion();
+		controladorAnalisisMostrarPanelAnalisis();
 	}
 
 	public void controladorAnalisisMostrarPanelAnalisis() {
@@ -56,6 +56,11 @@ public class Controlador {
 	public ControladorPanelPoblacion makeControladorPanelPoblacion(Modelo modelo, Vista vista,
 			Controlador controlador) {
 		return new ControladorPanelPoblacion(this.modelo, this.vista, this);
+	}
+	
+	public ControladorPanelAnalisis makeControladorPanelAnalisis(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelAnalisis(this.modelo, this.vista, this);
 	}
 
 }
