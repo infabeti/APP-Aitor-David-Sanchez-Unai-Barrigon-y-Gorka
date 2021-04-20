@@ -9,14 +9,14 @@ public class Controlador {
 	private Vista vista;
 	private ControladorPanelPrincipal controladorPanelPrincipal;
 	private ControladorPanelPoblacion controladorPanelPoblacion;
-
-
+	private ControladorPanelAnalisis controladorPanelAnalisis;
 
 	public Controlador(Modelo modelo, Vista vista) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controladorPanelPrincipal = new ControladorPanelPrincipal(this.modelo, this.vista, this);
 		this.controladorPanelPoblacion = new ControladorPanelPoblacion(this.modelo, this.vista, this);
+		this.controladorPanelAnalisis = new ControladorPanelAnalisis(this.modelo, this.vista, this);
 		this.navegarPanelPrincipal();
 	}
 	
@@ -26,7 +26,16 @@ public class Controlador {
 	}
 
 	public void controladorPoblacionMostrarPanelPoblacion() {
-		this.controladorPanelPoblacion.mostrarPanelPoblacion();
+		this.controladorPanelPoblacion.mostrarPanel();
+	}
+	
+	public void navegarPanelAnalisis() {
+		System.out.println("Navegar panel Analisis");
+		controladorAnalisisMostrarPanelAnalisis();
+	}
+
+	public void controladorAnalisisMostrarPanelAnalisis() {
+		this.controladorPanelAnalisis.mostrarPanel();
 	}
 
 	public void navegarPanelPrincipal() {
@@ -47,6 +56,11 @@ public class Controlador {
 	public ControladorPanelPoblacion makeControladorPanelPoblacion(Modelo modelo, Vista vista,
 			Controlador controlador) {
 		return new ControladorPanelPoblacion(this.modelo, this.vista, this);
+	}
+	
+	public ControladorPanelAnalisis makeControladorPanelAnalisis(Modelo modelo, Vista vista,
+			Controlador controlador) {
+		return new ControladorPanelAnalisis(this.modelo, this.vista, this);
 	}
 
 }

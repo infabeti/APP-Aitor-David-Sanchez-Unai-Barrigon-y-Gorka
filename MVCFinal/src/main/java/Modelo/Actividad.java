@@ -44,6 +44,17 @@ public class Actividad {
 	}
 
 	@Override
+	public boolean equals(Object o) {
+		boolean ok = false;
+
+		if (o != null && o instanceof Actividad) {
+			ok = this.numTransaccion == ((Actividad) o).getNumTransaccion();
+		}
+
+		return ok;
+	}
+	
+	@Override
 	public String toString() {
 		return this.local + " " + this.numTransaccion + " " + this.fecha;
 	}

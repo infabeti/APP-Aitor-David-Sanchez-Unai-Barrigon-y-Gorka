@@ -4,9 +4,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.junit.Test;
-
 import Modelo.ListaPlatos;
-import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Plato;
 import Modelo.FuncionesPlatos;

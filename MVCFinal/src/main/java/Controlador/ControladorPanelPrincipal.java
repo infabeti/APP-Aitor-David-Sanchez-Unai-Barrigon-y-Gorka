@@ -38,8 +38,7 @@ public class ControladorPanelPrincipal {
 	}
 
 	public void accionadoBottonMostrarPanelAnalisis() {
-		// TODO Auto-generated method stub
-		
+		this.controlador.controladorAnalisisMostrarPanelAnalisis();
 	}
 
 	public void accionadoBottonMostrarPanelPoblacion() {
