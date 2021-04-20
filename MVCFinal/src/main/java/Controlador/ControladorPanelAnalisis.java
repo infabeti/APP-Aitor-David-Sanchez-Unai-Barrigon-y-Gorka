@@ -1,17 +1,17 @@
 package Controlador;
 
 import Modelo.Modelo;
-import Vista.PanelPoblacion;
+import Vista.PanelAnalisis;
 import Vista.Vista;
 
-public class ControladorPanelPoblacion {
+public class ControladorPanelAnalisis {
 
 	private Modelo modelo;
 	private Vista vista;
 	private Controlador controlador;
-	private PanelPoblacion panelPoblacion;
+	private PanelAnalisis panelAnalisis;
 
-	public ControladorPanelPoblacion(Modelo modelo, Vista vista, Controlador controlador) {
+	public ControladorPanelAnalisis(Modelo modelo, Vista vista, Controlador controlador) {
 		this.modelo = modelo;
 		this.vista = vista;
 		this.controlador = controlador;
@@ -29,17 +29,19 @@ public class ControladorPanelPoblacion {
 		return controlador;
 	}
 
-	public void mostrarPanelPoblacion() {
-		this.panelPoblacion = makePanelPoblacion(this);
-		this.vista.mostrarPanel(this.panelPoblacion);
+	public void mostrarPanelAnalisis() {
+		this.panelAnalisis = makePanelAnalisis(this);
+		this.vista.mostrarPanel(this.panelAnalisis);
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
 		this.controlador.navegarPanelPrincipal();
 	}
 
-	public PanelPoblacion makePanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
-		return new PanelPoblacion(controladorPanelPoblacion);
+	public PanelAnalisis makePanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
+		return new PanelAnalisis(controladorPanelAnalisis);
 	}
 
+
+	
 }
