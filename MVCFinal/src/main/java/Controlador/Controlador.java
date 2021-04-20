@@ -26,7 +26,7 @@ public class Controlador {
 	}
 
 	public void controladorPoblacionMostrarPanelPoblacion() {
-		this.controladorPanelPoblacion.mostrarPanelPoblacion();
+		this.controladorPanelPoblacion.mostrarPanel();
 	}
 	
 	public void navegarPanelAnalisis() {
@@ -35,7 +35,7 @@ public class Controlador {
 	}
 
 	public void controladorAnalisisMostrarPanelAnalisis() {
-		this.controladorPanelAnalisis.mostrarPanelAnalisis();
+		this.controladorPanelAnalisis.mostrarPanel();
 	}
 
 	public void navegarPanelPrincipal() {

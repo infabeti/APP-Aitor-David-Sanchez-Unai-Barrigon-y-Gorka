@@ -4,44 +4,21 @@ import Modelo.Modelo;
 import Vista.PanelAnalisis;
 import Vista.Vista;
 
-public class ControladorPanelAnalisis {
+public class ControladorPanelAnalisis extends ControladoresPaneles{
 
-	private Modelo modelo;
-	private Vista vista;
-	private Controlador controlador;
 	private PanelAnalisis panelAnalisis;
 
 	public ControladorPanelAnalisis(Modelo modelo, Vista vista, Controlador controlador) {
-		this.modelo = modelo;
-		this.vista = vista;
-		this.controlador = controlador;
+		super(modelo, vista, controlador);
 	}
 
-	public Modelo getModelo() {
-		return modelo;
-	}
-
-	public Vista getVista() {
-		return vista;
-	}
-
-	public Controlador getControlador() {
-		return controlador;
-	}
-
-	public void mostrarPanelAnalisis() {
+	public void mostrarPanel() {
 		this.panelAnalisis = makePanelAnalisis(this);
-		this.vista.mostrarPanel(this.panelAnalisis);
-	}
-
-	public void accionadoBottonVolverPanelPrincipal() {
-		this.controlador.navegarPanelPrincipal();
+		super.getVista().mostrarPanel(this.panelAnalisis);
 	}
 
 	public PanelAnalisis makePanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
 		return new PanelAnalisis(controladorPanelAnalisis);
 	}
-
-
 	
 }
