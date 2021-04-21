@@ -1,4 +1,5 @@
 package Modelo;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -6,10 +7,13 @@ import java.sql.SQLException;
 public class Conexion {
 
 	// constructor de la clase
-	private final String NOMBREBD = "reto3";
+	private final String NOMBREBD = "retoGrupo1";
 	private final String USUARIO = "root";
 	private final String PASSWORD = "elorrieta";
-	private final String URL = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
+	private final String URLPUERTO33060 = "jdbc:mysql://localhost:33060/" + NOMBREBD + "?useUnicode=true&use"
+			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
+
+	private final String URLPUERTO3306 = "jdbc:mysql://localhost:3306/" + NOMBREBD + "?useUnicode=true&use"
 			+ "JDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&" + "serverTimezone=UTC";
 
 	private Connection conn = null;
@@ -29,7 +33,11 @@ public class Conexion {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			// obtener la conexion
-			conn = DriverManager.getConnection(URL, USUARIO, PASSWORD);
+			conn = DriverManager.getConnection(URLPUERTO33060, USUARIO, PASSWORD);
+
+			if (conn == null) {
+				conn = DriverManager.getConnection(URLPUERTO3306, USUARIO, PASSWORD);
+			}
 			if (conn == null) {
 				System.out.println("******************NO SE PUDO CONECTAR " + NOMBREBD);
 				System.exit(0);
@@ -42,11 +50,8 @@ public class Conexion {
 			System.exit(0);
 		} catch (SQLException e) {
 			System.out.println("ocurre una SQLException: " + e.getMessage());
-			System.out.println("Verifique que Mysql est� encendido...");
+			System.out.println("Verifique que Mysql esta encendido...");
 			System.exit(0);
 		}
 	}
 }
-
-
-
