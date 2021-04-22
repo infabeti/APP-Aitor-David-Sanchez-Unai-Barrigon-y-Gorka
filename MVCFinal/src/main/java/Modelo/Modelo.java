@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import bbdd.*;
 
 public class Modelo {
 
@@ -11,43 +12,17 @@ public class Modelo {
 	private ListaPlatos listaPlatos = new ListaPlatos();
 	public FuncionesProductos funProd;
 	public FuncionesPlatos funPlat;
-	private Inserciones inserciones;
-	private Consultas consultas;
-	private ConsultasListas consultasListas;
-	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
 	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	public java.sql.Connection conexionConn = conexion.getConn();
 
-	private ConsultasComprobaciones consultasComprobaciones;
-
-	public ConsultasComprobaciones getConsultasComprobaciones() {
-		return consultasComprobaciones;
-	}
-
-	public Consultas getConsultas() {
-		return consultas;
-	}
-
-	public Inserciones getInserciones() {
-		return inserciones;
-	}
 
 	public Modelo() {
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
-		inserciones = new Inserciones(this);
-		consultasComprobaciones = new ConsultasComprobaciones(this);
-		consultas = new Consultas(this);
-		consultasListas = new ConsultasListas(this);
-		insercionesActividades = new InsercionesActividades(this);
 		validaciones = new Validaciones();
-	}
-
-	public ConsultasListas getConsultasListas() {
-		return consultasListas;
 	}
 
 	public void setConexion(Conexion conexion) {
