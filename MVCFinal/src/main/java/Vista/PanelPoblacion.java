@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
+import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
 
 import Controlador.ControladorPanelPoblacion;
@@ -98,7 +99,7 @@ public class PanelPoblacion extends JPanel {
 		add(lblTransaccion);
 
 		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(40, 590, 117, 25);
+		btnFinalizar.setBounds(30, 590, 117, 25);
 		add(btnFinalizar);
 
 		btnAnadir = new JButton("Seleccionar\r\n");
@@ -253,16 +254,22 @@ public class PanelPoblacion extends JPanel {
 				
 	
 				textTrans = new JTextField();
-				textTrans.setBounds(125, 78, 86, 20);
+				textTrans.setBounds(125, 75, 102, 23);
 				textTrans.setVisible(true);
-				add(textTrans);
 				textTrans.setColumns(10);
+				textTrans.setText(controladorPanelPoblacion.leerNumTransBBDD());
+				textTrans.setEditable(false);
+				textTrans.setHorizontalAlignment(SwingConstants.CENTER);
+				add(textTrans);
 				
 				textFecha = new JTextField();
-				textFecha.setBounds(88, 110, 86, 20);
+				textFecha.setHorizontalAlignment(SwingConstants.CENTER);
+				textFecha.setBounds(88, 104, 139, 26);
 				textFecha.setVisible(true);
 				add(textFecha);
 				textFecha.setColumns(10);
+				textFecha.setText(this.controladorPanelPoblacion.devolverFechaHora());
+				textFecha.setEditable(false);
 				
 				textNif = new JTextField();
 				textNif.setBounds(367, 78, 86, 20);
@@ -283,7 +290,7 @@ public class PanelPoblacion extends JPanel {
 				textApellido.setColumns(10);
 				
 				comboLocal = new JComboBox();
-				comboLocal.setBounds(88, 145, 86, 18);
+				comboLocal.setBounds(88, 138, 139, 25);
 				comboLocal.setVisible(true);
 				add(comboLocal);
 				
