@@ -100,4 +100,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		return this.getModelo().validaciones.devolverFechaFormateada(input);
 	}
 
+	public String devolverNifLocal(int selectedIndex) {
+		return locales.get(selectedIndex)[0];
+	}
+
 }

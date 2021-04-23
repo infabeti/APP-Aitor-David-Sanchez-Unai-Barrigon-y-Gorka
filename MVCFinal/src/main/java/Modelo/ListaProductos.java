@@ -1,6 +1,8 @@
 package Modelo;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import javax.swing.JList;
 
 public class ListaProductos {
 	
@@ -57,6 +59,7 @@ public class ListaProductos {
 		
 		for(int i = 0; i < listaProd.size(); i++) {
 			listaProductosString[i] = listaProd.get(i).getNombre();
+			System.out.println(listaProd.get(i).getNombre());
 		}
 		
 		return listaProductosString;

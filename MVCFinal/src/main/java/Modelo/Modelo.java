@@ -2,6 +2,7 @@ package Modelo;
 
 import java.sql.Date;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,6 +23,7 @@ public class Modelo {
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	public java.sql.Connection conexionConn = conexion.getConn();
+	private TransformadorDatos transformadorDatos = new TransformadorDatos();
 
 	private ConsultasComprobaciones consultasComprobaciones;
 
@@ -88,17 +90,10 @@ public class Modelo {
 		this.listaPlatos = listaPlatos;
 	}
 	
-	public void actualizarListaProductosLocal(String nif) {
+	public void actualizarListaProductosLocal(String nif){
 		
 		//this.listaProductos = cambiarFormatoLista(consultasListas.cogerProductosLocal(nif));
-	}
-	
-	public ArrayList<Producto> cambiarFormatoLista(ArrayList<String[]> arrayBbdd) {
-		ArrayList<Producto> productos = new ArrayList<Producto>();
-		
-		return productos;
-		
-		
+		this.listaProductos = transformadorDatos.cambiarFormatoLista(consultasListas.cogerProductosLocal(nif));
 	}
 
 	public String getFechaHoraSys() {

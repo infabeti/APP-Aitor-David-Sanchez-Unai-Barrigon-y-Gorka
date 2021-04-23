@@ -114,7 +114,7 @@ public class PanelPoblacion extends JPanel {
 		scrollPane_1.setVisible(false);
 		add(scrollPane_1);
 
-		listaProductos = new JList(controladorPanelPoblacion.cogerListaProductos());
+		listaProductos = new JList(new String[] {"1","2"});
 		scrollPane_1.setViewportView(listaProductos);
 		listaProductos.setBackground(Color.WHITE);
 		listaProductos.setVisible(false);
@@ -335,7 +335,10 @@ public class PanelPoblacion extends JPanel {
 	private ActionListener listenerComboLocal(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//controladorPanelPoblacion.getModelo()
+				controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
+				listaProductos = new JList(controladorPanelPoblacion.cogerListaProductos());
+System.out.println("*********************************************************************");
+
 			}
 		};
 	}
