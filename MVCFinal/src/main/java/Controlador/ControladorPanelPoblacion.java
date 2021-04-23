@@ -56,6 +56,10 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		return this.getModelo().getConsultas().obtenerStock(devolverNifLocal(indexSelected), producto);
 	}
 	
+	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
+		return total > 0 && this.getModelo().validaciones.comprobarCamposString(nif, nombre, apellido);
+	}
+	
 
 	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
 			DefaultListModel<String> lista , String tipo, String nombre, String nifComprador, String apellido, String domicilio) {
@@ -67,11 +71,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);
-			//Solo lo queremos para cuando sea aprovisionamiento
-
 		}
-
-		
+	
 		if(tipo.equalsIgnoreCase("Factura"))
 		{
 			//insertamos en factura y en comprador si toca
@@ -90,7 +91,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 
 		}
 
-
+	
 		
 	}
 	

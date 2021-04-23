@@ -304,23 +304,67 @@ public class PanelPoblacion extends JPanel {
 		this.comboLocal.addActionListener(listenerComboLocal(this.controladorPanelPoblacion));
 		this.btnFinalizar.addActionListener(listenerBotonFinalizar(this.controladorPanelPoblacion));
 	}
+	
+	private void llamadaInsercionBBDD(String tipoActividad) {
+		controladorPanelPoblacion.insercionDatosBbdd(Integer.parseInt(textTrans.getText()),
+				textFecha.getText(), Double.parseDouble(textTotal.getText()), comboLocal.getSelectedIndex(),
+				listaPAnnadidos, tipoActividad, textNombre.getText(), textNif.getText(), textApellido.getText(), textDomicilio.getText());
+	}
 
 	private ActionListener listenerBotonFinalizar(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Ejecutando evento Boton Finalizar");
-				if (Double.parseDouble(textTotal.getText()) > 0) {
-					// insertar datos en actividad
-					controladorPanelPoblacion.insercionDatosBbdd(Integer.parseInt(textTrans.getText()),
-							textFecha.getText(), Double.parseDouble(textTotal.getText()), comboLocal.getSelectedIndex(),
-							listaPAnnadidos, comboBoxTipoActividad.getSelectedItem().toString());
+				String tipoActividad = comboBoxTipoActividad.getSelectedItem().toString();
+				
+				if (tipoActividad.equalsIgnoreCase("Ticket")) {
+					if (Double.parseDouble(textTotal.getText()) > 0) {
+						
+						llamadaInsercionBBDD(tipoActividad);
 
-					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
-					controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
+						JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
 
-				} else {
-					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+					} else {
+						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+					}
 				}
+				if (tipoActividad.equalsIgnoreCase("Factura")) {
+					// Comprobamos si los campos DNI, Nombre, Apellido y si hay algun articulo
+					// metido
+					if (controladorPanelPoblacion.comprobarCampos(Double.parseDouble(textTotal.getText()), textNif.getText(),
+							textNombre.getText(), textApellido.getText())) {
+
+						llamadaInsercionBBDD(tipoActividad);
+
+
+						JOptionPane.showMessageDialog(null, "Factura introducida correctamente");
+
+						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
+
+					} else {
+						if (!controladorPanelPoblacion.comprobarCampos(Double.parseDouble(textTotal.getText()),
+								textNif.getText(), textNombre.getText(), textApellido.getText())) {
+							JOptionPane.showMessageDialog(null, "Asegurate que todos los campos son correctos");
+						}
+					}
+				}
+				if (tipoActividad.equalsIgnoreCase("Pedido")) {
+					if (Double.parseDouble(textTotal.getText()) > 0) {
+						
+						llamadaInsercionBBDD(tipoActividad);
+
+
+						JOptionPane.showMessageDialog(null, "Pedido introducido correctamente");
+						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+					}
+				
+				}
+				
+				
 
 			}
 
