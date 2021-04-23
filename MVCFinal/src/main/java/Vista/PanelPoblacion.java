@@ -291,7 +291,9 @@ public class PanelPoblacion extends JPanel {
 		btnAñadir2.setVisible(false);
 		add(btnAñadir2);
 
-
+		//Para que segun se inicie salgan los productos del primer local del combobox
+		actualizarDatosPanel();
+		
 		initializeEvents();
 	}
 
@@ -302,14 +304,18 @@ public class PanelPoblacion extends JPanel {
 		this.comboLocal.addActionListener(listenerComboLocal(this.controladorPanelPoblacion));
 	}
 	
+	private void actualizarDatosPanel(){
+		//actualizar los productos y/o platos dependiendo del local que se escoja
+		controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
+		controladorPanelPoblacion.getModelo().actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
+		listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
+		listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
+	}
+	
 	private ActionListener listenerComboLocal(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//actualizar los productos y/o platos dependiendo del local que se escoja
-				controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
-				controladorPanelPoblacion.getModelo().actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
-				listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
-				listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
+				actualizarDatosPanel();
 			}
 		};
 	}
@@ -509,7 +515,7 @@ public class PanelPoblacion extends JPanel {
 				}
 				if (existeProd) {
 					try {
-						int stock = controladorPanelPoblacion.conseguirStock(comboLocal.getSelectedItem().toString(), producto);
+						int stock = controladorPanelPoblacion.conseguirStock(comboLocal.getSelectedIndex(), producto);
 						if (Integer.parseInt(cantidad) > stock) {
 							JOptionPane.showMessageDialog(null, "No puedes solicitar " + cantidad
 									+ " el stock para ese articulo es de " + stock + " unidades");

@@ -52,8 +52,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		return this.getModelo().getFechaHoraSys();
 	}
 	
-	public int conseguirStock(String nif, String producto) {
-		return this.getModelo().getConsultas().obtenerStock(nif, producto);
+	public int conseguirStock(int indexSelected, String producto) {
+		return this.getModelo().getConsultas().obtenerStock(devolverNifLocal(indexSelected), producto);
 	}
 	
 
@@ -66,6 +66,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		}
 	}
 	
+
 	public int existeProducto(String nombreProducto) {
 		return this.getModelo().getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
