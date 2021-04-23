@@ -30,18 +30,18 @@ public class PanelPrincipal extends JPanel {
 			
 			JLabel lblNombrePanel = new JLabel("Panel principal");
 			lblNombrePanel.setFont(new Font("Arial", Font.BOLD, 30));
-			lblNombrePanel.setBounds(0, 0, 450, 45);
+			lblNombrePanel.setBounds(316, 44, 450, 45);
 			add(lblNombrePanel);
 			
 			
-			btnPoblacion = new JButton("Poblacion");
+			btnPoblacion = new JButton("POBLACI\u00D3N");
 			btnPoblacion.setFont(new Font("Arial", Font.BOLD, 17));
-			btnPoblacion.setBounds(60, 123, 139, 60);
+			btnPoblacion.setBounds(231, 198, 386, 74);
 			add(btnPoblacion);
 			
-			btnAnalisis = new JButton("Analisis");
+			btnAnalisis = new JButton("AN\u00C1LISIS");
 			btnAnalisis.setFont(new Font("Arial", Font.BOLD, 17));
-			btnAnalisis.setBounds(281, 123, 161, 60);
+			btnAnalisis.setBounds(231, 309, 386, 81);
 			add(btnAnalisis);
 			
 		
