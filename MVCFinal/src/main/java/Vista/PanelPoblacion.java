@@ -336,9 +336,7 @@ public class PanelPoblacion extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
-				listaProductos = new JList(controladorPanelPoblacion.cogerListaProductos());
-System.out.println("*********************************************************************");
-
+				listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
 			}
 		};
 	}

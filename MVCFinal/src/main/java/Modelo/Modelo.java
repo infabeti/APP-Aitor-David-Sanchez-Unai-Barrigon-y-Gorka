@@ -2,9 +2,7 @@ package Modelo;
 
 import java.sql.Date;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import bbdd.*;
 
@@ -24,7 +22,6 @@ public class Modelo {
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	public java.sql.Connection conexionConn = conexion.getConn();
 	private TransformadorDatos transformadorDatos = new TransformadorDatos();
-
 	private ConsultasComprobaciones consultasComprobaciones;
 
 	public ConsultasComprobaciones getConsultasComprobaciones() {
@@ -91,8 +88,6 @@ public class Modelo {
 	}
 	
 	public void actualizarListaProductosLocal(String nif){
-		
-		//this.listaProductos = cambiarFormatoLista(consultasListas.cogerProductosLocal(nif));
 		this.listaProductos = transformadorDatos.cambiarFormatoLista(consultasListas.cogerProductosLocal(nif));
 	}
 
