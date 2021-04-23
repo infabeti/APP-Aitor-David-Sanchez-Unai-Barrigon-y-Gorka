@@ -39,6 +39,7 @@ public class PanelPoblacion extends JPanel {
 	private JList listaPlatosAnadidos, listaPlatos, listaProductos, listaProductosAnnadidos;
 	private JComboBox comboBoxTipoActividad, comboLocal;
 	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
+	private JLabel lblTipoOperacion;
 
 	public PanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
 		setBackground(SystemColor.activeCaption);
@@ -284,13 +285,17 @@ public class PanelPoblacion extends JPanel {
 		comboBoxTipoActividad = new JComboBox<String>();
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(
 				new String[] { "Ticket", "Factura", "Pedido", "Comanda", "Aprovisionamiento" }));
-		comboBoxTipoActividad.setBounds(645, 37, 126, 26);
+		comboBoxTipoActividad.setBounds(586, 37, 126, 26);
 		add(comboBoxTipoActividad);
 
 		btnAñadir2 = new JButton("A\u00F1adir");
 		btnAñadir2.setBounds(336, 252, 117, 24);
 		btnAñadir2.setVisible(false);
 		add(btnAñadir2);
+		
+		lblTipoOperacion = new JLabel("Tipo de operacion");
+		lblTipoOperacion.setBounds(597, 11, 115, 14);
+		add(lblTipoOperacion);
 
 		// Para que segun se inicie salgan los productos del primer local del combobox
 		actualizarDatosPanel();
