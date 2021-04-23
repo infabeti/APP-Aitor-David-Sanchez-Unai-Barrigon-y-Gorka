@@ -58,14 +58,41 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 	
 
 	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
-			DefaultListModel<String> lista , String tipo) {
+			DefaultListModel<String> lista , String tipo, String nombre, String nifComprador, String apellido, String domicilio) {
 		String nif = devolverNifLocal(selectedIndex);
+	
+		
 		//insertamos actividad y productos
 		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, tipo, nif);
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);
+			//Solo lo queremos para cuando sea aprovisionamiento
+			cantidad = Integer.parseInt(textoSpliteado[0]);
+
 		}
+
+		
+		if(tipo.equalsIgnoreCase("Factura"))
+		{
+			//insertamos en factura y en comprador si toca
+			if (this.getModelo().getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
+				System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador");
+			} else {
+				this.getModelo().getInserciones().insertarComprador(nifComprador, nombre, apellido);
+			}
+			this.getModelo().insercionesActividades.insertarFactura(transaccion, nifComprador);	
+		}
+		if(tipo.equalsIgnoreCase("Pedido")) {
+			this.getModelo().insercionesActividades.insertarPedido(transaccion, domicilio);
+		}
+		if(tipo.equalsIgnoreCase("Aprovisionamiento")) {
+			this.getModelo().insercionesActividades.insertarAprovisionamiento(transaccion);
+
+		}
+
+
+		
 	}
 	
 
