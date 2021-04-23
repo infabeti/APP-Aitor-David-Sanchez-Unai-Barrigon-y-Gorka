@@ -68,6 +68,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		}
 	}
 	
+
 	public int existeProducto(String nombreProducto) {
 		return this.getModelo().getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
