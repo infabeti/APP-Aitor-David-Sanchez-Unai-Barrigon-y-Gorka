@@ -6,21 +6,21 @@ import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.SwingConstants;
 import javax.swing.text.NumberFormatter;
-
 import Controlador.ControladorPanelPoblacion;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 
 public class PanelPoblacion extends JPanel {
@@ -28,12 +28,7 @@ public class PanelPoblacion extends JPanel {
 	private static final long serialVersionUID = -4866340972661290326L;
 	private ControladorPanelPoblacion controladorPanelPoblacion;
 	private JButton btnVolver;
-	private JTextField textTrans;
-	private JTextField textFecha;
-	private JTextField textNif;
-	private JTextField textNombre;
-	private JTextField textApellido;
-	private JTextField textDomicilio;
+	private JTextField textTrans,textFecha,textNif,textNombre,textApellido,textDomicilio;
 	private JLabel lblNombrePanel;
 	private JLabel lblTransaccion;
 	private JButton btnFinalizar;
@@ -64,13 +59,15 @@ public class PanelPoblacion extends JPanel {
 	private JLabel lblPlatosSeleccionados;
 	private JLabel lblPlatos;
 	private JLabel lblDomicilio;
-	private JComboBox comboBoxTipoActividad;
+	private JComboBox<String> comboBoxTipoActividad;
 	private JComboBox comboLocal;
 	private JButton btnAnadir_1;
 	private JButton btnEliminar_1;
 	private JLabel lblCantidad_1;
 	private JFormattedTextField TextFieldCantidad_1;
 	private JButton btnAñadir2;
+	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
+
 
 	public PanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
 		setBackground(SystemColor.activeCaption);
@@ -107,18 +104,17 @@ public class PanelPoblacion extends JPanel {
 		scrollPane.setVisible(false);
 		add(scrollPane);
 
-		listaAnnadidos = new JList(/* listaPAnnadidos */);
+		listaAnnadidos = new JList(listaPAnnadidos);
 		scrollPane.setViewportView(listaAnnadidos);
 		listaAnnadidos.setBackground(Color.WHITE);
 		listaAnnadidos.setVisible(false);
-		ListModel listaPAnnadidos;
 
 		scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(463, 196, 150, 160);
 		scrollPane_1.setVisible(false);
 		add(scrollPane_1);
 
-		listaProductos = new JList(/* controladorPanelPoblacion.cogerListaProductos() */);
+		listaProductos = new JList(controladorPanelPoblacion.cogerListaProductos());
 		scrollPane_1.setViewportView(listaProductos);
 		listaProductos.setBackground(Color.WHITE);
 		listaProductos.setVisible(false);
@@ -314,7 +310,7 @@ public class PanelPoblacion extends JPanel {
 		TextFieldCantidad_1.setBounds(413, 462, 40, 27);
 		TextFieldCantidad_1.setVisible(false);
 		add(TextFieldCantidad_1);
-		comboBoxTipoActividad = new JComboBox();
+		comboBoxTipoActividad = new JComboBox<String>();
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(
 				new String[] {"Ticket", "Factura", "Pedido", "Comanda", "Aprovisionamiento" }));
 		comboBoxTipoActividad.setBounds(527, 22, 126, 26);
@@ -325,183 +321,258 @@ public class PanelPoblacion extends JPanel {
 		btnAñadir2.setVisible(false);
 		add(btnAñadir2);
 
-		comboBoxTipoActividad.addActionListener(new ActionListener() {
-
-			public void actionPerformed(ActionEvent e) {
-
-				if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
-					listaProductos_1.setVisible(true);
-					listaAnnadidos_1.setVisible(true);
-					listaAnnadidos.setVisible(true);
-					listaProductos.setVisible(true);
-					lblLocal1.setVisible(true);
-					TextFieldCantidad.setVisible(true);
-					lblCantidad.setVisible(true);
-					btnAnadir.setVisible(true);
-					btnEliminar.setVisible(true);
-					lblProductosSeleccionados.setVisible(true);
-					lblProdDisp.setVisible(true);
-					lblCantidad_1.setVisible(false);
-					lblPlatos.setVisible(false);
-					lblPlatosSeleccionados.setVisible(false);
-					btnAnadir_1.setVisible(false);
-					btnEliminar_1.setVisible(false);
-					lblDomicilio.setVisible(false);
-					TextFieldCantidad_1.setVisible(false);
-					scrollPane_2.setVisible(false);
-					scrollPane_1_2.setVisible(false);
-					textDomicilio.setVisible(false);
-					scrollPane_1.setVisible(true);
-					scrollPane.setVisible(true);
-					textNif.setVisible(false);
-					textNombre.setVisible(false);
-					textApellido.setVisible(false);
-					lblNombre.setVisible(false);
-					lblApellido.setVisible(false);
-					lblNIF.setVisible(false);
-					scrollPane_2.setVisible(false);
-					scrollPane_1_2.setVisible(false);
-					btnAñadir2.setVisible(false);
-				}
-
-				else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Factura")) {
-					listaProductos_1.setVisible(false);
-					listaAnnadidos_1.setVisible(false);
-					listaAnnadidos.setVisible(true);
-					listaProductos.setVisible(true);
-					lblLocal1.setVisible(true);
-					TextFieldCantidad.setVisible(true);
-					lblCantidad.setVisible(true);
-					btnAnadir.setVisible(true);
-					btnEliminar.setVisible(true);
-					lblProductosSeleccionados.setVisible(true);
-					lblProdDisp.setVisible(true);
-					lblCantidad_1.setVisible(false);
-					lblPlatos.setVisible(false);
-					lblPlatosSeleccionados.setVisible(false);
-					btnAnadir_1.setVisible(false);
-					btnEliminar_1.setVisible(false);
-					lblDomicilio.setVisible(false);
-					textDomicilio.setVisible(false);
-					TextFieldCantidad_1.setVisible(false);
-					btnAñadir2.setVisible(false);
-					textNif.setVisible(true);
-					textNombre.setVisible(true);
-					textApellido.setVisible(true);
-					lblNombre.setVisible(true);
-					lblApellido.setVisible(true);
-					lblNIF.setVisible(true);
-					scrollPane_2.setVisible(false);
-					scrollPane_1_2.setVisible(false);
-
-					scrollPane_1.setVisible(true);
-					scrollPane.setVisible(true);
-				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Pedido")) {
-					listaProductos_1.setVisible(false);
-					listaAnnadidos_1.setVisible(false);
-					listaAnnadidos.setVisible(true);
-					listaProductos.setVisible(true);
-					lblLocal1.setVisible(true);
-					TextFieldCantidad.setVisible(true);
-					lblCantidad.setVisible(true);
-					btnAnadir.setVisible(true);
-					btnEliminar.setVisible(true);
-					lblProductosSeleccionados.setVisible(true);
-					lblProdDisp.setVisible(true);
-					lblDomicilio.setVisible(true);
-					textDomicilio.setVisible(true);
-					lblCantidad_1.setVisible(false);
-					lblPlatos.setVisible(false);
-					lblPlatosSeleccionados.setVisible(false);
-					btnAnadir_1.setVisible(false);
-					btnEliminar_1.setVisible(false);
-					lblDomicilio.setVisible(true);
-					textNif.setVisible(false);
-					textNombre.setVisible(false);
-					textApellido.setVisible(false);
-					lblNombre.setVisible(false);
-					lblApellido.setVisible(false);
-					lblNIF.setVisible(false);
-					btnAñadir2.setVisible(false);
-					TextFieldCantidad_1.setVisible(false);
-					scrollPane_2.setVisible(false);
-					scrollPane_1_2.setVisible(false);
-
-					scrollPane_1.setVisible(true);
-					scrollPane.setVisible(true);
-				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Comanda")) {
-
-					listaProductos_1.setVisible(true);
-					listaAnnadidos_1.setVisible(true);
-					listaAnnadidos.setVisible(true);
-					listaProductos.setVisible(true);
-					lblLocal1.setVisible(true);
-					TextFieldCantidad.setVisible(true);
-					lblCantidad.setVisible(true);
-					btnAnadir.setVisible(true);
-					btnEliminar.setVisible(true);
-					lblProductosSeleccionados.setVisible(true);
-					lblProdDisp.setVisible(true);
-					lblCantidad_1.setVisible(true);
-					lblPlatos.setVisible(true);
-					lblPlatosSeleccionados.setVisible(true);
-					btnAnadir_1.setVisible(true);
-					btnEliminar_1.setVisible(true);
-					lblDomicilio.setVisible(false);
-					textDomicilio.setVisible(false);
-					btnAñadir2.setVisible(false);
-					TextFieldCantidad_1.setVisible(true);
-					scrollPane_2.setVisible(true);
-					scrollPane_1_2.setVisible(true);
-					scrollPane_1.setVisible(true);
-					scrollPane.setVisible(true);
-				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Aprovisionamiento")) {
-					listaProductos_1.setVisible(false);
-					listaAnnadidos_1.setVisible(false);
-					listaAnnadidos.setVisible(true);
-					listaProductos.setVisible(true);
-					lblLocal1.setVisible(true);
-					TextFieldCantidad.setVisible(true);
-					lblCantidad.setVisible(true);
-					btnAnadir.setVisible(true);
-					btnEliminar.setVisible(true);
-					lblProductosSeleccionados.setVisible(true);
-					lblProdDisp.setVisible(true);
-					lblCantidad_1.setVisible(false);
-					lblPlatos.setVisible(false);
-					lblPlatosSeleccionados.setVisible(false);
-					btnAnadir_1.setVisible(false);
-					btnEliminar_1.setVisible(false);
-					lblDomicilio.setVisible(false);
-					textTotal.setVisible(false);
-					lblProdDisp.setVisible(false);
-					TextFieldCantidad_1.setVisible(false);
-					scrollPane_2.setVisible(false);
-					scrollPane_1_2.setVisible(false);
-					lblTotal.setVisible(false);
-					btnEliminar.setVisible(false);
-					btnAnadir.setVisible(false);
-					btnAñadir2.setVisible(true);
-					listaProductos.setVisible(false);
-					scrollPane_1.setVisible(false);
-					scrollPane.setVisible(true);
-					textDomicilio.setVisible(false);
-					textNif.setVisible(false);
-					textNombre.setVisible(false);
-					textApellido.setVisible(false);
-					lblNombre.setVisible(false);
-					lblApellido.setVisible(false);
-					lblNIF.setVisible(false);
-				}
-
-			}
-		});
 
 		initializeEvents();
 	}
 
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelPoblacion));
+		this.btnAnadir.addActionListener(listenerBotonAnadir(this.controladorPanelPoblacion));
+		this.comboBoxTipoActividad.addActionListener(listenerComboActividad(this.controladorPanelPoblacion));
+		this.comboLocal.addActionListener(listenerComboLocal(this.controladorPanelPoblacion));
+	}
+	
+	private ActionListener listenerComboLocal(ControladorPanelPoblacion controladorPanelPoblacion) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//controladorPanelPoblacion.getModelo()
+			}
+		};
+	}
+	
+	private ActionListener listenerComboActividad(ControladorPanelPoblacion controladorPanelPoblacion) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+						if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
+							listaProductos_1.setVisible(true);
+							listaAnnadidos_1.setVisible(true);
+							listaAnnadidos.setVisible(true);
+							listaProductos.setVisible(true);
+							lblLocal1.setVisible(true);
+							TextFieldCantidad.setVisible(true);
+							lblCantidad.setVisible(true);
+							btnAnadir.setVisible(true);
+							btnEliminar.setVisible(true);
+							lblProductosSeleccionados.setVisible(true);
+							lblProdDisp.setVisible(true);
+							lblCantidad_1.setVisible(false);
+							lblPlatos.setVisible(false);
+							lblPlatosSeleccionados.setVisible(false);
+							btnAnadir_1.setVisible(false);
+							btnEliminar_1.setVisible(false);
+							lblDomicilio.setVisible(false);
+							TextFieldCantidad_1.setVisible(false);
+							scrollPane_2.setVisible(false);
+							scrollPane_1_2.setVisible(false);
+							textDomicilio.setVisible(false);
+							scrollPane_1.setVisible(true);
+							scrollPane.setVisible(true);
+							textNif.setVisible(false);
+							textNombre.setVisible(false);
+							textApellido.setVisible(false);
+							lblNombre.setVisible(false);
+							lblApellido.setVisible(false);
+							lblNIF.setVisible(false);
+							scrollPane_2.setVisible(false);
+							scrollPane_1_2.setVisible(false);
+							btnAñadir2.setVisible(false);
+						}
+
+						else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Factura")) {
+							listaProductos_1.setVisible(false);
+							listaAnnadidos_1.setVisible(false);
+							listaAnnadidos.setVisible(true);
+							listaProductos.setVisible(true);
+							lblLocal1.setVisible(true);
+							TextFieldCantidad.setVisible(true);
+							lblCantidad.setVisible(true);
+							btnAnadir.setVisible(true);
+							btnEliminar.setVisible(true);
+							lblProductosSeleccionados.setVisible(true);
+							lblProdDisp.setVisible(true);
+							lblCantidad_1.setVisible(false);
+							lblPlatos.setVisible(false);
+							lblPlatosSeleccionados.setVisible(false);
+							btnAnadir_1.setVisible(false);
+							btnEliminar_1.setVisible(false);
+							lblDomicilio.setVisible(false);
+							textDomicilio.setVisible(false);
+							TextFieldCantidad_1.setVisible(false);
+							btnAñadir2.setVisible(false);
+							textNif.setVisible(true);
+							textNombre.setVisible(true);
+							textApellido.setVisible(true);
+							lblNombre.setVisible(true);
+							lblApellido.setVisible(true);
+							lblNIF.setVisible(true);
+							scrollPane_2.setVisible(false);
+							scrollPane_1_2.setVisible(false);
+
+							scrollPane_1.setVisible(true);
+							scrollPane.setVisible(true);
+						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Pedido")) {
+							listaProductos_1.setVisible(false);
+							listaAnnadidos_1.setVisible(false);
+							listaAnnadidos.setVisible(true);
+							listaProductos.setVisible(true);
+							lblLocal1.setVisible(true);
+							TextFieldCantidad.setVisible(true);
+							lblCantidad.setVisible(true);
+							btnAnadir.setVisible(true);
+							btnEliminar.setVisible(true);
+							lblProductosSeleccionados.setVisible(true);
+							lblProdDisp.setVisible(true);
+							lblDomicilio.setVisible(true);
+							textDomicilio.setVisible(true);
+							lblCantidad_1.setVisible(false);
+							lblPlatos.setVisible(false);
+							lblPlatosSeleccionados.setVisible(false);
+							btnAnadir_1.setVisible(false);
+							btnEliminar_1.setVisible(false);
+							lblDomicilio.setVisible(true);
+							textNif.setVisible(false);
+							textNombre.setVisible(false);
+							textApellido.setVisible(false);
+							lblNombre.setVisible(false);
+							lblApellido.setVisible(false);
+							lblNIF.setVisible(false);
+							btnAñadir2.setVisible(false);
+							TextFieldCantidad_1.setVisible(false);
+							scrollPane_2.setVisible(false);
+							scrollPane_1_2.setVisible(false);
+
+							scrollPane_1.setVisible(true);
+							scrollPane.setVisible(true);
+						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Comanda")) {
+
+							listaProductos_1.setVisible(true);
+							listaAnnadidos_1.setVisible(true);
+							listaAnnadidos.setVisible(true);
+							listaProductos.setVisible(true);
+							lblLocal1.setVisible(true);
+							TextFieldCantidad.setVisible(true);
+							lblCantidad.setVisible(true);
+							btnAnadir.setVisible(true);
+							btnEliminar.setVisible(true);
+							lblProductosSeleccionados.setVisible(true);
+							lblProdDisp.setVisible(true);
+							lblCantidad_1.setVisible(true);
+							lblPlatos.setVisible(true);
+							lblPlatosSeleccionados.setVisible(true);
+							btnAnadir_1.setVisible(true);
+							btnEliminar_1.setVisible(true);
+							lblDomicilio.setVisible(false);
+							textDomicilio.setVisible(false);
+							btnAñadir2.setVisible(false);
+							TextFieldCantidad_1.setVisible(true);
+							scrollPane_2.setVisible(true);
+							scrollPane_1_2.setVisible(true);
+							scrollPane_1.setVisible(true);
+							scrollPane.setVisible(true);
+						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Aprovisionamiento")) {
+							listaProductos_1.setVisible(false);
+							listaAnnadidos_1.setVisible(false);
+							listaAnnadidos.setVisible(true);
+							listaProductos.setVisible(true);
+							lblLocal1.setVisible(true);
+							TextFieldCantidad.setVisible(true);
+							lblCantidad.setVisible(true);
+							btnAnadir.setVisible(true);
+							btnEliminar.setVisible(true);
+							lblProductosSeleccionados.setVisible(true);
+							lblProdDisp.setVisible(true);
+							lblCantidad_1.setVisible(false);
+							lblPlatos.setVisible(false);
+							lblPlatosSeleccionados.setVisible(false);
+							btnAnadir_1.setVisible(false);
+							btnEliminar_1.setVisible(false);
+							lblDomicilio.setVisible(false);
+							textTotal.setVisible(false);
+							lblProdDisp.setVisible(false);
+							TextFieldCantidad_1.setVisible(false);
+							scrollPane_2.setVisible(false);
+							scrollPane_1_2.setVisible(false);
+							lblTotal.setVisible(false);
+							btnEliminar.setVisible(false);
+							btnAnadir.setVisible(false);
+							btnAñadir2.setVisible(true);
+							listaProductos.setVisible(false);
+							scrollPane_1.setVisible(false);
+							scrollPane.setVisible(true);
+							textDomicilio.setVisible(false);
+							textNif.setVisible(false);
+							textNombre.setVisible(false);
+							textApellido.setVisible(false);
+							lblNombre.setVisible(false);
+							lblApellido.setVisible(false);
+							lblNIF.setVisible(false);
+						}
+
+					}
+				};
+			}
+
+
+	private ActionListener listenerBotonAnadir(ControladorPanelPoblacion controladorPanelPoblacion) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Annadir");
+				boolean existeProd = false;
+				String producto = "";
+				String[] productosAnadir = new String[2];
+				String cantidad = TextFieldCantidad.getText();
+				System.out.println(cantidad);
+				try {
+					producto = (String) listaProductos.getSelectedValue(); // Necesito hacer aquï¿½ el cast porque
+																			// getSelectedValue() devuelve un objeto por
+																			// lo que no se le puede pasar directamente
+																			// a accionadoBotonAnadirProducto
+					if (producto != null) {
+						existeProd = true;
+					}
+				} catch (Exception e) {
+					System.out.println("No se ha seleccionado un producto");
+					lblError.setText("No se ha escogido un producto");
+				}
+				if (existeProd) {
+					try {
+						int stock = controladorPanelPoblacion.conseguirStock(comboLocal.getSelectedItem().toString(), producto);
+						if (Integer.parseInt(cantidad) > stock) {
+							JOptionPane.showMessageDialog(null, "No puedes solicitar " + cantidad
+									+ " el stock para ese articulo es de " + stock + " unidades");
+
+						} else {
+							if (controladorPanelPoblacion.existeProducto(producto) == -1) {
+								productosAnadir = controladorPanelPoblacion.accionadoBotonAnnadirProducto(producto,
+										cantidad);
+								listaPAnnadidos.addElement(productosAnadir[0]);
+								textTotal.setText(productosAnadir[1]);
+								lblError.setText("");
+							} else {
+								int indice = controladorPanelPoblacion.existeProducto(producto);
+								String yaAnnadido = listaPAnnadidos.get(indice);
+								String cantidadEnPanel[] = yaAnnadido.split(" ");
+
+								if ((Integer.parseInt(cantidadEnPanel[0]) + Integer.parseInt(cantidad)) > stock) {
+									JOptionPane.showMessageDialog(null,
+											"No puedes añadir esa cantidad, el stock es de " + stock + " unidades y has seleccionado ya " + cantidadEnPanel[0] + " unidades");
+								} else {
+									productosAnadir = controladorPanelPoblacion.cambiarCantidadProductos(yaAnnadido,
+											Integer.parseInt(cantidad), producto);
+									listaPAnnadidos.set(indice, productosAnadir[0]);
+									textTotal.setText(productosAnadir[1]);
+								}
+							}
+						}
+					} catch (Exception e) {
+						System.out.println("El campo cantidad no contiene un entero");
+						e.printStackTrace();
+						lblError.setText("No se ha introducido una cantidad");
+					}
+				}
+			}
+		};
 	}
 
 	private ActionListener listenerBotonVolver(ControladorPanelPoblacion controladorPanelPoblacion) {

@@ -3,6 +3,7 @@ package Modelo;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import bbdd.*;
 
@@ -21,7 +22,6 @@ public class Modelo {
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	public java.sql.Connection conexionConn = conexion.getConn();
-
 
 	private ConsultasComprobaciones consultasComprobaciones;
 
@@ -87,6 +87,19 @@ public class Modelo {
 	public void setListaPlatos(ListaPlatos listaPlatos) {
 		this.listaPlatos = listaPlatos;
 	}
+	
+	public void actualizarListaProductosLocal(String nif) {
+		
+		//this.listaProductos = cambiarFormatoLista(consultasListas.cogerProductosLocal(nif));
+	}
+	
+	public ArrayList<Producto> cambiarFormatoLista(ArrayList<String[]> arrayBbdd) {
+		ArrayList<Producto> productos = new ArrayList<Producto>();
+		
+		return productos;
+		
+		
+	}
 
 	public String getFechaHoraSys() {
 		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
@@ -103,10 +116,4 @@ public class Modelo {
 		int cantidad = Integer.parseInt(linea.substring(0, punt));
 		return cantidad;
 	}
-	/*
-	public void actualizarListaProductosLocal() {
-		this.listaProductos = consultasListas.cogerProductosLocal(Local.);
-	}
-	*/
-
 }

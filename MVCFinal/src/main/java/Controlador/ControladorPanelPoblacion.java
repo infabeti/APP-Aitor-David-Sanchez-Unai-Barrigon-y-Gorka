@@ -12,6 +12,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 
 	private PanelPoblacion panelPoblacion;
 	private ArrayList<String[]> locales;
+	private double total;
+
 
 	public ControladorPanelPoblacion(Modelo modelo, Vista vista, Controlador controlador) {
 		super(modelo, vista, controlador);
@@ -41,6 +43,11 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 		return nombreLocales;
 	}
 	
+	public String[] cogerListaProductos() {
+		return this.getModelo().getListaProductos().getListaProductosString();
+	}
+
+	
 	public String devolverFechaHora() {
 		return this.getModelo().getFechaHoraSys();
 	}
@@ -58,6 +65,22 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);
 		}
 	}
+	
+	public int existeProducto(String nombreProducto) {
+		return this.getModelo().getListaTemporal().devolverPosProductoString(nombreProducto);
+	}
+	
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto) {
+		String[] devolver = this.getModelo().funProd.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, "producto");
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
+	}
+	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
+		String[] devolver = this.getModelo().funProd.funcionalidadAnadirProducto(producto, cantidad, this.total);
+		this.total = Double.parseDouble(devolver[1]);
+		return devolver;
+	}
+
 
 	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad, String nif) {
 		String producto = devolverNombreProducto(nombreProducto);

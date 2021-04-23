@@ -47,6 +47,7 @@ public class ListaProductos {
 		return listaProd.get(pos);
 	}
 	
+	
 	public double getPrecioProducto(int pos) {
 		return cogerProducto(pos).getPrecioVenta();
 	}
