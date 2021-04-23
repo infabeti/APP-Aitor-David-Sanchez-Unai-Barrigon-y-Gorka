@@ -68,7 +68,6 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);
 			//Solo lo queremos para cuando sea aprovisionamiento
-			cantidad = Integer.parseInt(textoSpliteado[0]);
 
 		}
 

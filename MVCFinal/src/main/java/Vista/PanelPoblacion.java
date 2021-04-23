@@ -67,33 +67,33 @@ public class PanelPoblacion extends JPanel {
 
 		btnSeleccionarProd = new JButton("Seleccionar\r\n");
 		btnSeleccionarProd.setBounds(336, 251, 117, 25);
-		btnSeleccionarProd.setVisible(false);
+		btnSeleccionarProd.setVisible(true);
 		add(btnSeleccionarProd);
 
 		scrollProductosSeleccionados = new JScrollPane();
 		scrollProductosSeleccionados.setBounds(30, 207, 296, 153);
-		scrollProductosSeleccionados.setVisible(false);
+		scrollProductosSeleccionados.setVisible(true);
 		add(scrollProductosSeleccionados);
 
 		listaProductosAnnadidos = new JList(listaPAnnadidos);
 		scrollProductosSeleccionados.setViewportView(listaProductosAnnadidos);
 		listaProductosAnnadidos.setBackground(Color.WHITE);
-		listaProductosAnnadidos.setVisible(false);
+		listaProductosAnnadidos.setVisible(true);
 
 		scrollProductos = new JScrollPane();
 		scrollProductos.setBounds(463, 196, 265, 160);
-		scrollProductos.setVisible(false);
+		scrollProductos.setVisible(true);
 		add(scrollProductos);
 
 		listaProductos = new JList();
 		scrollProductos.setViewportView(listaProductos);
 		listaProductos.setBackground(Color.WHITE);
-		listaProductos.setVisible(false);
+		listaProductos.setVisible(true);
 
 		lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblCantidad.setBounds(336, 218, 92, 22);
-		lblCantidad.setVisible(false);
+		lblCantidad.setVisible(true);
 		add(lblCantidad);
 
 		format = NumberFormat.getInstance();
@@ -108,20 +108,20 @@ public class PanelPoblacion extends JPanel {
 		TextFieldCantidad = new JFormattedTextField(formatter);
 		TextFieldCantidad.setFont(new Font("Arial", Font.PLAIN, 12));
 		TextFieldCantidad.setBounds(413, 217, 40, 27);
-		TextFieldCantidad.setVisible(false);
+		TextFieldCantidad.setVisible(true);
 		add(TextFieldCantidad);
 		TextFieldCantidad.setText("1");
 
 		lblProdDisp = new JLabel("Productos");
 		lblProdDisp.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblProdDisp.setBounds(506, 174, 92, 22);
-		lblProdDisp.setVisible(false);
+		lblProdDisp.setVisible(true);
 		add(lblProdDisp);
 
 		lblProductosSeleccionados = new JLabel("Productos Seleccionados");
 		lblProductosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
 		lblProductosSeleccionados.setBounds(82, 174, 244, 22);
-		lblProductosSeleccionados.setVisible(false);
+		lblProductosSeleccionados.setVisible(true);
 		add(lblProductosSeleccionados);
 
 		lblError = new JLabel("");
@@ -142,18 +142,18 @@ public class PanelPoblacion extends JPanel {
 
 		btnEliminarProd = new JButton("Eliminar");
 		btnEliminarProd.setBounds(336, 287, 117, 25);
-		btnEliminarProd.setVisible(false);
+		btnEliminarProd.setVisible(true);
 		add(btnEliminarProd);
 
 		lblTotal = new JLabel("Total");
 		lblTotal.setBounds(30, 371, 70, 15);
-		lblTotal.setVisible(false);
+		lblTotal.setVisible(true);
 		add(lblTotal);
 
 		textTotal = new JTextField();
 		textTotal.setEditable(false);
 		textTotal.setBounds(63, 371, 114, 19);
-		textTotal.setVisible(false);
+		textTotal.setVisible(true);
 		add(textTotal);
 		textTotal.setColumns(10);
 		textTotal.setText("0");
