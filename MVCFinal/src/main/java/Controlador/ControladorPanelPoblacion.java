@@ -57,9 +57,11 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 	}
 	
 
-	public void insertarTicket(int transaccion, String fecha, double totalOperacion, String nif,
-			DefaultListModel<String> lista) {
-		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, "TICKET", nif);
+	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
+			DefaultListModel<String> lista , String tipo) {
+		String nif = devolverNifLocal(selectedIndex);
+		//insertamos actividad y productos
+		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha), totalOperacion, tipo, nif);
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);

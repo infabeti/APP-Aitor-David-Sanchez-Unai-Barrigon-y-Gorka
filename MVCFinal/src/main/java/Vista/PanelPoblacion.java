@@ -293,7 +293,6 @@ public class PanelPoblacion extends JPanel {
 
 		//Para que segun se inicie salgan los productos del primer local del combobox
 		actualizarDatosPanel();
-		
 		initializeEvents();
 	}
 
@@ -302,6 +301,29 @@ public class PanelPoblacion extends JPanel {
 		this.btnSeleccionarProd.addActionListener(listenerBotonAnadir(this.controladorPanelPoblacion));
 		this.comboBoxTipoActividad.addActionListener(listenerComboActividad(this.controladorPanelPoblacion));
 		this.comboLocal.addActionListener(listenerComboLocal(this.controladorPanelPoblacion));
+		this.btnFinalizar.addActionListener(listenerBotonFinalizar(this.controladorPanelPoblacion));
+	}
+	
+	private ActionListener listenerBotonFinalizar(ControladorPanelPoblacion controladorPanelPoblacion) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Ejecutando evento Boton Finalizar");
+				if (Double.parseDouble(textTotal.getText()) > 0) {
+					// insertar datos en actividad
+					controladorPanelPoblacion.insercionDatosBbdd(Integer.parseInt(textTrans.getText()),
+							textFecha.getText(), Double.parseDouble(textTotal.getText()), comboLocal.getSelectedIndex(),
+							listaPAnnadidos, comboBoxTipoActividad.getSelectedItem().toString());
+
+					JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
+					controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Debes introducir articulos");
+				}
+
+			}
+
+		};
 	}
 	
 	private void actualizarDatosPanel(){
