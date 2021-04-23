@@ -73,21 +73,21 @@ public class PanelPoblacion extends JPanel {
 		scrollProductosSeleccionados.setBounds(30, 207, 296, 153);
 		scrollProductosSeleccionados.setVisible(false);
 		add(scrollProductosSeleccionados);
-
-		listaProductosAnnadidos = new JList(listaPAnnadidos);
-		scrollProductosSeleccionados.setViewportView(listaProductosAnnadidos);
-		listaProductosAnnadidos.setBackground(Color.WHITE);
-		listaProductosAnnadidos.setVisible(false);
+		
+				listaProductosAnnadidos = new JList(listaPAnnadidos);
+				scrollProductosSeleccionados.setViewportView(listaProductosAnnadidos);
+				listaProductosAnnadidos.setBackground(Color.WHITE);
+				listaProductosAnnadidos.setVisible(false);
 
 		scrollProductos = new JScrollPane();
 		scrollProductos.setBounds(463, 196, 265, 160);
 		scrollProductos.setVisible(false);
 		add(scrollProductos);
-
-		listaProductos = new JList();
-		scrollProductos.setViewportView(listaProductos);
-		listaProductos.setBackground(Color.WHITE);
-		listaProductos.setVisible(false);
+		
+				listaProductos = new JList();
+				scrollProductos.setViewportView(listaProductos);
+				listaProductos.setBackground(Color.WHITE);
+				listaProductos.setVisible(false);
 
 		lblCantidad = new JLabel("Cantidad");
 		lblCantidad.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -287,7 +287,7 @@ public class PanelPoblacion extends JPanel {
 		add(comboBoxTipoActividad);
 
 		btnAñadir2 = new JButton("A\u00F1adir");
-		btnAñadir2.setBounds(346, 252, 89, 23);
+		btnAñadir2.setBounds(336, 252, 117, 24);
 		btnAñadir2.setVisible(false);
 		add(btnAñadir2);
 
@@ -447,15 +447,14 @@ public class PanelPoblacion extends JPanel {
 						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Aprovisionamiento")) {
 							listaPlatos.setVisible(false);
 							listaPlatosAnadidos.setVisible(false);
-							listaProductosAnnadidos.setVisible(true);
+							listaProductosAnnadidos.setVisible(false);
 							listaProductos.setVisible(true);
 							lblLocal1.setVisible(true);
 							TextFieldCantidad.setVisible(true);
 							lblCantidad.setVisible(true);
 							btnSeleccionarProd.setVisible(true);
 							btnEliminarProd.setVisible(true);
-							lblProductosSeleccionados.setVisible(true);
-							lblProdDisp.setVisible(true);
+							lblProductosSeleccionados.setVisible(false);
 							lblCantidad_1.setVisible(false);
 							lblPlatos.setVisible(false);
 							lblPlatosSeleccionados.setVisible(false);
@@ -463,7 +462,7 @@ public class PanelPoblacion extends JPanel {
 							btnEliminarPlat.setVisible(false);
 							lblDomicilio.setVisible(false);
 							textTotal.setVisible(false);
-							lblProdDisp.setVisible(false);
+							lblProdDisp.setVisible(true);
 							TextFieldCantidad_1.setVisible(false);
 							scrollPlatosSeleccionados.setVisible(false);
 							scrollPlatos.setVisible(false);
@@ -471,9 +470,8 @@ public class PanelPoblacion extends JPanel {
 							btnEliminarProd.setVisible(false);
 							btnSeleccionarProd.setVisible(false);
 							btnAñadir2.setVisible(true);
-							listaProductos.setVisible(false);
-							scrollProductos.setVisible(false);
-							scrollProductosSeleccionados.setVisible(true);
+							scrollProductos.setVisible(true);
+							scrollProductosSeleccionados.setVisible(false);
 							textDomicilio.setVisible(false);
 							textNif.setVisible(false);
 							textNombre.setVisible(false);
