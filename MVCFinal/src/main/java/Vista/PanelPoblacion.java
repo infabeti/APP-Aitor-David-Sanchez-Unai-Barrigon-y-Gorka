@@ -55,7 +55,7 @@ public class PanelPoblacion extends JPanel {
 	private JScrollPane scrollPane_2;
 	private JList listaAnnadidos_1;
 	private JScrollPane scrollPane_1_2;
-	private JList listaProductos_1;
+	private JList listaPlatos;
 	private JLabel lblPlatosSeleccionados;
 	private JLabel lblPlatos;
 	private JLabel lblDomicilio;
@@ -218,10 +218,10 @@ public class PanelPoblacion extends JPanel {
 		scrollPane_1_2.setVisible(false);
 		add(scrollPane_1_2);
 
-		listaProductos_1 = new JList();
-		scrollPane_1_2.setViewportView(listaProductos_1);
-		listaProductos_1.setBackground(Color.WHITE);
-		listaProductos_1.setVisible(false);
+		listaPlatos = new JList();
+		scrollPane_1_2.setViewportView(listaPlatos);
+		listaPlatos.setBackground(Color.WHITE);
+		listaPlatos.setVisible(false);
 
 		lblPlatosSeleccionados = new JLabel("Platos Seleccionados");
 		lblPlatosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -336,7 +336,10 @@ public class PanelPoblacion extends JPanel {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
+				controladorPanelPoblacion.getModelo().actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
+
 				listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
+				listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
 			}
 		};
 	}
@@ -346,7 +349,7 @@ public class PanelPoblacion extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 
 						if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
-							listaProductos_1.setVisible(true);
+							listaPlatos.setVisible(true);
 							listaAnnadidos_1.setVisible(true);
 							listaAnnadidos.setVisible(true);
 							listaProductos.setVisible(true);
@@ -381,7 +384,7 @@ public class PanelPoblacion extends JPanel {
 						}
 
 						else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Factura")) {
-							listaProductos_1.setVisible(false);
+							listaPlatos.setVisible(false);
 							listaAnnadidos_1.setVisible(false);
 							listaAnnadidos.setVisible(true);
 							listaProductos.setVisible(true);
@@ -413,7 +416,7 @@ public class PanelPoblacion extends JPanel {
 							scrollPane_1.setVisible(true);
 							scrollPane.setVisible(true);
 						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Pedido")) {
-							listaProductos_1.setVisible(false);
+							listaPlatos.setVisible(false);
 							listaAnnadidos_1.setVisible(false);
 							listaAnnadidos.setVisible(true);
 							listaProductos.setVisible(true);
@@ -447,7 +450,7 @@ public class PanelPoblacion extends JPanel {
 							scrollPane.setVisible(true);
 						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Comanda")) {
 
-							listaProductos_1.setVisible(true);
+							listaPlatos.setVisible(true);
 							listaAnnadidos_1.setVisible(true);
 							listaAnnadidos.setVisible(true);
 							listaProductos.setVisible(true);
@@ -472,7 +475,7 @@ public class PanelPoblacion extends JPanel {
 							scrollPane_1.setVisible(true);
 							scrollPane.setVisible(true);
 						} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Aprovisionamiento")) {
-							listaProductos_1.setVisible(false);
+							listaPlatos.setVisible(false);
 							listaAnnadidos_1.setVisible(false);
 							listaAnnadidos.setVisible(true);
 							listaProductos.setVisible(true);

@@ -88,7 +88,11 @@ public class Modelo {
 	}
 	
 	public void actualizarListaProductosLocal(String nif){
-		this.listaProductos = transformadorDatos.cambiarFormatoLista(consultasListas.cogerProductosLocal(nif));
+		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(consultasListas.cogerProductosLocal(nif));
+	}
+	
+	public void actualizarListaPlatosLocal(String nif){
+		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(consultasListas.cogerListaPlatos(nif));
 	}
 
 	public String getFechaHoraSys() {

@@ -103,5 +103,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles{
 	public String devolverNifLocal(int selectedIndex) {
 		return locales.get(selectedIndex)[0];
 	}
+	
+	public String[] cogerListaPlatos() {
+		return this.getModelo().getListaPlatos().getListaPlatosString(); }
 
 }
