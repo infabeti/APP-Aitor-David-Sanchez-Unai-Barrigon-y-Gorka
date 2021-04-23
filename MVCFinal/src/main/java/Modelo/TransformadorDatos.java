@@ -16,9 +16,7 @@ public class TransformadorDatos {
 			double precioCompra = Double.parseDouble(arrString[3]);
 			double precioVenta = Double.parseDouble(arrString[4]);
 			String tipo = arrString[2];
-
 			// Pasar de string a tipo date
-			System.out.println(arrString[1]);
 			java.sql.Date fechaCaducidad;
 			if(arrString[1].equalsIgnoreCase(null))
 			{
@@ -48,10 +46,8 @@ public class TransformadorDatos {
 			String[] arrString = arrayBbdd.get(i);
 			// crear Objeto de tipo Plato
 			String nombre = arrString[0];
-			System.out.println(nombre + " *     ****" + arrString[1]);
 			double pvp = Double.parseDouble(arrString[1]);
 
-			
 			//añadir plato a lp
 			lp.addPlato(new Plato(nombre, pvp));
 
