@@ -24,7 +24,7 @@ import javax.swing.JFormattedTextField.AbstractFormatter;
 
 public class PanelPoblacion extends JPanel {
 
-	private static final long serialVersionUID = -4866340972661290326L;
+	private static final long serialVersionUID = 1L;
 	private ControladorPanelPoblacion controladorPanelPoblacion;
 	private JButton btnVolver, btnEliminarProd, btnFinalizar, btnSeleccionarProd, btnSeleccionarPlat, btnEliminarPlat;
 	private JTextField textTrans, textFecha, textNif, textNombre, textApellido, textDomicilio, textTotal;

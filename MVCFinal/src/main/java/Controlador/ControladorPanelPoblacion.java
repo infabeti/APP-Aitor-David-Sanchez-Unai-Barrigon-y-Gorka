@@ -20,6 +20,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 	}
 
 	public void mostrarPanel() {
+		this.total = 0;
 		this.panelPoblacion = makePanelPoblacion(this);
 		super.getVista().mostrarPanel(this.panelPoblacion);
 	}

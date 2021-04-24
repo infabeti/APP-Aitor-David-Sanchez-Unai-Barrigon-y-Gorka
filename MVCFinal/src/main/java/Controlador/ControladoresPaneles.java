@@ -28,6 +28,7 @@ public abstract class ControladoresPaneles {
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
+		this.getModelo().getListaTemporal().limpiarLista();
 		this.controlador.navegarPanelPrincipal();
 	}
 	
