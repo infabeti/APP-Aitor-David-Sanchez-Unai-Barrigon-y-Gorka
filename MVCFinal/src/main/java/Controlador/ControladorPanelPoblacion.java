@@ -57,10 +57,23 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 	public boolean comprobarCampos(double total, String nif, String nombre, String apellido) {
 		return total > 0 && this.getModelo().validaciones.comprobarCamposString(nif, nombre, apellido);
 	}
-	
+
 	public String accionadoBotonEliminar(int pos, String eliminar) {
 		this.total = this.getModelo().funProd.funcionalidadeliminarProducto(pos, eliminar, this.total);
-		return String.valueOf(total); }
+		return String.valueOf(total);
+	}
+
+	public void accionadoBotonAnadirAprovisionamiento(int cantidad, int indice, String nombre, int selectedIndex) {
+		double precioTotal = this.getModelo().getConsultasComprobaciones().consultaComprobarPrecio(nombre) * cantidad;
+		this.getModelo().insercionesActividades.insertarActividad(this.getModelo().getConsultas().leerNumTransBBDD(),
+				devolverFechaFormateada(this.getModelo().getFechaHoraSys()), precioTotal, "aprovisionamiento",
+				devolverNifLocal(selectedIndex));
+		this.getModelo().insercionesActividades
+				.insertarAprovisionamiento(this.getModelo().getConsultas().leerNumTransBBDD() - 1);
+		this.getModelo().getInserciones().insertarProductoActividad(
+				this.getModelo().getConsultas().leerNumTransBBDD() - 1,
+				this.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, precioTotal,devolverNifLocal(selectedIndex));
+	}
 
 	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
 			DefaultListModel<String> lista, String tipo, String nombre, String nifComprador, String apellido,
@@ -70,9 +83,15 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		// insertamos actividad y productos
 		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha),
 				totalOperacion, tipo, nif);
+
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);
+		}
+
+		if (tipo.equalsIgnoreCase("Aprovisionamiento")) {
+			this.getModelo().insercionesActividades.insertarAprovisionamiento(transaccion);
+
 		}
 
 		if (tipo.equalsIgnoreCase("Factura")) {
@@ -87,10 +106,6 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		if (tipo.equalsIgnoreCase("Pedido")) {
 			this.getModelo().insercionesActividades.insertarPedido(transaccion, domicilio);
 		}
-		if (tipo.equalsIgnoreCase("Aprovisionamiento")) {
-			this.getModelo().insercionesActividades.insertarAprovisionamiento(transaccion);
-
-		}
 		if (tipo.equalsIgnoreCase("Comanda")) {
 			for (int i = 0; i < listaPlatos.getSize(); i++) {
 				String textoSpliteado[] = listaPlatos.get(i).split(" ");
@@ -102,27 +117,33 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		}
 
 	}
-	
+
 	public int existePlato(String plato) {
-		return this.getModelo().getListaTemporalPlatos().devolverPosPlatoString(plato); }
-	
+		return this.getModelo().getListaTemporalPlatos().devolverPosPlatoString(plato);
+	}
+
 	public String[] accionadoBotonAnnadirPlato(String plato, String cantidad) {
 		String[] devolver = this.getModelo().funPlat.funcionalidadAnadirPlato(plato, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
-		return devolver; }
-	
+		return devolver;
+	}
+
 	public String accionadoBotonEliminarPlato(int pos, String eliminar) {
 		this.total = this.getModelo().funPlat.funcionalidadeliminarPlato(pos, eliminar, this.total);
-		return String.valueOf(total); }
+		return String.valueOf(total);
+	}
 
 	public int existeProducto(String nombreProducto) {
 		return this.getModelo().getListaTemporal().devolverPosProductoString(nombreProducto);
 	}
 
-	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto, String tipo) {
-		String[] devolver = this.getModelo().funProd.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, this.total, tipo);
+	public String[] cambiarCantidadProductos(String nombreProductoAnadido, int cantidadAnadir, String nombreProducto,
+			String tipo) {
+		String[] devolver = this.getModelo().funProd.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir,
+				nombreProducto, this.total, tipo);
 		this.total = Double.parseDouble(devolver[1]);
-		return devolver; }
+		return devolver;
+	}
 
 	public String[] accionadoBotonAnnadirProducto(String producto, String cantidad) {
 		String[] devolver = this.getModelo().funProd.funcionalidadAnadirProducto(producto, cantidad, this.total);

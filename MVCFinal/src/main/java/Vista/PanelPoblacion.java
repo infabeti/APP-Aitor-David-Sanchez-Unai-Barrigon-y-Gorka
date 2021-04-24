@@ -26,12 +26,11 @@ public class PanelPoblacion extends JPanel {
 
 	private static final long serialVersionUID = -4866340972661290326L;
 	private ControladorPanelPoblacion controladorPanelPoblacion;
-	private JButton btnVolver, btnEliminarProd, btnFinalizar, btnSeleccionarProd, btnSeleccionarPlat, btnEliminarPlat,
-			btnAñadir2;
+	private JButton btnVolver, btnEliminarProd, btnFinalizar, btnSeleccionarProd, btnSeleccionarPlat, btnEliminarPlat;
 	private JTextField textTrans, textFecha, textNif, textNombre, textApellido, textDomicilio, textTotal;
 	private JLabel lblNombrePanel, lblTransaccion, lblProdDisp, lblProductosSeleccionados, lblNombre, lblError,
 			lblLocal1, lblFecha1, lblTotal, lblNIF, lblApellido, lblCantidad, lblPlatosSeleccionados, lblPlatos,
-			lblDomicilio, lblCantidad_1;
+			lblDomicilio, lblCantidad_1,lblWarningDomicilio;
 	private JScrollPane scrollProductosSeleccionados, scrollProductos, scrollPlatos, scrollPlatosSeleccionados;
 	private NumberFormat format;
 	private NumberFormatter formatter;
@@ -84,7 +83,7 @@ public class PanelPoblacion extends JPanel {
 		listaProductosAnnadidos.setVisible(true);
 
 		scrollProductos = new JScrollPane();
-		scrollProductos.setBounds(463, 196, 265, 160);
+		scrollProductos.setBounds(463, 207, 265, 160);
 		scrollProductos.setVisible(true);
 		add(scrollProductos);
 
@@ -117,18 +116,18 @@ public class PanelPoblacion extends JPanel {
 
 		lblProdDisp = new JLabel("Productos");
 		lblProdDisp.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblProdDisp.setBounds(506, 174, 92, 22);
+		lblProdDisp.setBounds(547, 185, 92, 22);
 		lblProdDisp.setVisible(true);
 		add(lblProdDisp);
 
 		lblProductosSeleccionados = new JLabel("Productos Seleccionados");
 		lblProductosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblProductosSeleccionados.setBounds(82, 174, 244, 22);
+		lblProductosSeleccionados.setBounds(63, 185, 244, 22);
 		lblProductosSeleccionados.setVisible(true);
 		add(lblProductosSeleccionados);
 
 		lblError = new JLabel("");
-		lblError.setBounds(30, 166, 332, 31);
+		lblError.setBounds(243, 371, 332, 31);
 		lblError.setVisible(false);
 		add(lblError);
 
@@ -163,19 +162,19 @@ public class PanelPoblacion extends JPanel {
 
 		lblNIF = new JLabel("NIF");
 		lblNIF.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblNIF.setBounds(300, 79, 86, 14);
+		lblNIF.setBounds(297, 148, 86, 14);
 		lblNIF.setVisible(false);
 		add(lblNIF);
 
 		lblNombre = new JLabel("Nombre");
 		lblNombre.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblNombre.setBounds(300, 113, 70, 15);
+		lblNombre.setBounds(483, 78, 70, 15);
 		lblNombre.setVisible(false);
 		add(lblNombre);
 
 		lblApellido = new JLabel("Apellido");
 		lblApellido.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblApellido.setBounds(300, 148, 102, 15);
+		lblApellido.setBounds(483, 112, 102, 15);
 		lblApellido.setVisible(false);
 		add(lblApellido);
 
@@ -199,19 +198,19 @@ public class PanelPoblacion extends JPanel {
 
 		lblPlatosSeleccionados = new JLabel("Platos Seleccionados");
 		lblPlatosSeleccionados.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblPlatosSeleccionados.setBounds(73, 397, 308, 18);
+		lblPlatosSeleccionados.setBounds(82, 401, 244, 18);
 		lblPlatosSeleccionados.setVisible(false);
 		add(lblPlatosSeleccionados);
 
 		lblPlatos = new JLabel("Platos");
 		lblPlatos.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblPlatos.setBounds(524, 396, 115, 20);
+		lblPlatos.setBounds(554, 400, 115, 20);
 		lblPlatos.setVisible(false);
 		add(lblPlatos);
 
 		lblDomicilio = new JLabel("Domicilio");
 		lblDomicilio.setFont(new Font("Arial", Font.PLAIN, 15));
-		lblDomicilio.setBounds(484, 79, 81, 15);
+		lblDomicilio.setBounds(291, 148, 81, 15);
 		lblDomicilio.setVisible(false);
 		add(lblDomicilio);
 
@@ -234,19 +233,19 @@ public class PanelPoblacion extends JPanel {
 		textFecha.setEditable(false);
 
 		textNif = new JTextField();
-		textNif.setBounds(367, 78, 86, 20);
+		textNif.setBounds(336, 146, 86, 20);
 		textNif.setVisible(false);
 		textNif.setColumns(10);
 		add(textNif);
 
 		textNombre = new JTextField();
-		textNombre.setBounds(367, 110, 86, 20);
+		textNombre.setBounds(553, 110, 175, 20);
 		textNombre.setVisible(false);
 		add(textNombre);
 		textNombre.setColumns(10);
 
 		textApellido = new JTextField();
-		textApellido.setBounds(367, 146, 86, 20);
+		textApellido.setBounds(553, 78, 175, 20);
 		textApellido.setVisible(false);
 		add(textApellido);
 		textApellido.setColumns(10);
@@ -257,7 +256,7 @@ public class PanelPoblacion extends JPanel {
 		add(comboLocal);
 
 		textDomicilio = new JTextField();
-		textDomicilio.setBounds(553, 78, 86, 20);
+		textDomicilio.setBounds(365, 146, 363, 20);
 		textDomicilio.setVisible(false);
 		add(textDomicilio);
 		textDomicilio.setColumns(10);
@@ -287,17 +286,19 @@ public class PanelPoblacion extends JPanel {
 		comboBoxTipoActividad = new JComboBox<String>();
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(
 				new String[] { "Ticket", "Factura", "Pedido", "Comanda", "Aprovisionamiento" }));
-		comboBoxTipoActividad.setBounds(586, 37, 126, 26);
+		comboBoxTipoActividad.setBounds(291, 100, 162, 27);
 		add(comboBoxTipoActividad);
 
-		btnAñadir2 = new JButton("A\u00F1adir");
-		btnAñadir2.setBounds(336, 252, 117, 24);
-		btnAñadir2.setVisible(false);
-		add(btnAñadir2);
-
 		lblTipoOperacion = new JLabel("Tipo de operacion");
-		lblTipoOperacion.setBounds(597, 11, 115, 14);
+		lblTipoOperacion.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblTipoOperacion.setBounds(307, 78, 146, 14);
 		add(lblTipoOperacion);
+		
+		lblWarningDomicilio = new JLabel("* Si es pedido para recoger no rellenar.");
+		lblWarningDomicilio.setFont(new Font("Arial", Font.PLAIN, 10));
+		lblWarningDomicilio.setBounds(420, 131, 296, 15);
+		lblWarningDomicilio.setVisible(false);
+		add(lblWarningDomicilio);
 
 		// Para que segun se inicie salgan los productos del primer local del combobox
 		actualizarDatosPanel();
@@ -482,6 +483,10 @@ public class PanelPoblacion extends JPanel {
 	private ActionListener listenerComboActividad(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				textTotal.setVisible(true);
+				lblTotal.setVisible(true);
+				lblWarningDomicilio.setVisible(false);
 
 				if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
 					listaPlatos.setVisible(true);
@@ -515,7 +520,6 @@ public class PanelPoblacion extends JPanel {
 					lblNIF.setVisible(false);
 					scrollPlatosSeleccionados.setVisible(false);
 					scrollPlatos.setVisible(false);
-					btnAñadir2.setVisible(false);
 				}
 
 				else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Factura")) {
@@ -538,7 +542,6 @@ public class PanelPoblacion extends JPanel {
 					lblDomicilio.setVisible(false);
 					textDomicilio.setVisible(false);
 					TextCantPlat.setVisible(false);
-					btnAñadir2.setVisible(false);
 					textNif.setVisible(true);
 					textNombre.setVisible(true);
 					textApellido.setVisible(true);
@@ -551,6 +554,7 @@ public class PanelPoblacion extends JPanel {
 					scrollProductos.setVisible(true);
 					scrollProductosSeleccionados.setVisible(true);
 				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Pedido")) {
+					lblWarningDomicilio.setVisible(true);
 					listaPlatos.setVisible(false);
 					listaPlatosAnadidos.setVisible(false);
 					listaProductosAnnadidos.setVisible(true);
@@ -576,7 +580,6 @@ public class PanelPoblacion extends JPanel {
 					lblNombre.setVisible(false);
 					lblApellido.setVisible(false);
 					lblNIF.setVisible(false);
-					btnAñadir2.setVisible(false);
 					TextCantPlat.setVisible(false);
 					scrollPlatosSeleccionados.setVisible(false);
 					scrollPlatos.setVisible(false);
@@ -603,7 +606,6 @@ public class PanelPoblacion extends JPanel {
 					btnEliminarPlat.setVisible(true);
 					lblDomicilio.setVisible(false);
 					textDomicilio.setVisible(false);
-					btnAñadir2.setVisible(false);
 					TextCantPlat.setVisible(true);
 					scrollPlatosSeleccionados.setVisible(true);
 					scrollPlatos.setVisible(true);
@@ -633,8 +635,6 @@ public class PanelPoblacion extends JPanel {
 					scrollPlatos.setVisible(false);
 					lblTotal.setVisible(false);
 					btnEliminarProd.setVisible(false);
-					btnSeleccionarProd.setVisible(false);
-					btnAñadir2.setVisible(true);
 					scrollProductos.setVisible(true);
 					scrollProductosSeleccionados.setVisible(false);
 					textDomicilio.setVisible(false);
@@ -644,6 +644,7 @@ public class PanelPoblacion extends JPanel {
 					lblNombre.setVisible(false);
 					lblApellido.setVisible(false);
 					lblNIF.setVisible(false);
+					btnFinalizar.setVisible(false);
 				}
 
 			}
@@ -658,7 +659,28 @@ public class PanelPoblacion extends JPanel {
 				String producto = "";
 				String[] productosAnadir = new String[2];
 				String cantidad = TextFieldCantidad.getText();
-				System.out.println(cantidad);
+				
+				
+				System.out.println(listaProductos.getSelectedIndex());
+				
+				System.out.println(comboBoxTipoActividad.getSelectedItem().toString());
+
+				
+				if(listaProductos.getSelectedIndex()!=-1 && comboBoxTipoActividad.getSelectedItem().toString().equalsIgnoreCase("Aprovisionamiento"))
+				{
+					
+					int seleccionado = listaProductos.getSelectedIndex();
+					String nombreAlimento = (String) listaProductos.getSelectedValue();
+					controladorPanelPoblacion.accionadoBotonAnadirAprovisionamiento(Integer.parseInt(cantidad), seleccionado, nombreAlimento, comboLocal.getSelectedIndex());
+					JOptionPane.showMessageDialog(null, "Aprovisionado " + cantidad + " " + listaProductos.getSelectedValue() + " Correctamente");
+					controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
+				}
+				else if (comboBoxTipoActividad.getSelectedItem().toString().equalsIgnoreCase("Aprovisionamiento"))
+				{
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento");
+
+				}
+				
 				try {
 					producto = (String) listaProductos.getSelectedValue(); // Necesito hacer aquï¿½ el cast porque
 																			// getSelectedValue() devuelve un objeto por
