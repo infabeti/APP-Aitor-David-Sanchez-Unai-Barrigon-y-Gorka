@@ -283,9 +283,11 @@ public class PanelPoblacion extends JPanel {
 		TextCantPlat.setBounds(413, 462, 40, 27);
 		TextCantPlat.setVisible(false);
 		add(TextCantPlat);
+		
 		comboBoxTipoActividad = new JComboBox<String>();
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(
-				new String[] { "Ticket", "Factura", "Pedido", "Comanda", "Aprovisionamiento" }));
+				new String[] {}));
+		actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
 		comboBoxTipoActividad.setBounds(291, 100, 162, 27);
 		add(comboBoxTipoActividad);
 
@@ -471,11 +473,32 @@ public class PanelPoblacion extends JPanel {
 		listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
 		listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
 	}
+	private void actualizarActividadesDisponibles(String tipolocal) {
+		
+		System.out.println("**********" + tipolocal);
+		comboBoxTipoActividad.removeAllItems();
+		comboBoxTipoActividad.addItem("Ticket");
+		comboBoxTipoActividad.addItem("Factura");
+		comboBoxTipoActividad.addItem("Aprovisionamiento");
+
+		
+		if(tipolocal.equalsIgnoreCase("CAFETERIA"))
+		{
+			comboBoxTipoActividad.addItem("Pedido");
+		}		
+		else if(tipolocal.equalsIgnoreCase("RESTAURANTE"))
+		{
+			comboBoxTipoActividad.addItem("Comanda");
+
+		}
+		
+	}
 
 	private ActionListener listenerComboLocal(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				actualizarDatosPanel();
+				actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
 			}
 		};
 	}
@@ -487,7 +510,13 @@ public class PanelPoblacion extends JPanel {
 				textTotal.setVisible(true);
 				lblTotal.setVisible(true);
 				lblWarningDomicilio.setVisible(false);
+				
+				if (comboBoxTipoActividad.getSelectedItem().toString() == null) {
+					actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
 
+				}
+				
+				
 				if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
 					listaPlatos.setVisible(true);
 					listaPlatosAnadidos.setVisible(true);
