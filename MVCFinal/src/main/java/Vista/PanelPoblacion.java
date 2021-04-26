@@ -673,7 +673,6 @@ public class PanelPoblacion extends JPanel {
 					lblNombre.setVisible(false);
 					lblApellido.setVisible(false);
 					lblNIF.setVisible(false);
-					btnFinalizar.setVisible(false);
 				}
 
 			}
