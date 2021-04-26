@@ -16,6 +16,12 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		this.total = 0;
 		this.panelPoblacion = makePanelPoblacion(this);
 		super.getVista().mostrarPanel(this.panelPoblacion); }
+	
+	public void borrarPlatosyProductosPanel() {
+		this.getModelo().getListaTemporal().limpiarLista();
+		this.getModelo().getListaTemporalPlatos().limpiarLista();
+		this.total = 0;	}
+	
 
 	public PanelPoblacion makePanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new PanelPoblacion(controladorPanelPoblacion); }

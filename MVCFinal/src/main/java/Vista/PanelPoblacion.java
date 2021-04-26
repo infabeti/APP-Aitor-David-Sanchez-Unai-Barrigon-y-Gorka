@@ -473,6 +473,17 @@ public class PanelPoblacion extends JPanel {
 				.actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
 		listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
 		listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
+		
+		//Borrar productos y/o platos seleccionados
+			controladorPanelPoblacion.borrarPlatosyProductosPanel();
+			listaPAnnadidos.removeAllElements();
+			listaPlatosAnadidosString.removeAllElements();
+			textTotal.setText("0");
+		
+		
+		
+		
+		
 	}
 	private void actualizarActividadesDisponibles(String tipolocal) {
 				
@@ -695,11 +706,6 @@ public class PanelPoblacion extends JPanel {
 				String producto = "";
 				String[] productosAnadir = new String[2];
 				String cantidad = TextFieldCantidad.getText();
-				
-				
-				System.out.println(listaProductos.getSelectedIndex());
-				
-				System.out.println(comboBoxTipoActividad.getSelectedItem().toString());
 
 				
 				if(listaProductos.getSelectedIndex()!=-1 && comboBoxTipoActividad.getSelectedItem().toString().equalsIgnoreCase("Aprovisionamiento"))
