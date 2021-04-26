@@ -286,7 +286,7 @@ public class PanelPoblacion extends JPanel {
 		
 		comboBoxTipoActividad = new JComboBox<String>();
 		comboBoxTipoActividad.setModel(new DefaultComboBoxModel(
-				new String[] {}));
+				new String[] {"Ticket", "Factura", "Aprovisionamiento"}));
 		actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
 		comboBoxTipoActividad.setBounds(291, 100, 162, 27);
 		add(comboBoxTipoActividad);
@@ -475,11 +475,30 @@ public class PanelPoblacion extends JPanel {
 	}
 	private void actualizarActividadesDisponibles(String tipolocal) {
 		
-		System.out.println("**********" + tipolocal);
-		comboBoxTipoActividad.removeAllItems();
-		comboBoxTipoActividad.addItem("Ticket");
-		comboBoxTipoActividad.addItem("Factura");
-		comboBoxTipoActividad.addItem("Aprovisionamiento");
+		
+		System.out.println("************** " + comboBoxTipoActividad.getItemCount());
+		
+		if(comboBoxTipoActividad.getItemCount() == 4) {
+			for (int i = 0; i < comboBoxTipoActividad.getItemCount();++i)
+			{
+			System.out.println(i+" "+comboBoxTipoActividad.getItemAt(i).toString());
+			// Now s is the string and i is the index
+			}
+			System.out.println("Entro ************** " + comboBoxTipoActividad.getItemAt(3).toString());
+			comboBoxTipoActividad.removeItemAt(3);
+		}
+		if(comboBoxTipoActividad.getItemCount() == 5) {
+			for (int i = 0; i < comboBoxTipoActividad.getItemCount();++i)
+			{
+			System.out.println(i+" "+comboBoxTipoActividad.getItemAt(i).toString());
+			// Now s is the string and i is the index
+			}
+
+			System.out.println("****************** " + comboBoxTipoActividad.getItemAt(4).toString());
+			comboBoxTipoActividad.removeItemAt(4);
+			comboBoxTipoActividad.removeItemAt(3);
+		}
+		
 
 		
 		if(tipolocal.equalsIgnoreCase("CAFETERIA"))
@@ -488,10 +507,12 @@ public class PanelPoblacion extends JPanel {
 		}		
 		else if(tipolocal.equalsIgnoreCase("RESTAURANTE"))
 		{
+			comboBoxTipoActividad.addItem("Pedido");
 			comboBoxTipoActividad.addItem("Comanda");
 
 		}
 		
+		comboBoxTipoActividad.setSelectedIndex(0);
 	}
 
 	private ActionListener listenerComboLocal(ControladorPanelPoblacion controladorPanelPoblacion) {
@@ -511,10 +532,10 @@ public class PanelPoblacion extends JPanel {
 				lblTotal.setVisible(true);
 				lblWarningDomicilio.setVisible(false);
 				
-				if (comboBoxTipoActividad.getSelectedItem().toString() == null) {
-					actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
-
-				}
+				//if ((comboBoxTipoActividad.getSelectedItem()) == null) {
+				//	System.out.println("************************* ENTRO");
+					//actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
+				//}
 				
 				
 				if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
