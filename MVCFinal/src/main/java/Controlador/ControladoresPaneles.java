@@ -28,9 +28,11 @@ public abstract class ControladoresPaneles {
 	}
 
 	public void accionadoBottonVolverPanelPrincipal() {
+		//Utilizamos getters para acceder a los propios Modelo y controlador de la clase
+		//ya que a la hora de testear no podemos instanciar esta clase ya que es abstracta
 		this.getModelo().getListaTemporal().limpiarLista();
-		this.modelo.getListaTemporalPlatos().limpiarLista();
-		this.controlador.navegarPanelPrincipal();
+		this.getModelo().getListaTemporalPlatos().limpiarLista();
+		this.getControlador().navegarPanelPrincipal();
 	}
 	
 	public abstract void mostrarPanel();

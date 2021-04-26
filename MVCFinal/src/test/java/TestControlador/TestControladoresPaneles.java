@@ -1,16 +1,53 @@
 package TestControlador;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
+
+import org.junit.Test;
+import org.mockito.Mockito;
+
 import Controlador.Controlador;
 import Controlador.ControladoresPaneles;
+import Modelo.ListaPlatos;
+import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Vista.Vista;
 
 public class TestControladoresPaneles {
 
-	private Modelo modelo;
-	private Vista vista;
-	private Controlador controlador;
+	private Modelo modeloMock = mock(Modelo.class);
+	private Vista vistaMock = mock(Vista.class);
+	private Controlador controladorMock = mock(Controlador.class);
+	private ListaProductos listaProductosMock = mock(ListaProductos.class);
+	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 
-	//private ControladoresPaneles controladoresPaneles = new ControladoresPaneles(modelo, vista, controlador);
 
+
+	ControladoresPaneles controladorPanelesMock = Mockito.mock(ControladoresPaneles.class);
+	
+	/*private ControladoresPaneles controladoresPaneles = new ControladoresPaneles(modeloMock, vistaMock, controladorMock);*/
+	@Test
+	public void accionadoBottonVolverPanelPrincipal() {
+		when(controladorPanelesMock.getModelo()).thenReturn(modeloMock);
+		when(controladorPanelesMock.getVista()).thenReturn(vistaMock);
+		when(controladorPanelesMock.getControlador()).thenReturn(controladorMock);
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+
+
+		doCallRealMethod().when(controladorPanelesMock).accionadoBottonVolverPanelPrincipal();
+		
+		controladorPanelesMock.accionadoBottonVolverPanelPrincipal();
+		
+		verify(controladorMock, times(1)).navegarPanelPrincipal();
+		
+	}
+	
 }

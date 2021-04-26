@@ -17,22 +17,6 @@ public class Producto {
 		this.precioVenta = precioVenta;
 	}
 	
-	public Producto(String nombre, Date fechaCaducidad, String tipo, double precioCompra) {
-		this.nombre = nombre;
-		this.fechaCaducidad = fechaCaducidad;
-		this.tipo = tipo;
-		this.precioCompra = precioCompra;
-	}
-	
-	public Producto(String nombre) {
-		this.nombre = nombre;
-	}
-	
-	public Producto()
-	{
-		this.nombre="DEFAULT";
-	}
-	
 	public String getNombre() {
 		return this.nombre;
 	}
@@ -53,9 +37,6 @@ public class Producto {
 	}
 	public Date getFechaCaducidad() {
 		return this.fechaCaducidad;
-	}
-	public void setFechaCaducidad(Date fechaCaducidad) {
-		this.fechaCaducidad = fechaCaducidad;
 	}
 	public String getTipo() {
 		return this.tipo;
