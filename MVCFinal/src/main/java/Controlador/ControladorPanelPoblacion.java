@@ -58,13 +58,16 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		return String.valueOf(total); }
 
 	public void accionadoBotonAnadirAprovisionamiento(int cantidad, int indice, String nombre, int selectedIndex) throws SQLException {
-		double precioTotal = 0; //se calcula mediante procedimiento bbdd
+		double precioTotal = this.getModelo().getConsultasComprobaciones().consultaComprobarPrecio(nombre);
 		this.getModelo().insercionesActividades.insertarActividad(this.getModelo().getConsultas().leerNumTransBBDD(),
 				devolverFechaFormateada(this.getModelo().getFechaHoraSys()), 0, "aprovisionamiento",devolverNifLocal(selectedIndex));
 		this.getModelo().insercionesActividades
 				.insertarAprovisionamiento(this.getModelo().getConsultas().leerNumTransBBDD() - 1);
 		this.getModelo().getInserciones().insertarProductoActividad( this.getModelo().getConsultas().leerNumTransBBDD() - 1,
-				this.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, precioTotal,devolverNifLocal(selectedIndex)); }
+				this.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, precioTotal,devolverNifLocal(selectedIndex)); 
+		this.getModelo().insercionesActividades.ejecutarFuncion(this.getModelo().getConsultas().leerNumTransBBDD(),"aprovisionamiento");
+	
+	}
 
 	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
 			DefaultListModel<String> lista, String tipo, String nombre, String nifComprador, String apellido,String domicilio, DefaultListModel<String> listaPlatos) throws SQLException {
