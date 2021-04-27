@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;import javax.swing.DefaultListModel;import Modelo.Modelo;import Vista.PanelPoblacion;import Vista.Vista;
 
 public class ControladorPanelPoblacion extends ControladoresPaneles {
@@ -56,7 +57,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		this.total = this.getModelo().funProd.funcionalidadeliminarProducto(pos, eliminar, this.total);
 		return String.valueOf(total); }
 
-	public void accionadoBotonAnadirAprovisionamiento(int cantidad, int indice, String nombre, int selectedIndex) {
+	public void accionadoBotonAnadirAprovisionamiento(int cantidad, int indice, String nombre, int selectedIndex) throws SQLException {
 		double precioTotal = 0; //se calcula mediante procedimiento bbdd
 		this.getModelo().insercionesActividades.insertarActividad(this.getModelo().getConsultas().leerNumTransBBDD(),
 				devolverFechaFormateada(this.getModelo().getFechaHoraSys()), 0, "aprovisionamiento",devolverNifLocal(selectedIndex));
@@ -66,10 +67,12 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 				this.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, precioTotal,devolverNifLocal(selectedIndex)); }
 
 	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
-			DefaultListModel<String> lista, String tipo, String nombre, String nifComprador, String apellido,String domicilio, DefaultListModel<String> listaPlatos) {
+			DefaultListModel<String> lista, String tipo, String nombre, String nifComprador, String apellido,String domicilio, DefaultListModel<String> listaPlatos) throws SQLException {
 		String nif = devolverNifLocal(selectedIndex);
 		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha),
 				0, tipo, nif); // insertamos actividad y productos
+
+
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif); }
@@ -93,6 +96,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 				this.getModelo().getInserciones().insertarPlatoActividad(transaccion, this.getModelo().getConsultas().obtenerCodigoPlato(
 								this.getModelo().getListaTemporalPlatos().getListaPlatosString()[i]), Integer.parseInt(textoSpliteado[0])); }
 		}
+		
+		this.getModelo().insercionesActividades.ejecutarFuncion(transaccion,tipo);
 	}
 
 	public int existePlato(String plato) {

@@ -5,6 +5,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.text.NumberFormat;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -358,7 +359,7 @@ public class PanelPoblacion extends JPanel {
 		};
 	}
 
-	private void llamadaInsercionBBDD(String tipoActividad) {
+	private void llamadaInsercionBBDD(String tipoActividad) throws NumberFormatException, SQLException {
 		controladorPanelPoblacion.insercionDatosBbdd(Integer.parseInt(textTrans.getText()), textFecha.getText(),
 				Double.parseDouble(textTotal.getText()), comboLocal.getSelectedIndex(), listaPAnnadidos, tipoActividad,
 				textNombre.getText(), textNif.getText(), textApellido.getText(), textDomicilio.getText(),listaPlatosAnadidosString);
@@ -407,7 +408,12 @@ public class PanelPoblacion extends JPanel {
 				if (tipoActividad.equalsIgnoreCase("Ticket")) {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
 
-						llamadaInsercionBBDD(tipoActividad);
+						try {
+							llamadaInsercionBBDD(tipoActividad);
+						} catch (NumberFormatException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
 						JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
@@ -422,7 +428,12 @@ public class PanelPoblacion extends JPanel {
 					if (controladorPanelPoblacion.comprobarCampos(Double.parseDouble(textTotal.getText()),
 							textNif.getText(), textNombre.getText(), textApellido.getText())) {
 
-						llamadaInsercionBBDD(tipoActividad);
+						try {
+							llamadaInsercionBBDD(tipoActividad);
+						} catch (NumberFormatException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
 						JOptionPane.showMessageDialog(null, "Factura introducida correctamente");
 
@@ -438,7 +449,12 @@ public class PanelPoblacion extends JPanel {
 				if (tipoActividad.equalsIgnoreCase("Pedido")) {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
 
-						llamadaInsercionBBDD(tipoActividad);
+						try {
+							llamadaInsercionBBDD(tipoActividad);
+						} catch (NumberFormatException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
 						JOptionPane.showMessageDialog(null, "Pedido introducido correctamente");
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
@@ -713,7 +729,12 @@ public class PanelPoblacion extends JPanel {
 					
 					int seleccionado = listaProductos.getSelectedIndex();
 					String nombreAlimento = (String) listaProductos.getSelectedValue();
-					controladorPanelPoblacion.accionadoBotonAnadirAprovisionamiento(Integer.parseInt(cantidad), seleccionado, nombreAlimento, comboLocal.getSelectedIndex());
+					try {
+						controladorPanelPoblacion.accionadoBotonAnadirAprovisionamiento(Integer.parseInt(cantidad), seleccionado, nombreAlimento, comboLocal.getSelectedIndex());
+					} catch (NumberFormatException | SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					JOptionPane.showMessageDialog(null, "Aprovisionado " + cantidad + " " + listaProductos.getSelectedValue() + " Correctamente");
 					controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
 				}
