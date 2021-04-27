@@ -57,9 +57,9 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		return String.valueOf(total); }
 
 	public void accionadoBotonAnadirAprovisionamiento(int cantidad, int indice, String nombre, int selectedIndex) {
-		double precioTotal = this.getModelo().getConsultasComprobaciones().consultaComprobarPrecio(nombre) * cantidad;
+		double precioTotal = 0; //se calcula mediante procedimiento bbdd
 		this.getModelo().insercionesActividades.insertarActividad(this.getModelo().getConsultas().leerNumTransBBDD(),
-				devolverFechaFormateada(this.getModelo().getFechaHoraSys()), precioTotal, "aprovisionamiento",devolverNifLocal(selectedIndex));
+				devolverFechaFormateada(this.getModelo().getFechaHoraSys()), 0, "aprovisionamiento",devolverNifLocal(selectedIndex));
 		this.getModelo().insercionesActividades
 				.insertarAprovisionamiento(this.getModelo().getConsultas().leerNumTransBBDD() - 1);
 		this.getModelo().getInserciones().insertarProductoActividad( this.getModelo().getConsultas().leerNumTransBBDD() - 1,
@@ -69,7 +69,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 			DefaultListModel<String> lista, String tipo, String nombre, String nifComprador, String apellido,String domicilio, DefaultListModel<String> listaPlatos) {
 		String nif = devolverNifLocal(selectedIndex);
 		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha),
-				totalOperacion, tipo, nif); // insertamos actividad y productos
+				0, tipo, nif); // insertamos actividad y productos
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif); }
