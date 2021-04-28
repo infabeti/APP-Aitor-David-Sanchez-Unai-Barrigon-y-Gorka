@@ -467,6 +467,12 @@ public class PanelPoblacion extends JPanel {
 				if (tipoActividad.equalsIgnoreCase("Comanda")) {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
 						
+						try {
+							llamadaInsercionBBDD(tipoActividad);
+						} catch (NumberFormatException | SQLException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 
 						JOptionPane.showMessageDialog(null, "Comanda introducida correctamente");
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();

@@ -94,6 +94,8 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 			this.getModelo().insercionesActividades.insertarPedido(transaccion, domicilio);
 		}
 		if (tipo.equalsIgnoreCase("Comanda")) {
+			this.getModelo().insercionesActividades.insertarComanda(transaccion);
+
 			for (int i = 0; i < listaPlatos.getSize(); i++) {
 				String textoSpliteado[] = listaPlatos.get(i).split(" ");
 				this.getModelo().getInserciones().insertarPlatoActividad(transaccion, this.getModelo().getConsultas().obtenerCodigoPlato(
