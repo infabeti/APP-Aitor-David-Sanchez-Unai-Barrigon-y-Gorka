@@ -31,7 +31,7 @@ public class PanelPoblacion extends JPanel {
 	private JTextField textTrans, textFecha, textNif, textNombre, textApellido, textDomicilio, textTotal;
 	private JLabel lblNombrePanel, lblTransaccion, lblProdDisp, lblProductosSeleccionados, lblNombre, lblError,
 			lblLocal1, lblFecha1, lblTotal, lblNIF, lblApellido, lblCantidad, lblPlatosSeleccionados, lblPlatos,
-			lblDomicilio, lblCantidad_1,lblWarningDomicilio;
+			lblDomicilio, lblCantidad_1,lblWarningDomicilio,lblTipoOperacion;
 	private JScrollPane scrollProductosSeleccionados, scrollProductos, scrollPlatos, scrollPlatosSeleccionados;
 	private NumberFormat format;
 	private NumberFormatter formatter;
@@ -40,8 +40,6 @@ public class PanelPoblacion extends JPanel {
 	private JComboBox comboBoxTipoActividad, comboLocal;
 	private DefaultListModel<String> listaPAnnadidos = new DefaultListModel<String>();
 	private DefaultListModel<String> listaPlatosAnadidosString = new DefaultListModel<String>();
-
-	private JLabel lblTipoOperacion;
 
 	public PanelPoblacion(ControladorPanelPoblacion controladorPanelPoblacion) {
 		setBackground(SystemColor.activeCaption);
@@ -388,8 +386,7 @@ public class PanelPoblacion extends JPanel {
 				System.out.println("Ejecutando evento eliminar");
 				try {
 					int pos = listaPlatosAnadidos.getSelectedIndex();
-					String total = controladorPanelPoblacion.accionadoBotonEliminarPlato(pos,
-							listaPlatosAnadidosString.get(pos));
+					String total = controladorPanelPoblacion.accionadoBotonEliminarPlato(pos, listaPlatosAnadidosString.get(pos));
 					listaPlatosAnadidosString.remove(pos);
 					textTotal.setText(total);
 				} catch (Exception e) {
@@ -407,17 +404,14 @@ public class PanelPoblacion extends JPanel {
 
 				if (tipoActividad.equalsIgnoreCase("Ticket")) {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
-
 						try {
 							llamadaInsercionBBDD(tipoActividad);
 						} catch (NumberFormatException | SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 						JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
-
 					} else {
 						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
 					}
@@ -434,11 +428,8 @@ public class PanelPoblacion extends JPanel {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 						JOptionPane.showMessageDialog(null, "Factura introducida correctamente");
-
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
-
 					} else {
 						if (!controladorPanelPoblacion.comprobarCampos(Double.parseDouble(textTotal.getText()),
 								textNif.getText(), textNombre.getText(), textApellido.getText())) {
@@ -448,42 +439,32 @@ public class PanelPoblacion extends JPanel {
 				}
 				if (tipoActividad.equalsIgnoreCase("Pedido")) {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
-
 						try {
 							llamadaInsercionBBDD(tipoActividad);
 						} catch (NumberFormatException | SQLException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 						JOptionPane.showMessageDialog(null, "Pedido introducido correctamente");
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
-
 					} else {
 						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
 					}
-
 				}
 				if (tipoActividad.equalsIgnoreCase("Comanda")) {
 					if (Double.parseDouble(textTotal.getText()) > 0) {
-						
 						try {
 							llamadaInsercionBBDD(tipoActividad);
 						} catch (NumberFormatException | SQLException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 						JOptionPane.showMessageDialog(null, "Comanda introducida correctamente");
 						controladorPanelPoblacion.accionadoBottonVolverPanelPrincipal();
-
 					} else {
 						JOptionPane.showMessageDialog(null, "Debes introducir articulos");
 					}
 				}
-
 			}
-
 		};
 	}
 
@@ -500,26 +481,17 @@ public class PanelPoblacion extends JPanel {
 			controladorPanelPoblacion.borrarPlatosyProductosPanel();
 			listaPAnnadidos.removeAllElements();
 			listaPlatosAnadidosString.removeAllElements();
-			textTotal.setText("0");
-		
-		
-		
-		
-		
+			textTotal.setText("0");		
 	}
 	private void actualizarActividadesDisponibles(String tipolocal) {
 				
 		if(comboBoxTipoActividad.getItemCount() == 4) {
-
 			comboBoxTipoActividad.removeItemAt(3);
 		}
 		if(comboBoxTipoActividad.getItemCount() == 5) {
-			
 			comboBoxTipoActividad.removeItemAt(4);
 			comboBoxTipoActividad.removeItemAt(3);
 		}
-		
-
 		
 		if(tipolocal.equalsIgnoreCase("CAFETERIA"))
 		{
@@ -531,7 +503,6 @@ public class PanelPoblacion extends JPanel {
 			comboBoxTipoActividad.addItem("Comanda");
 
 		}
-		
 		comboBoxTipoActividad.setSelectedIndex(0);
 	}
 
@@ -551,13 +522,7 @@ public class PanelPoblacion extends JPanel {
 				textTotal.setVisible(true);
 				lblTotal.setVisible(true);
 				lblWarningDomicilio.setVisible(false);
-				
-				//if ((comboBoxTipoActividad.getSelectedItem()) == null) {
-				//	System.out.println("************************* ENTRO");
-					//actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
-				//}
-				
-				
+
 				if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
 					listaPlatos.setVisible(true);
 					listaPlatosAnadidos.setVisible(true);
@@ -715,7 +680,6 @@ public class PanelPoblacion extends JPanel {
 					lblApellido.setVisible(false);
 					lblNIF.setVisible(false);
 				}
-
 			}
 		};
 	}
@@ -729,16 +693,13 @@ public class PanelPoblacion extends JPanel {
 				String[] productosAnadir = new String[2];
 				String cantidad = TextFieldCantidad.getText();
 
-				
 				if(listaProductos.getSelectedIndex()!=-1 && comboBoxTipoActividad.getSelectedItem().toString().equalsIgnoreCase("Aprovisionamiento"))
 				{
-					
 					int seleccionado = listaProductos.getSelectedIndex();
 					String nombreAlimento = (String) listaProductos.getSelectedValue();
 					try {
 						controladorPanelPoblacion.accionadoBotonAnadirAprovisionamiento(Integer.parseInt(cantidad), seleccionado, nombreAlimento, comboLocal.getSelectedIndex());
 					} catch (NumberFormatException | SQLException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					JOptionPane.showMessageDialog(null, "Aprovisionado " + cantidad + " " + listaProductos.getSelectedValue() + " Correctamente");
@@ -747,14 +708,9 @@ public class PanelPoblacion extends JPanel {
 				else if (comboBoxTipoActividad.getSelectedItem().toString().equalsIgnoreCase("Aprovisionamiento"))
 				{
 					JOptionPane.showMessageDialog(null, "Debes seleccionar un elemento");
-
 				}
-				
 				try {
-					producto = (String) listaProductos.getSelectedValue(); // Necesito hacer aqu� el cast porque
-																			// getSelectedValue() devuelve un objeto por
-																			// lo que no se le puede pasar directamente
-																			// a accionadoBotonAnadirProducto
+					producto = (String) listaProductos.getSelectedValue();
 					if (producto != null) {
 						existeProd = true;
 					}
