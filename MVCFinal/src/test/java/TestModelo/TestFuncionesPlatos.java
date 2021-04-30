@@ -7,6 +7,7 @@ import org.junit.Test;
 import Modelo.ListaPlatos;
 import Modelo.Modelo;
 import Modelo.Plato;
+import Modelo.Utiles;
 import Modelo.FuncionesPlatos;
 
 public class TestFuncionesPlatos {
@@ -18,6 +19,8 @@ public class TestFuncionesPlatos {
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
 	private Plato platoMock = mock(Plato.class);
 	private FuncionesPlatos funcionesPlatos = new FuncionesPlatos(modeloMock);
+	private Utiles utilesMock = mock(Utiles.class);
+
 	
 	@Test
 	public void TestAnnadirPlato() {
@@ -49,8 +52,10 @@ public class TestFuncionesPlatos {
 		double total = 19.0;
 
 		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
+		when(modeloMock.getUtiles()).thenReturn(utilesMock);
 
-		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
+
+		when(modeloMock.getUtiles().cogerCantidadString(eliminar)).thenReturn(1);
 
 		when(listaPlatosMock.getPrecioPlato(pos)).thenReturn(16.0);
 

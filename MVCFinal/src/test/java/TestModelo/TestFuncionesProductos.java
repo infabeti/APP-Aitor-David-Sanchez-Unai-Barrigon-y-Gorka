@@ -9,6 +9,7 @@ import org.junit.Test;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Producto;
+import Modelo.Utiles;
 import Modelo.FuncionesProductos;
 
 public class TestFuncionesProductos {
@@ -20,6 +21,8 @@ public class TestFuncionesProductos {
 	private double resultadoEsperadoDouble, resultadoDouble;
 	private ListaProductos listaProductosMock = mock(ListaProductos.class);
 	private Producto productoMock = mock(Producto.class);
+	private Utiles utilesMock = mock(Utiles.class);
+
 	
 	private FuncionesProductos funcionesProductos = new FuncionesProductos(modeloMock);
 	
@@ -85,8 +88,11 @@ public class TestFuncionesProductos {
 		double total = 19.0;
 
 		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+		
+		when(modeloMock.getUtiles()).thenReturn(utilesMock);
 
-		when(modeloMock.cogerCantidadString(eliminar)).thenReturn(1);
+
+		when(modeloMock.getUtiles().cogerCantidadString(eliminar)).thenReturn(1);
 
 		when(listaProductosMock.getPrecioProducto(pos)).thenReturn(16.0);
 

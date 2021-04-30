@@ -53,8 +53,8 @@ public class FuncionesProductos {
 	}
 
 	public double funcionalidadeliminarProducto(int pos, String eliminar, double total) {
-		ListaProductos listaProd = modelo.getListaTemporal();
-		int cantidad = modelo.cogerCantidadString(eliminar);
+		ListaProductos listaProd = this.modelo.getListaTemporal();
+		int cantidad = this.modelo.getUtiles().cogerCantidadString(eliminar);
 		double precio = listaProd.getPrecioProducto(pos);
 		total = total - (precio * cantidad);
 		BigDecimal bd = BigDecimal.valueOf(total);

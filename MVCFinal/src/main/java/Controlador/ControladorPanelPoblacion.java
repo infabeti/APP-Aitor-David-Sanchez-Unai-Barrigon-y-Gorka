@@ -45,7 +45,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		return this.getModelo().getListaProductos().getListaProductosString();}
 
 	public String devolverFechaHora() {
-		return this.getModelo().getFechaHoraSys(); }
+		return this.getModelo().getUtiles().getFechaHoraSys(); }
 
 	public int conseguirStock(int indexSelected, String producto) {
 		return this.getModelo().getConsultas().obtenerStock(devolverNifLocal(indexSelected), producto); }
@@ -60,7 +60,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 	public void accionadoBotonAnadirAprovisionamiento(int cantidad, int indice, String nombre, int selectedIndex) throws SQLException {
 		double precioTotal = this.getModelo().getConsultasComprobaciones().consultaComprobarPrecio(nombre);
 		this.getModelo().insercionesActividades.insertarActividad(this.getModelo().getConsultas().leerNumTransBBDD(),
-				devolverFechaFormateada(this.getModelo().getFechaHoraSys()), 0, "aprovisionamiento",devolverNifLocal(selectedIndex));
+				devolverFechaFormateada(this.getModelo().getUtiles().getFechaHoraSys()), 0, "aprovisionamiento",devolverNifLocal(selectedIndex));
 		this.getModelo().insercionesActividades
 				.insertarAprovisionamiento(this.getModelo().getConsultas().leerNumTransBBDD() - 1);
 		this.getModelo().getInserciones().insertarProductoActividad( this.getModelo().getConsultas().leerNumTransBBDD() - 1,

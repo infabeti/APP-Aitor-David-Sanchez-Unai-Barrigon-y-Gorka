@@ -1,9 +1,5 @@
 package Modelo;
 
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import bbdd.*;
 
 public class Modelo {
@@ -23,6 +19,7 @@ public class Modelo {
 	public java.sql.Connection conexionConn = conexion.getConn();
 	private TransformadorDatos transformadorDatos = new TransformadorDatos();
 	private ConsultasComprobaciones consultasComprobaciones;
+	private Utiles utiles;
 
 	public ConsultasComprobaciones getConsultasComprobaciones() {
 		return consultasComprobaciones;
@@ -45,6 +42,11 @@ public class Modelo {
 		consultasListas = new ConsultasListas(conexion);
 		insercionesActividades = new InsercionesActividades(conexion);
 		validaciones = new Validaciones();
+		utiles = new Utiles();
+	}
+
+	public Utiles getUtiles() {
+		return utiles;
 	}
 
 	public ConsultasListas getConsultasListas() {
@@ -93,21 +95,5 @@ public class Modelo {
 	
 	public void actualizarListaPlatosLocal(String nif){
 		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(consultasListas.cogerListaPlatos(nif));
-	}
-
-	public String getFechaHoraSys() {
-		DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyy HH:mm");
-		Date date = new Date(Calendar.getInstance().getTime().getTime());
-		return dateFormat.format(date);
-	}
-
-	public int cogerCantidadString(String linea) {
-		int punt = 0;
-		for (int i = 0; linea.charAt(i) != ' '; i++) {
-			punt = i;
-		}
-		punt++;
-		int cantidad = Integer.parseInt(linea.substring(0, punt));
-		return cantidad;
 	}
 }

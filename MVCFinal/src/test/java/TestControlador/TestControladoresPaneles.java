@@ -1,9 +1,6 @@
 package TestControlador;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -32,7 +29,6 @@ public class TestControladoresPaneles {
 
 	ControladoresPaneles controladorPanelesMock = Mockito.mock(ControladoresPaneles.class);
 	
-	/*private ControladoresPaneles controladoresPaneles = new ControladoresPaneles(modeloMock, vistaMock, controladorMock);*/
 	@Test
 	public void accionadoBottonVolverPanelPrincipal() {
 		when(controladorPanelesMock.getModelo()).thenReturn(modeloMock);
