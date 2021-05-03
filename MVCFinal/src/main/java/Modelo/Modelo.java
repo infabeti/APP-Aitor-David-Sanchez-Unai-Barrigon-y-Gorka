@@ -16,12 +16,12 @@ public class Modelo {
 	private Conexion conexion = new Conexion();
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
-	public java.sql.Connection conexionConn = conexion.getConn();
 	private TransformadorDatos transformadorDatos = new TransformadorDatos();
 	private ConsultasComprobaciones consultasComprobaciones;
 	private Utiles utiles;
 	private FuncionalidadPoblacion funcionalidadPoblacion;
 	private ConseguirDatosBbdd conseguirDatosBbdd;
+	private EjecutarAccion ejecutarAccion;
 
 
 	public FuncionalidadPoblacion getFuncionalidadPoblacion() {
@@ -48,14 +48,19 @@ public class Modelo {
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
 		funcionalidadPoblacion = new FuncionalidadPoblacion(this);
-		inserciones = new Inserciones(conexion);
-		consultasComprobaciones = new ConsultasComprobaciones(conexion);
-		consultas = new Consultas(conexion);
-		consultasListas = new ConsultasListas(conexion);
-		insercionesActividades = new InsercionesActividades(conexion);
+		inserciones = new Inserciones(conexion, ejecutarAccion);
+		consultasComprobaciones = new ConsultasComprobaciones(conexion, ejecutarAccion);
+		consultas = new Consultas(conexion, ejecutarAccion);
+		consultasListas = new ConsultasListas(conexion, ejecutarAccion);
+		insercionesActividades = new InsercionesActividades(conexion, ejecutarAccion);
 		validaciones = new Validaciones();
 		utiles = new Utiles();
 		conseguirDatosBbdd = new ConseguirDatosBbdd();
+		ejecutarAccion = new EjecutarAccion(conexion);
+	}
+
+	public EjecutarAccion getEjecutarAccion() {
+		return ejecutarAccion;
 	}
 
 	public Utiles getUtiles() {
@@ -105,7 +110,6 @@ public class Modelo {
 	public void actualizarListaProductosLocal(String nif){
 		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(this.getConseguirDatosBbdd().cogerProductosLocal(consultasListas.cogerProductosLocal(nif)));		
 	}
-	
 	
 	public void actualizarListaPlatosLocal(String nif){
 		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(this.getConseguirDatosBbdd().cogerListaPlatos(consultasListas.cogerListaPlatos(nif)));
