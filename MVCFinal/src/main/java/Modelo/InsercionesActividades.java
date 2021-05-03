@@ -15,7 +15,6 @@ public class InsercionesActividades {
 	private java.sql.Connection conexionConn;
 	private EjecutarAccion ejecutarAccion;
 
-
 	public InsercionesActividades(Conexion conexion, EjecutarAccion ejecutarAccion) {
 		this.conexionConn = conexion.getConn();
 		this.ejecutarAccion = new EjecutarAccion(conexion);
@@ -53,9 +52,13 @@ public class InsercionesActividades {
 			cStmt.setInt(1, numTrans);
 			cStmt.setBoolean(2, comanda);
 			ResultSet rs = ejecutarAccion.consultar(cStmt);
+			Double output = 0.0;
 
-			rs.next();
-			Double output = rs.getDouble(1);
+			if(rs.next())
+			{
+				output = rs.getDouble(1);
+			}
+			
 
 			PreparedStatement st = null;
 
