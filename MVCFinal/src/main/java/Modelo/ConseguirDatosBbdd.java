@@ -1,7 +1,6 @@
 
 package Modelo;
 
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -41,5 +40,21 @@ public class ConseguirDatosBbdd {
 			e.printStackTrace();
 		}
 		return listaProd;
+	}
+	
+	public ArrayList<String[]> cogerListaPlatos(ResultSet rs) {
+		ArrayList<String[]> listaPlatos = new ArrayList<String[]>();
+
+		try {
+			while (rs.next()) {
+				String nombre = rs.getString("p.Nombre");
+				String pvp = String.valueOf(rs.getDouble("p.pvp"));
+				String[] producto = new String[] {nombre, pvp};
+				listaPlatos.add(producto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaPlatos;
 	}
 }
