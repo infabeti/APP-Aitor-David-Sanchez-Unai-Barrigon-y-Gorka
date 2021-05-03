@@ -6,11 +6,14 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import org.junit.Test;
 import Controlador.Controlador;
 import Controlador.ControladorPanelAnalisis;
 import Controlador.ControladorPanelPoblacion;
+import Modelo.ConseguirDatosBbdd;
 import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
@@ -30,10 +33,15 @@ public class TestControlador {
 	private Consultas consultasMock = mock(Consultas.class);
 	private Controlador spyControlador;
 	private ArrayList<String[]> locales = new ArrayList<String[]>();
+	private ResultSet rs = null;
+	private ConseguirDatosBbdd conseguirDatosBbddMock = mock(ConseguirDatosBbdd.class);
 
+	
 	@Test
 	public void navegarPanelPrincipal() {
 		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+		when(modeloMock.getConseguirDatosBbdd()).thenReturn(conseguirDatosBbddMock);
+
 
 		spyControlador = spy(new Controlador(modeloMock, vistaMock));
 		doReturn(controladorPanelAnalisisMock).when(spyControlador).makeControladorPanelAnalisis(any(Modelo.class),
@@ -50,16 +58,13 @@ public class TestControlador {
 	@Test
 	public void navegarPanelPoblacion() {
 		when(modeloMock.getConsultas()).thenReturn(consultasMock);
-		when(modeloMock.getConsultas().conseguirLocales()).thenReturn(locales);
-		locales.add(new String[] { "Bar pedro", "12345678h", "bar" });
-		// when(controladorPanelPoblacionMock.cogerListaProductos()).thenReturn(new
-		// String[] {"1","2"});
+		when(modeloMock.getConsultas().conseguirLocales()).thenReturn(rs);
+
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
 		when(modeloMock.getListaTemporalPlatos()).thenReturn(listaPlatosMock);
 		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
-
-
+		when(modeloMock.getConseguirDatosBbdd()).thenReturn(conseguirDatosBbddMock);
 
 		when(modeloMock.getUtiles()).thenReturn(utilesMock);
 
@@ -78,6 +83,8 @@ public class TestControlador {
 
 	@Test
 	public void navegarPanelAnalisis() {
+		when(modeloMock.getConseguirDatosBbdd()).thenReturn(conseguirDatosBbddMock);
+
 		when(modeloMock.getConsultas()).thenReturn(consultasMock);
 
 		spyControlador = spy(new Controlador(modeloMock, vistaMock));

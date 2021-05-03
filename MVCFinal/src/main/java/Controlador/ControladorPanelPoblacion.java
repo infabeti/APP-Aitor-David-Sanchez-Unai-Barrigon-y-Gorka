@@ -40,6 +40,9 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		return nombreLocales;
 	}
 	public String conseguirActividadesLocal(int selectedIndex) {
+		if(locales.size()<=0)
+			return "Error de  lectura";
+		else
 		return locales.get(selectedIndex)[2];}
 
 	public String[] cogerListaProductos() {
@@ -106,6 +109,9 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		return this.getModelo().validaciones.devolverFechaFormateada(input); }
 
 	public String devolverNifLocal(int selectedIndex) {
+		if(locales.size()<=0)
+			return "Error de  lectura";
+		else
 		return locales.get(selectedIndex)[0]; }
 
 	public String[] cogerListaPlatos() {
