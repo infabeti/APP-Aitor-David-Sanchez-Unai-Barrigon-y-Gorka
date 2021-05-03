@@ -66,43 +66,14 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		this.getModelo().getInserciones().insertarProductoActividad( this.getModelo().getConsultas().leerNumTransBBDD() - 1,
 				this.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombre), cantidad, precioTotal,devolverNifLocal(selectedIndex)); 
 		this.getModelo().insercionesActividades.ejecutarFuncion(this.getModelo().getConsultas().leerNumTransBBDD(),"aprovisionamiento");
-	
 	}
 
 	public void insercionDatosBbdd(int transaccion, String fecha, double totalOperacion, int selectedIndex,
 			DefaultListModel<String> lista, String tipo, String nombre, String nifComprador, String apellido,String domicilio, DefaultListModel<String> listaPlatos) throws SQLException {
-		String nif = devolverNifLocal(selectedIndex);
 		this.getModelo().insercionesActividades.insertarActividad(transaccion, devolverFechaFormateada(fecha),
-				0, tipo, nif); // insertamos actividad y productos
-
-
-		for (int i = 0; i < lista.getSize(); i++) {
-			String textoSpliteado[] = lista.get(i).split(" ");
-			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif); }
-		if (tipo.equalsIgnoreCase("Aprovisionamiento")) {
-			this.getModelo().insercionesActividades.insertarAprovisionamiento(transaccion); }
-		if (tipo.equalsIgnoreCase("Factura")) {
-			// insertamos en factura y en comprador si toca
-			if (this.getModelo().getConsultasComprobaciones().comprobarSiExisteComprador(nifComprador)) {
-				System.out.println("El comprador ya existe, no se hace la insert en la tabla comprador"); } 
-			else {
-				this.getModelo().getInserciones().insertarComprador(nifComprador, nombre, apellido);
-			}
-			this.getModelo().insercionesActividades.insertarFactura(transaccion, nifComprador);
-		}
-		if (tipo.equalsIgnoreCase("Pedido")) {
-			this.getModelo().insercionesActividades.insertarPedido(transaccion, domicilio);
-		}
-		if (tipo.equalsIgnoreCase("Comanda")) {
-			this.getModelo().insercionesActividades.insertarComanda(transaccion);
-
-			for (int i = 0; i < listaPlatos.getSize(); i++) {
-				String textoSpliteado[] = listaPlatos.get(i).split(" ");
-				this.getModelo().getInserciones().insertarPlatoActividad(transaccion, this.getModelo().getConsultas().obtenerCodigoPlato(
-								this.getModelo().getListaTemporalPlatos().getListaPlatosString()[i]), Integer.parseInt(textoSpliteado[0])); }
-		}
-		
-		this.getModelo().insercionesActividades.ejecutarFuncion(transaccion,tipo);
+				0, tipo, devolverNifLocal(selectedIndex)); // insertamos actividad
+		this.getModelo().getFuncionalidadPoblacion().insertarDatos(lista ,transaccion,devolverNifLocal(selectedIndex),tipo,
+				 nifComprador, nombre, apellido, domicilio, listaPlatos);
 	}
 
 	public int existePlato(String plato) {
@@ -129,17 +100,6 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 		String[] devolver = this.getModelo().funProd.funcionalidadAnadirProducto(producto, cantidad, this.total);
 		this.total = Double.parseDouble(devolver[1]);
 		return devolver; }
-
-	public void insertarProductoActividad(int nombreProducto, int transaccion, int cantidad, String nif) {
-		String producto = devolverNombreProducto(nombreProducto);
-		this.getModelo().getInserciones().insertarProductoActividad(transaccion, this.getModelo().getConsultas().obtenerCodigoAlimentoProducto(producto), cantidad,
-				cogerPrecioString(producto), nif); }
-
-	public String devolverNombreProducto(int i) {
-		return this.getModelo().funProd.devolverNombreProducto(i); }
-
-	public double cogerPrecioString(String nombreProducto) {
-		return this.getModelo().getListaTemporal().precioProductoString(nombreProducto); }
 
 	public String devolverFechaFormateada(String input) {
 		return this.getModelo().validaciones.devolverFechaFormateada(input); }

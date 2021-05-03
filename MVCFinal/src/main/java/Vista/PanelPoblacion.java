@@ -1,27 +1,10 @@
 package Vista;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.text.NumberFormat;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.text.NumberFormatter;
-import Controlador.ControladorPanelPoblacion;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.DefaultListModel;
-import javax.swing.JFormattedTextField.AbstractFormatter;
+import java.awt.Color;import java.awt.Font;import java.awt.SystemColor;import java.awt.event.ActionEvent;import java.awt.event.ActionListener;
+import java.sql.SQLException;import java.text.NumberFormat;import javax.swing.JButton;import javax.swing.JFormattedTextField;import javax.swing.JLabel;
+import javax.swing.JList;import javax.swing.JOptionPane;import javax.swing.JPanel;import javax.swing.JScrollPane;import javax.swing.JTextField;
+import javax.swing.SwingConstants;import javax.swing.text.NumberFormatter;import Controlador.ControladorPanelPoblacion;import javax.swing.JComboBox;import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;import javax.swing.JFormattedTextField.AbstractFormatter;
 
 public class PanelPoblacion extends JPanel {
 
@@ -316,7 +299,6 @@ public class PanelPoblacion extends JPanel {
 		this.btnEliminarProd.addActionListener(listenerBotonEliminarProductos(this.controladorPanelPoblacion));
 		this.btnEliminarPlat.addActionListener(listenerBotonEliminarPlato(this.controladorPanelPoblacion));
 		this.btnFinalizar.addActionListener(listenerBotonFinalizar(this.controladorPanelPoblacion));
-
 	}
 	
 	private ActionListener listenerBotonAnadirPlatos(ControladorPanelPoblacion controladorPanelPoblacion) {
@@ -332,7 +314,6 @@ public class PanelPoblacion extends JPanel {
 					if (plato != null) {
 						existePlato = true;
 					}
-
 				} catch (Exception e) {
 					System.out.println("No se ha seleccionado un producto");
 				}
@@ -407,7 +388,6 @@ public class PanelPoblacion extends JPanel {
 						try {
 							llamadaInsercionBBDD(tipoActividad);
 						} catch (NumberFormatException | SQLException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null, "Ticket introducido correctamente");
@@ -421,7 +401,6 @@ public class PanelPoblacion extends JPanel {
 					// metido
 					if (controladorPanelPoblacion.comprobarCampos(Double.parseDouble(textTotal.getText()),
 							textNif.getText(), textNombre.getText(), textApellido.getText())) {
-
 						try {
 							llamadaInsercionBBDD(tipoActividad);
 						} catch (NumberFormatException | SQLException e) {
@@ -442,7 +421,6 @@ public class PanelPoblacion extends JPanel {
 						try {
 							llamadaInsercionBBDD(tipoActividad);
 						} catch (NumberFormatException | SQLException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						JOptionPane.showMessageDialog(null, "Pedido introducido correctamente");
@@ -476,7 +454,7 @@ public class PanelPoblacion extends JPanel {
 				.actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
 		listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
 		listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
-		
+	
 		//Borrar productos y/o platos seleccionados
 			controladorPanelPoblacion.borrarPlatosyProductosPanel();
 			listaPAnnadidos.removeAllElements();
@@ -492,7 +470,6 @@ public class PanelPoblacion extends JPanel {
 			comboBoxTipoActividad.removeItemAt(4);
 			comboBoxTipoActividad.removeItemAt(3);
 		}
-		
 		if(tipolocal.equalsIgnoreCase("CAFETERIA"))
 		{
 			comboBoxTipoActividad.addItem("Pedido");
@@ -501,7 +478,6 @@ public class PanelPoblacion extends JPanel {
 		{
 			comboBoxTipoActividad.addItem("Pedido");
 			comboBoxTipoActividad.addItem("Comanda");
-
 		}
 		comboBoxTipoActividad.setSelectedIndex(0);
 	}
@@ -585,7 +561,6 @@ public class PanelPoblacion extends JPanel {
 					lblNIF.setVisible(true);
 					scrollPlatosSeleccionados.setVisible(false);
 					scrollPlatos.setVisible(false);
-
 					scrollProductos.setVisible(true);
 					scrollProductosSeleccionados.setVisible(true);
 				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Pedido")) {
@@ -618,11 +593,9 @@ public class PanelPoblacion extends JPanel {
 					TextCantPlat.setVisible(false);
 					scrollPlatosSeleccionados.setVisible(false);
 					scrollPlatos.setVisible(false);
-
 					scrollProductos.setVisible(true);
 					scrollProductosSeleccionados.setVisible(true);
 				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Comanda")) {
-
 					listaPlatos.setVisible(true);
 					listaPlatosAnadidos.setVisible(true);
 					listaProductosAnnadidos.setVisible(true);

@@ -20,6 +20,12 @@ public class Modelo {
 	private TransformadorDatos transformadorDatos = new TransformadorDatos();
 	private ConsultasComprobaciones consultasComprobaciones;
 	private Utiles utiles;
+	private FuncionalidadPoblacion funcionalidadPoblacion;
+
+
+	public FuncionalidadPoblacion getFuncionalidadPoblacion() {
+		return funcionalidadPoblacion;
+	}
 
 	public ConsultasComprobaciones getConsultasComprobaciones() {
 		return consultasComprobaciones;
@@ -36,6 +42,7 @@ public class Modelo {
 	public Modelo() {
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
+		funcionalidadPoblacion = new FuncionalidadPoblacion(this);
 		inserciones = new Inserciones(conexion);
 		consultasComprobaciones = new ConsultasComprobaciones(conexion);
 		consultas = new Consultas(conexion);
