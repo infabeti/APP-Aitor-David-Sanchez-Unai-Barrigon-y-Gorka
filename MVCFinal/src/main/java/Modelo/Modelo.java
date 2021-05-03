@@ -21,6 +21,7 @@ public class Modelo {
 	private ConsultasComprobaciones consultasComprobaciones;
 	private Utiles utiles;
 	private FuncionalidadPoblacion funcionalidadPoblacion;
+	private ConseguirDatosBbdd conseguirDatosBbdd;
 
 
 	public FuncionalidadPoblacion getFuncionalidadPoblacion() {
@@ -39,6 +40,10 @@ public class Modelo {
 		return inserciones;
 	}
 
+	public ConseguirDatosBbdd getConseguirDatosBbdd() {
+		return conseguirDatosBbdd;
+	}
+
 	public Modelo() {
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
@@ -50,6 +55,7 @@ public class Modelo {
 		insercionesActividades = new InsercionesActividades(conexion);
 		validaciones = new Validaciones();
 		utiles = new Utiles();
+		conseguirDatosBbdd = new ConseguirDatosBbdd();
 	}
 
 	public Utiles getUtiles() {
@@ -97,8 +103,14 @@ public class Modelo {
 	}
 	
 	public void actualizarListaProductosLocal(String nif){
-		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(consultasListas.cogerProductosLocal(nif));
+		//this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(consultasListas.cogerProductosLocal(nif));
+		
+		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(this.getConseguirDatosBbdd().cogerProductosLocal(consultasListas.cogerProductosLocal(nif)));
+
+		
+		
 	}
+	
 	
 	public void actualizarListaPlatosLocal(String nif){
 		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(consultasListas.cogerListaPlatos(nif));
