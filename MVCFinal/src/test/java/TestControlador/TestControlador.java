@@ -14,12 +14,12 @@ import Controlador.Controlador;
 import Controlador.ControladorPanelAnalisis;
 import Controlador.ControladorPanelPoblacion;
 import Modelo.ConseguirDatosBbdd;
+import Modelo.Consultas;
 import Modelo.ListaPlatos;
 import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Utiles;
 import Vista.Vista;
-import bbdd.Consultas;
 
 public class TestControlador {
 
