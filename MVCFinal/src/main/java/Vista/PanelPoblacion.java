@@ -498,6 +498,7 @@ public class PanelPoblacion extends JPanel {
 				textTotal.setVisible(true);
 				lblTotal.setVisible(true);
 				lblWarningDomicilio.setVisible(false);
+				btnFinalizar.setVisible(true);
 
 				if (comboBoxTipoActividad.getSelectedItem().toString().equals("Ticket")) {
 					listaPlatos.setVisible(true);
