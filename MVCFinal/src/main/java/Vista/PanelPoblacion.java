@@ -620,6 +620,7 @@ public class PanelPoblacion extends JPanel {
 					scrollProductos.setVisible(true);
 					scrollProductosSeleccionados.setVisible(true);
 				} else if (comboBoxTipoActividad.getSelectedItem().toString().equals("Aprovisionamiento")) {
+					btnFinalizar.setVisible(false);
 					listaPlatos.setVisible(false);
 					listaPlatosAnadidos.setVisible(false);
 					listaProductosAnnadidos.setVisible(false);
