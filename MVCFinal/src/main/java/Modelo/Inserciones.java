@@ -20,10 +20,11 @@ public class Inserciones {
 		this.ejecutarAccion = new EjecutarAccion();
 	}
 
-	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,
-			String nif) {
+	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,String nif) {
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.INSERTARPRODUCTOACTIVIDAD);
 			st.setString(1, codigoAlimento);
@@ -53,12 +54,20 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void actualizarStockMenorQueCinco(String codigoAlimento, String nif, int transaccion) {
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.CODIGOALIMENTO);
 			st.setString(1, codigoAlimento);
@@ -99,13 +108,20 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void updateStock(String nif, String codigoAlimento, int cantidad) {
-
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.ACTUALIZARSTOCK);
 			st.setInt(1, (cantidad + 50));
@@ -119,13 +135,20 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void insertarComprador(String nif, String nombre, String apellido) {
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
-
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.INSERTARCOMPRADOR);
 			st.setString(1, nif);
@@ -138,12 +161,20 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public boolean insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.INSERTAREMPLEADO);
 			try {
@@ -161,12 +192,20 @@ public class Inserciones {
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 			return false;
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void insertarPlatoActividad(int transaccion, String codigoPlato, int cantidad) {
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement("insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("
 							+ codigoPlato + "," + transaccion + "," + cantidad + ");");
@@ -177,6 +216,12 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 }

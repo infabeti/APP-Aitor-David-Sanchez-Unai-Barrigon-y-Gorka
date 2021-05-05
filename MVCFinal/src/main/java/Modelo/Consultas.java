@@ -24,13 +24,13 @@ public class Consultas {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciaBbdd);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
+		} try {
+		      if (null != conexionConn) {
+		    	  conexionConn.close();
+		       }
+		    } catch (SQLException e) {
+		       e.printStackTrace();
+		 }
 		return st;
 	}
 
