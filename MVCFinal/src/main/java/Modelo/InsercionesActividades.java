@@ -5,19 +5,17 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-
-import bbdd.Conexion;
 import bbdd.EjecutarAccion;
 
 public class InsercionesActividades {
 
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private EjecutarAccion ejecutarAccion;
 
-	public InsercionesActividades(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public InsercionesActividades(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+		this.modelo = modelo;
+		this.ejecutarAccion = new EjecutarAccion();
 
 	}
 

@@ -5,21 +5,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
-import bbdd.Conexion;
 import bbdd.EjecutarAccion;
 
 public class Inserciones {
 
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private InsercionesActividades insercionesActividades;
 	private EjecutarAccion ejecutarAccion;
 
-	public Inserciones(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.insercionesActividades = new InsercionesActividades(conexion, ejecutarAccion);
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public Inserciones(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+		this.modelo = modelo;
+		this.insercionesActividades = new InsercionesActividades(modelo,ejecutarAccion);
+		this.ejecutarAccion = new EjecutarAccion();
 	}
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,

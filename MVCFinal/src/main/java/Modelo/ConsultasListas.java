@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,14 +10,14 @@ import bbdd.EjecutarAccion;
 
 public class ConsultasListas {
 
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
 	private EjecutarAccion ejecutarAccion;
 
 
-	public ConsultasListas(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public ConsultasListas(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+		this.modelo = modelo;
+		this.ejecutarAccion = new EjecutarAccion();
 	}
 
 	public ResultSet cogerProductosLocal(String NIFLocal) {

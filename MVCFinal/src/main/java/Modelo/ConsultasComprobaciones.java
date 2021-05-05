@@ -3,30 +3,35 @@ package Modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import bbdd.Conexion;
 import bbdd.EjecutarAccion;
 
 public class ConsultasComprobaciones {
 
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
 	private EjecutarAccion ejecutarAccion;
 
-
-	public ConsultasComprobaciones(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn =  conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public ConsultasComprobaciones(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+		this.modelo = modelo;
+		this.ejecutarAccion = new EjecutarAccion();
 
 	}
 
 	public boolean comprobarSiExisteNIF(String nif) {
-
 		PreparedStatement st = null;
+		java.sql.Connection conexionConn = null;
+
 		try {
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULTANIF);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return consultaReal(st, nif);
 	}
@@ -64,11 +69,12 @@ public class ConsultasComprobaciones {
 		}
 		return false;
 	}
-	
+
 	public double consultaComprobarPrecio(String nombre) {
 		try {
 			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSEGUIRPRECIOPRODUCTO);
+			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+					.prepareStatement(sentenciasBBDD.CONSEGUIRPRECIOPRODUCTO);
 			st.setString(1, nombre);
 			ResultSet rs = ejecutarAccion.consultar(st);
 			try {

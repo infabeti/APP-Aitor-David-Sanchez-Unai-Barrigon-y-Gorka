@@ -1,5 +1,8 @@
 package Modelo;
 
+import java.sql.SQLException;
+
+
 import bbdd.*;
 
 public class Modelo {
@@ -13,7 +16,7 @@ public class Modelo {
 	private ConsultasListas consultasListas;
 	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
-	private Conexion conexion = new Conexion();
+	private Conexion conexion;
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	private TransformadorDatos transformadorDatos = new TransformadorDatos();
@@ -44,19 +47,21 @@ public class Modelo {
 		return conseguirDatosBbdd;
 	}
 
-	public Modelo() {
+	public Modelo() throws SQLException {
+		conexion = new Conexion();
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
 		funcionalidadPoblacion = new FuncionalidadPoblacion(this);
-		inserciones = new Inserciones(conexion, ejecutarAccion);
-		consultasComprobaciones = new ConsultasComprobaciones(conexion, ejecutarAccion);
-		consultas = new Consultas(conexion, ejecutarAccion);
-		consultasListas = new ConsultasListas(conexion, ejecutarAccion);
-		insercionesActividades = new InsercionesActividades(conexion, ejecutarAccion);
+		inserciones = new Inserciones(this, ejecutarAccion);
+		consultasComprobaciones = new ConsultasComprobaciones(this, ejecutarAccion);
+		consultas = new Consultas(this, ejecutarAccion);
+		consultasListas = new ConsultasListas(this, ejecutarAccion);
+		insercionesActividades = new InsercionesActividades(this, ejecutarAccion);
 		validaciones = new Validaciones();
 		utiles = new Utiles();
 		conseguirDatosBbdd = new ConseguirDatosBbdd();
-		ejecutarAccion = new EjecutarAccion(conexion);
+		ejecutarAccion = new EjecutarAccion();
+
 	}
 
 	public EjecutarAccion getEjecutarAccion() {

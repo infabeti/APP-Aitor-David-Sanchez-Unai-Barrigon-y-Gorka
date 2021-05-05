@@ -3,19 +3,17 @@ package Modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import bbdd.Conexion;
 import bbdd.EjecutarAccion;
 
 public class Consultas {
 
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
 	private EjecutarAccion ejecutarAccion;
 
-	public Consultas(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public Consultas(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+		this.modelo = modelo;
+		this.ejecutarAccion = new EjecutarAccion();
 	}
 
 	public PreparedStatement conseguirPreparedStatement(String sentenciaBbdd) {
