@@ -52,11 +52,11 @@ public class Modelo {
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
 		funcionalidadPoblacion = new FuncionalidadPoblacion(this);
-		inserciones = new Inserciones(this, ejecutarAccion);
-		consultasComprobaciones = new ConsultasComprobaciones(this, ejecutarAccion);
-		consultas = new Consultas(this, ejecutarAccion);
-		consultasListas = new ConsultasListas(this, ejecutarAccion);
-		insercionesActividades = new InsercionesActividades(this, ejecutarAccion);
+		inserciones = new Inserciones(this);
+		consultasComprobaciones = new ConsultasComprobaciones(this);
+		consultas = new Consultas(this);
+		consultasListas = new ConsultasListas(this);
+		insercionesActividades = new InsercionesActividades(this);
 		validaciones = new Validaciones();
 		utiles = new Utiles();
 		conseguirDatosBbdd = new ConseguirDatosBbdd();

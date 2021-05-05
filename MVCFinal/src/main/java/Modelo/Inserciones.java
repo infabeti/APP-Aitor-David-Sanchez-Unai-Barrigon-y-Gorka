@@ -5,19 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import bbdd.EjecutarAccion;
 
 public class Inserciones {
 
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
 	private Modelo modelo;
 	private InsercionesActividades insercionesActividades;
-	private EjecutarAccion ejecutarAccion;
 
-	public Inserciones(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+	public Inserciones(Modelo modelo) throws SQLException {
 		this.modelo = modelo;
-		this.insercionesActividades = new InsercionesActividades(modelo,ejecutarAccion);
-		this.ejecutarAccion = new EjecutarAccion();
+		this.insercionesActividades = new InsercionesActividades(modelo);
 	}
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,String nif) {
@@ -32,13 +29,13 @@ public class Inserciones {
 			st.setInt(3, cantidad);
 			st.setDouble(4, precioFinal);
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 				try {
 					PreparedStatement st2 = null;
 					st2 = (PreparedStatement) ((java.sql.Connection) conexionConn)
 							.prepareStatement(sentenciasBBDD.COMPROBARSIESAPROVISIONAMIENTO);
 					st2.setInt(1, transaccion);
-					ResultSet rs = ejecutarAccion.consultar(st2);
+					ResultSet rs = this.modelo.getEjecutarAccion().consultar(st2);
 					rs.next();
 					if (rs.getString("tipo").equalsIgnoreCase("aprovisionamiento")) {
 						actualizarStockMenorQueCinco(codigoAlimento, nif, transaccion);
@@ -82,7 +79,7 @@ public class Inserciones {
 			String fechaAct = anio + "/" + mes + "/" + dia;
 
 			try {
-				ResultSet rs = ejecutarAccion.consultar(st);
+				ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
 				rs.next();
 				int cantidad = rs.getInt("cantidad");
 				if (cantidad < 5) {
@@ -91,7 +88,7 @@ public class Inserciones {
 						st1 = (PreparedStatement) ((java.sql.Connection) conexionConn)
 								.prepareStatement(sentenciasBBDD.PRECIOALIMENTO);
 						st1.setString(1, codigoAlimento);
-						ResultSet rs1 = ejecutarAccion.consultar(st1);
+						ResultSet rs1 = this.modelo.getEjecutarAccion().consultar(st1);
 						rs1.next();
 						double pcompra = rs1.getDouble("PCompra");
 						insercionesActividades.insertarActividad(transaccion, fechaAct, pcompra * 50,
@@ -129,7 +126,7 @@ public class Inserciones {
 			st.setString(3, codigoAlimento);
 
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -155,7 +152,7 @@ public class Inserciones {
 			st.setString(2, nombre);
 			st.setString(3, apellido);
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -183,7 +180,7 @@ public class Inserciones {
 				st.setString(3, Apellido);
 				st.setString(4, contrasena);
 				st.setString(5, nif);
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -210,7 +207,7 @@ public class Inserciones {
 					.prepareStatement("insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("
 							+ codigoPlato + "," + transaccion + "," + cantidad + ");");
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

@@ -3,18 +3,14 @@ package Modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import bbdd.EjecutarAccion;
 
 public class ConsultasComprobaciones {
 
 	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private EjecutarAccion ejecutarAccion;
 
-	public ConsultasComprobaciones(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+	public ConsultasComprobaciones(Modelo modelo) throws SQLException {
 		this.modelo = modelo;
-		this.ejecutarAccion = new EjecutarAccion();
-
 	}
 
 	public boolean comprobarSiExisteNIF(String nif) {
@@ -76,13 +72,14 @@ public class ConsultasComprobaciones {
 	public boolean consultaReal(PreparedStatement st, String nif) {
 		try {
 			st.setString(1, nif);
-			ResultSet rs = ejecutarAccion.consultar(st);
+			ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
 
 			return rs.next();
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
+		
 		return false;
 	}
 
@@ -94,7 +91,7 @@ public class ConsultasComprobaciones {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.CONSEGUIRPRECIOPRODUCTO);
 			st.setString(1, nombre);
-			ResultSet rs = ejecutarAccion.consultar(st);
+			ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
 			try {
 				rs.next();
 				return rs.getDouble("PCompra");

@@ -5,18 +5,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
-import bbdd.EjecutarAccion;
 
 public class InsercionesActividades {
 
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
 	private Modelo modelo;
-	private EjecutarAccion ejecutarAccion;
 
-	public InsercionesActividades(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+	public InsercionesActividades(Modelo modelo) throws SQLException {
 		this.modelo = modelo;
-		this.ejecutarAccion = new EjecutarAccion();
-
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String tipo, String nif) throws SQLException {
@@ -31,7 +27,7 @@ public class InsercionesActividades {
 			st.setString(4, tipo);
 			st.setString(5, nif);
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -58,7 +54,7 @@ public class InsercionesActividades {
 			CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.LLAMARFUNCION);
 			cStmt.setInt(1, numTrans);
 			cStmt.setBoolean(2, comanda);
-			ResultSet rs = ejecutarAccion.consultar(cStmt);
+			ResultSet rs = this.modelo.getEjecutarAccion().consultar(cStmt);
 			Double output = 0.0;
 
 			if(rs.next())
@@ -75,7 +71,7 @@ public class InsercionesActividades {
 			st.setInt(2, numTrans);
 
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -104,7 +100,7 @@ public class InsercionesActividades {
 				} else {
 					st.setString(2, domicilio);
 				}
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -128,7 +124,7 @@ public class InsercionesActividades {
 			st.setInt(1, transaccion);
 			st.setString(2, nif);
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -151,7 +147,7 @@ public class InsercionesActividades {
 					.prepareStatement(sentenciasBBDD.INSERTARCOMANDA);
 			try {
 				st.setInt(1, transaccion);
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -177,7 +173,7 @@ public class InsercionesActividades {
 					.prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);
 			try {
 				st.setInt(1, transaccion);
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

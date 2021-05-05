@@ -1,23 +1,18 @@
 package Modelo;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import bbdd.Conexion;
-import bbdd.EjecutarAccion;
 
 public class ConsultasListas {
 
 	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private EjecutarAccion ejecutarAccion;
 
 
-	public ConsultasListas(Modelo modelo, EjecutarAccion ejecutarAccion) throws SQLException {
+	public ConsultasListas(Modelo modelo) throws SQLException {
 		this.modelo = modelo;
-		this.ejecutarAccion = new EjecutarAccion();
 	}
 
 	public ResultSet cogerProductosLocal(String NIFLocal) {
@@ -29,7 +24,7 @@ public class ConsultasListas {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.CONSULTAPRODUCTOLOCAL);
 			st.setString(1, NIFLocal);
-			rs = ejecutarAccion.consultar(st);
+			rs = this.modelo.getEjecutarAccion().consultar(st);
 
 			
 		} catch (SQLException sqlException) {
@@ -52,7 +47,7 @@ public class ConsultasListas {
 			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.ALIMENTOORDENADO);
-			rs = ejecutarAccion.consultar(st);
+			rs = this.modelo.getEjecutarAccion().consultar(st);
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
@@ -75,7 +70,7 @@ public class ConsultasListas {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.PLATOJOINCARTA);
 			st.setString(1, NIFLocal);
-			rs = ejecutarAccion.consultar(st);
+			rs = this.modelo.getEjecutarAccion().consultar(st);
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();

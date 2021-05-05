@@ -25,5 +25,6 @@
 	<classpathentry kind="lib" path="librerias/commons-pool2-2.9.0.jar"/>
 	<classpathentry kind="lib" path="librerias/mockito-core-3.2.4.jar"/>
 	<classpathentry kind="lib" path="librerias/Prueba.jar"/>
+	<classpathentry kind="lib" path="librerias/ConexionBBDD.jar"/>
 	<classpathentry kind="output" path="bin/default"/>
 </classpath>
