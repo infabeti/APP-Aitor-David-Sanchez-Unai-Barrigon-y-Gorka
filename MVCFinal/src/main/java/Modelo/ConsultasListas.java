@@ -22,9 +22,10 @@ public class ConsultasListas {
 
 	public ResultSet cogerProductosLocal(String NIFLocal) {
 		ResultSet rs = null;
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
-
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.CONSULTAPRODUCTOLOCAL);
 			st.setString(1, NIFLocal);
@@ -33,28 +34,44 @@ public class ConsultasListas {
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return rs;
 	}
 
 	public ResultSet cogerProductosAprovisionamiento() {
 		ResultSet rs = null;
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.ALIMENTOORDENADO);
 			rs = ejecutarAccion.consultar(st);
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return rs;
 	}
 	
 	public ResultSet cogerListaPlatos(String NIFLocal) {
 		ResultSet rs = null;
+		java.sql.Connection conexionConn = null;
 		try {
 			PreparedStatement st = null;
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.PLATOJOINCARTA);
 			st.setString(1, NIFLocal);
@@ -62,6 +79,12 @@ public class ConsultasListas {
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return rs;
 	}

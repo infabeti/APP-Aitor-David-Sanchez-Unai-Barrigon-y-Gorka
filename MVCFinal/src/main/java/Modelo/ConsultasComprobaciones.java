@@ -38,21 +38,37 @@ public class ConsultasComprobaciones {
 
 	public boolean comprobarSiExisteComprador(String nif) {
 		PreparedStatement st = null;
+		java.sql.Connection conexionConn = null;
 		try {
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.EXISTECOMPRADOR);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return consultaReal(st, nif);
 	}
 
 	public boolean comprobarSiExisteDNI(String nif) {
 		PreparedStatement st = null;
+		java.sql.Connection conexionConn = null;
 		try {
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULATDNI);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return consultaReal(st, nif);
 	}
@@ -71,7 +87,9 @@ public class ConsultasComprobaciones {
 	}
 
 	public double consultaComprobarPrecio(String nombre) {
+		java.sql.Connection conexionConn = null;
 		try {
+			conexionConn = this.modelo.getConexion().getConn();
 			PreparedStatement st = null;
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 					.prepareStatement(sentenciasBBDD.CONSEGUIRPRECIOPRODUCTO);
@@ -85,6 +103,12 @@ public class ConsultasComprobaciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0.0;
 	}

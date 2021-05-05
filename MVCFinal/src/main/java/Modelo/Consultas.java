@@ -18,10 +18,18 @@ public class Consultas {
 
 	public PreparedStatement conseguirPreparedStatement(String sentenciaBbdd) {
 		PreparedStatement st = null;
+		java.sql.Connection conexionConn = null;
 		try {
+			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciaBbdd);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				conexionConn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return st;
 	}
