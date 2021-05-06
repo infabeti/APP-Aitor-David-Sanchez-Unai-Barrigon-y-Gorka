@@ -13,7 +13,7 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 
 	public ControladorPanelAnalisis(Modelo modelo, Vista vista, Controlador controlador) {
 		super(modelo, vista, controlador);
-		this.locales = this.getModelo().getConseguirDatosBbdd().conseguirLocales(this.getModelo().getConsultas().conseguirLocales());
+		this.locales = this.getModelo().getConsultas().conseguirLocales();
 	}
 
 	public void mostrarPanel() {

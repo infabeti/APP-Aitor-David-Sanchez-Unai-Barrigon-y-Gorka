@@ -21,8 +21,6 @@ public class Inserciones {
 		java.sql.Connection conexionConn = null;
 
 		try {
-			System.out.println(this.modelo.getConexion().getConn());
-
 			PreparedStatement st = null;
 			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
