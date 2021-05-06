@@ -29,12 +29,6 @@ public class ConsultasListas {
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return rs;
 	}
@@ -51,12 +45,6 @@ public class ConsultasListas {
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return rs;
 	}
@@ -74,12 +62,6 @@ public class ConsultasListas {
 			
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return rs;
 	}

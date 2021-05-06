@@ -19,7 +19,10 @@ public class Inserciones {
 
 	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,String nif) {
 		java.sql.Connection conexionConn = null;
+
 		try {
+			System.out.println(this.modelo.getConexion().getConn());
+
 			PreparedStatement st = null;
 			conexionConn = this.modelo.getConexion().getConn();
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
@@ -51,12 +54,6 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -105,12 +102,6 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -132,12 +123,6 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -158,12 +143,6 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -189,12 +168,6 @@ public class Inserciones {
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 			return false;
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -213,12 +186,6 @@ public class Inserciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }

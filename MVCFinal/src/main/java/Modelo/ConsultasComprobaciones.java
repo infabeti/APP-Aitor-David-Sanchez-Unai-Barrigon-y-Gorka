@@ -22,12 +22,6 @@ public class ConsultasComprobaciones {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULTANIF);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return consultaReal(st, nif);
 	}
@@ -41,12 +35,6 @@ public class ConsultasComprobaciones {
 					.prepareStatement(sentenciasBBDD.EXISTECOMPRADOR);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return consultaReal(st, nif);
 	}
@@ -59,12 +47,6 @@ public class ConsultasComprobaciones {
 			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciasBBDD.CONSULATDNI);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return consultaReal(st, nif);
 	}
@@ -100,12 +82,6 @@ public class ConsultasComprobaciones {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 		return 0.0;
 	}

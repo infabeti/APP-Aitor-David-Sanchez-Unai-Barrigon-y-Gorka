@@ -34,12 +34,6 @@ public class InsercionesActividades {
 
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -78,12 +72,6 @@ public class InsercionesActividades {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -106,12 +94,6 @@ public class InsercionesActividades {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -130,12 +112,6 @@ public class InsercionesActividades {
 			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -156,12 +132,6 @@ public class InsercionesActividades {
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 			return false;
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 
@@ -182,12 +152,6 @@ public class InsercionesActividades {
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 			return false;
-		} finally {
-			try {
-				conexionConn.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 }
