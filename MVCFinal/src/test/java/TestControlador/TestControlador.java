@@ -6,8 +6,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import org.junit.Test;
 import Controlador.Controlador;
@@ -33,7 +31,6 @@ public class TestControlador {
 	private Consultas consultasMock = mock(Consultas.class);
 	private Controlador spyControlador;
 	private ArrayList<String[]> locales = new ArrayList<String[]>();
-	private ResultSet rs = null;
 	private ConseguirDatosBbdd conseguirDatosBbddMock = mock(ConseguirDatosBbdd.class);
 
 	
@@ -58,7 +55,7 @@ public class TestControlador {
 	@Test
 	public void navegarPanelPoblacion() {
 		when(modeloMock.getConsultas()).thenReturn(consultasMock);
-		when(modeloMock.getConsultas().conseguirLocales()).thenReturn(rs);
+		when(modeloMock.getConsultas().conseguirLocales()).thenReturn(locales);
 
 		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
 		when(modeloMock.getListaPlatos()).thenReturn(listaPlatosMock);
