@@ -24,7 +24,7 @@ public class FicheroAnalisis {
 	public void crearFicheroHistorico() {
 
 		try {
-			Path path = Paths.get("..\\Historico");
+			Path path = Paths.get("Historico");
 			if (!Files.exists(path)) {
 				Files.createDirectory(path);
 				System.out.println("Carpeta creada");
@@ -70,7 +70,7 @@ public class FicheroAnalisis {
 			Calendar cal = Calendar.getInstance();
 			String fecha = dateFormat.format(cal.getTime());
 
-			FileOutputStream fileOut = new FileOutputStream("..\\Historico\\Analisis" + fecha + ".xls");
+			FileOutputStream fileOut = new FileOutputStream("Historico\\Analisis" + fecha + ".xls");
 			wb.write(fileOut);
 			fileOut.close();
 			System.out.println("Archivo creado");
