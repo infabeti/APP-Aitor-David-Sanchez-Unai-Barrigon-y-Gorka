@@ -74,7 +74,7 @@ public class Inserciones {
 				if (cantidad < 5) {
 					ResultSet rs1 = null;
 					try (PreparedStatement st1 = (PreparedStatement) ((java.sql.Connection) conexionConn)
-							.prepareStatement(sentenciasBBDD.PRECIOALIMENTO);){						
+							.prepareStatement(sentenciasBBDD.PRECIOALIMENTO);){
 						st1.setString(1, codigoAlimento);
 						rs1 = this.modelo.getEjecutarAccion().consultar(st1);
 						rs1.next();
@@ -85,7 +85,7 @@ public class Inserciones {
 						insertarProductoActividad(transaccion, codigoAlimento, 50, pcompra, nif);
 					} catch (Exception e) {
 						e.printStackTrace();
-					}finally {
+					} finally {
 						rs1.close();
 					}
 				}
@@ -155,13 +155,10 @@ public class Inserciones {
 	}
 
 	public void insertarPlatoActividad(int transaccion, String codigoPlato, int cantidad) {
-		java.sql.Connection conexionConn = null;
-		try {
-			PreparedStatement st = null;
-			conexionConn = this.modelo.getConexion().getConn();
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement("insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("
-							+ codigoPlato + "," + transaccion + "," + cantidad + ");");
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement("insert into lineaplato (codigoplato,transaccion,cantidad)" + " values("
+								+ codigoPlato + "," + transaccion + "," + cantidad + ");");) {
 			try {
 				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
