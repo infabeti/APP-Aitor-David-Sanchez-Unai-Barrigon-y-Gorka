@@ -22,7 +22,7 @@ public class ConseguirDatosBbdd {
 		return locales;
 	}
 
-	public ArrayList<String[]> cogerProductosLocal(ResultSet rs) {
+	public ArrayList<String[]> cogerProductosLocal(ResultSet rs) throws SQLException {
 		ArrayList<String[]> listaProd = new ArrayList<String[]>();
 
 		try {
@@ -38,11 +38,13 @@ public class ConseguirDatosBbdd {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			rs.close();
 		}
 		return listaProd;
 	}
 	
-	public ArrayList<String[]> cogerListaPlatos(ResultSet rs) {
+	public ArrayList<String[]> cogerListaPlatos(ResultSet rs) throws SQLException {
 		ArrayList<String[]> listaPlatos = new ArrayList<String[]>();
 
 		try {
@@ -54,6 +56,8 @@ public class ConseguirDatosBbdd {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			rs.close();
 		}
 		return listaPlatos;
 	}

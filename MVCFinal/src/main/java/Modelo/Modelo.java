@@ -112,11 +112,11 @@ public class Modelo {
 		this.listaPlatos = listaPlatos;
 	}
 	
-	public void actualizarListaProductosLocal(String nif){
-		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(this.getConseguirDatosBbdd().cogerProductosLocal(consultasListas.cogerProductosLocal(nif)));		
+	public void actualizarListaProductosLocal(String nif) throws SQLException{
+		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(consultasListas.cogerProductosLocal(nif));		
 	}
 	
-	public void actualizarListaPlatosLocal(String nif){
-		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(this.getConseguirDatosBbdd().cogerListaPlatos(consultasListas.cogerListaPlatos(nif)));
+	public void actualizarListaPlatosLocal(String nif) throws SQLException{
+		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(consultasListas.cogerListaPlatos(nif));
 	}
 }

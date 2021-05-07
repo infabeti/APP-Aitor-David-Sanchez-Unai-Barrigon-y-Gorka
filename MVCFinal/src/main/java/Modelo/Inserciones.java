@@ -17,32 +17,30 @@ public class Inserciones {
 		this.insercionesActividades = new InsercionesActividades(modelo);
 	}
 
-	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,String nif) {
-		java.sql.Connection conexionConn = null;
-
-		try {
-			PreparedStatement st = null;
-			conexionConn = this.modelo.getConexion().getConn();
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARPRODUCTOACTIVIDAD);
+	public void insertarProductoActividad(int transaccion, String codigoAlimento, int cantidad, double precioFinal,
+			String nif) {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARPRODUCTOACTIVIDAD);) {
 			st.setString(1, codigoAlimento);
 			st.setInt(2, transaccion);
 			st.setInt(3, cantidad);
 			st.setDouble(4, precioFinal);
 			try {
 				this.modelo.getEjecutarAccion().insertar(st);
-				try {
-					PreparedStatement st2 = null;
-					st2 = (PreparedStatement) ((java.sql.Connection) conexionConn)
-							.prepareStatement(sentenciasBBDD.COMPROBARSIESAPROVISIONAMIENTO);
+				ResultSet rs = null;
+				try (PreparedStatement st2 = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.COMPROBARSIESAPROVISIONAMIENTO);) {
 					st2.setInt(1, transaccion);
-					ResultSet rs = this.modelo.getEjecutarAccion().consultar(st2);
+					rs = this.modelo.getEjecutarAccion().consultar(st2);
 					rs.next();
 					if (rs.getString("tipo").equalsIgnoreCase("aprovisionamiento")) {
 						actualizarStockMenorQueCinco(codigoAlimento, nif, transaccion);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
+				} finally {
+					rs.close();
 				}
 				if (precioFinal != 0) {
 					actualizarStockMenorQueCinco(codigoAlimento, nif, transaccion);
@@ -56,12 +54,9 @@ public class Inserciones {
 	}
 
 	public void actualizarStockMenorQueCinco(String codigoAlimento, String nif, int transaccion) {
-		java.sql.Connection conexionConn = null;
-		try {
-			PreparedStatement st = null;
-			conexionConn = this.modelo.getConexion().getConn();
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.CODIGOALIMENTO);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CODIGOALIMENTO);) {
 			st.setString(1, codigoAlimento);
 			st.setString(2, nif);
 
@@ -73,17 +68,15 @@ public class Inserciones {
 
 			String fechaAct = anio + "/" + mes + "/" + dia;
 
-			try {
-				ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
+			try (ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);) {
 				rs.next();
 				int cantidad = rs.getInt("cantidad");
 				if (cantidad < 5) {
-					try {
-						PreparedStatement st1 = null;
-						st1 = (PreparedStatement) ((java.sql.Connection) conexionConn)
-								.prepareStatement(sentenciasBBDD.PRECIOALIMENTO);
+					ResultSet rs1 = null;
+					try (PreparedStatement st1 = (PreparedStatement) ((java.sql.Connection) conexionConn)
+							.prepareStatement(sentenciasBBDD.PRECIOALIMENTO);){						
 						st1.setString(1, codigoAlimento);
-						ResultSet rs1 = this.modelo.getEjecutarAccion().consultar(st1);
+						rs1 = this.modelo.getEjecutarAccion().consultar(st1);
 						rs1.next();
 						double pcompra = rs1.getDouble("PCompra");
 						insercionesActividades.insertarActividad(transaccion, fechaAct, pcompra * 50,
@@ -92,9 +85,10 @@ public class Inserciones {
 						insertarProductoActividad(transaccion, codigoAlimento, 50, pcompra, nif);
 					} catch (Exception e) {
 						e.printStackTrace();
+					}finally {
+						rs1.close();
 					}
 				}
-
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -104,12 +98,9 @@ public class Inserciones {
 	}
 
 	public void updateStock(String nif, String codigoAlimento, int cantidad) {
-		java.sql.Connection conexionConn = null;
-		try {
-			PreparedStatement st = null;
-			conexionConn = this.modelo.getConexion().getConn();
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.ACTUALIZARSTOCK);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.ACTUALIZARSTOCK);) {
 			st.setInt(1, (cantidad + 50));
 			st.setString(2, nif);
 			st.setString(3, codigoAlimento);
@@ -125,12 +116,9 @@ public class Inserciones {
 	}
 
 	public void insertarComprador(String nif, String nombre, String apellido) {
-		java.sql.Connection conexionConn = null;
-		try {
-			PreparedStatement st = null;
-			conexionConn = this.modelo.getConexion().getConn();
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARCOMPRADOR);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARCOMPRADOR);) {
 			st.setString(1, nif);
 			st.setString(2, nombre);
 			st.setString(3, apellido);
@@ -145,12 +133,9 @@ public class Inserciones {
 	}
 
 	public boolean insertarRegistro(String dni, String Nombre, String Apellido, String contrasena, String nif) {
-		java.sql.Connection conexionConn = null;
-		try {
-			PreparedStatement st = null;
-			conexionConn = this.modelo.getConexion().getConn();
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTAREMPLEADO);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTAREMPLEADO);) {
 			try {
 				st.setString(1, dni);
 				st.setString(2, Nombre);

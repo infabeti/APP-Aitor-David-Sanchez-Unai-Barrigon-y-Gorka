@@ -15,12 +15,11 @@ public class InsercionesActividades {
 		this.modelo = modelo;
 	}
 
-	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String tipo, String nif) throws SQLException {
-		java.sql.Connection conexionConn = null;
-		try {
-			conexionConn = this.modelo.getConexion().getConn();
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARACTIVIDAD);
+	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String tipo, String nif)
+			throws SQLException {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARACTIVIDAD);) {
 			st.setInt(1, transaccion);
 			st.setString(2, fecha);
 			st.setDouble(3, totalOperacion);
@@ -38,24 +37,21 @@ public class InsercionesActividades {
 	}
 
 	public void ejecutarFuncion(int numTrans, String tipo) throws SQLException {
-		java.sql.Connection conexionConn = null;
-		try {
-			conexionConn = this.modelo.getConexion().getConn();
+		ResultSet rs = null;
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.LLAMARFUNCION);) {
 			boolean comanda = false;
 			if (tipo.equalsIgnoreCase("comanda"))
 				comanda = true;
 
-			CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.LLAMARFUNCION);
 			cStmt.setInt(1, numTrans);
 			cStmt.setBoolean(2, comanda);
-			ResultSet rs = this.modelo.getEjecutarAccion().consultar(cStmt);
+			rs = this.modelo.getEjecutarAccion().consultar(cStmt);
 			Double output = 0.0;
 
-			if(rs.next())
-			{
+			if (rs.next()) {
 				output = rs.getDouble(1);
 			}
-			
 
 			PreparedStatement st = null;
 
@@ -72,17 +68,17 @@ public class InsercionesActividades {
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			rs.close();
 		}
 	}
 
 	public void insertarPedido(int transaccion, String domicilio) {
-		java.sql.Connection conexionConn = null;
-		try {
-			conexionConn = this.modelo.getConexion().getConn();
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARPEDIDO);
-			try {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARPEDIDO);) {
 				st.setInt(1, transaccion);
+			try {
 				if (domicilio.equalsIgnoreCase("")) {
 					st.setNull(2, Types.NULL);
 				} else {
@@ -98,11 +94,9 @@ public class InsercionesActividades {
 	}
 
 	public void insertarFactura(int transaccion, String nif) {
-		java.sql.Connection conexionConn = null;
-		try {
-			conexionConn = this.modelo.getConexion().getConn();
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARFACTURA);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARFACTURA);) {
 			st.setInt(1, transaccion);
 			st.setString(2, nif);
 			try {
@@ -116,11 +110,9 @@ public class InsercionesActividades {
 	}
 
 	public boolean insertarComanda(int transaccion) {
-		java.sql.Connection conexionConn = null;
-		try {
-			conexionConn = this.modelo.getConexion().getConn();
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARCOMANDA);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARCOMANDA);) {
 			try {
 				st.setInt(1, transaccion);
 				this.modelo.getEjecutarAccion().insertar(st);
@@ -136,11 +128,9 @@ public class InsercionesActividades {
 	}
 
 	public boolean insertarAprovisionamiento(int transaccion) {
-		java.sql.Connection conexionConn = null;
-		try {
-			conexionConn = this.modelo.getConexion().getConn();
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);) {
 			try {
 				st.setInt(1, transaccion);
 				this.modelo.getEjecutarAccion().insertar(st);

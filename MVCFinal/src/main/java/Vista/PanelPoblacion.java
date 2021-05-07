@@ -286,7 +286,11 @@ public class PanelPoblacion extends JPanel {
 		add(lblWarningDomicilio);
 
 		// Para que segun se inicie salgan los productos del primer local del combobox
-		actualizarDatosPanel();
+		try {
+			actualizarDatosPanel();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		initializeEvents();
 	}
 
@@ -446,7 +450,7 @@ public class PanelPoblacion extends JPanel {
 		};
 	}
 
-	private void actualizarDatosPanel() {
+	private void actualizarDatosPanel() throws SQLException {
 		// actualizar los productos y/o platos dependiendo del local que se escoja
 		controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(
 				controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
@@ -485,7 +489,11 @@ public class PanelPoblacion extends JPanel {
 	private ActionListener listenerComboLocal(ControladorPanelPoblacion controladorPanelPoblacion) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				actualizarDatosPanel();
+				try {
+					actualizarDatosPanel();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				actualizarActividadesDisponibles(controladorPanelPoblacion.conseguirActividadesLocal(comboLocal.getSelectedIndex()));
 			}
 		};
