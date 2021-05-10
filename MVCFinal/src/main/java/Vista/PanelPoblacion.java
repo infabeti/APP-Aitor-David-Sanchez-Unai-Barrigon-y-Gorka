@@ -454,8 +454,7 @@ public class PanelPoblacion extends JPanel {
 		// actualizar los productos y/o platos dependiendo del local que se escoja
 		controladorPanelPoblacion.getModelo().actualizarListaProductosLocal(
 				controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
-		controladorPanelPoblacion.getModelo()
-				.actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
+		controladorPanelPoblacion.getModelo().actualizarListaPlatosLocal(controladorPanelPoblacion.devolverNifLocal(comboLocal.getSelectedIndex()));
 		listaProductos.setListData(controladorPanelPoblacion.cogerListaProductos());
 		listaPlatos.setListData(controladorPanelPoblacion.cogerListaPlatos());
 	
