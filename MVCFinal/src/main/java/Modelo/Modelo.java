@@ -2,8 +2,8 @@ package Modelo;
 
 import java.sql.SQLException;
 
-
-import bbdd.*;
+import bbdd.Conexion;
+import bbdd.EjecutarAccion;
 
 public class Modelo {
 
