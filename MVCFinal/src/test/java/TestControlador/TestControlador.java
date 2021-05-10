@@ -83,6 +83,9 @@ public class TestControlador {
 		when(modeloMock.getConseguirDatosBbdd()).thenReturn(conseguirDatosBbddMock);
 
 		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+		
+		when(modeloMock.getListaProductos()).thenReturn(listaProductosMock);
+
 
 		spyControlador = spy(new Controlador(modeloMock, vistaMock));
 		doReturn(controladorPanelAnalisisMock).when(spyControlador).makeControladorPanelAnalisis(any(Modelo.class),
