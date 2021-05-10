@@ -16,8 +16,12 @@ public class Main {
 	@SuppressWarnings("unused")
 	private static Controlador controlador;
 	
-	public static void main(String[] args) throws SQLException {
-		modelo = new Modelo();    
+	public static void main(String[] args){
+		try {
+			modelo = new Modelo();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}    
 		vista = new Vista();              
 		controlador = new Controlador(modelo, vista);
 		
