@@ -39,6 +39,17 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 	
 	public String[] cogerListaPlatos() {
 		return this.getModelo().getListaPlatos().getListaPlatosString(); }
+	
+	public int conseguirStock(int indexSelected, String producto) {
+		return this.getModelo().getConsultas().obtenerStock(devolverNifLocal(indexSelected), producto); }
+	
+	public String devolverNifLocal(int selectedIndex) {
+		if(locales.size()<=0)
+			return "Error de  lectura";
+		else
+		return locales.get(selectedIndex)[0]; }
+
 }
+
 	
 

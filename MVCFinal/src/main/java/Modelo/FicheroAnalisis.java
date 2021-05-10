@@ -34,31 +34,52 @@ public class FicheroAnalisis {
 			for (int i = 0; i < 5; i++) {
 				sheetGlobal.setColumnWidth(i, 4500);
 			}
-			// Create a row and put some cells in it. Rows are 0 based.
-			Row row1Global = sheetGlobal.createRow((short) 0);
-			// Create a cell and put a value in it.
-			row1Global.createCell(0).setCellValue(createHelper.createRichTextString("Historico Global"));
-			row1Global.createCell(1).setCellValue(createHelper.createRichTextString("Producto"));
-			row1Global.createCell(2).setCellValue(createHelper.createRichTextString("Producto"));
-			row1Global.createCell(3).setCellValue(createHelper.createRichTextString("Fecha"));
-			row1Global.createCell(4).setCellValue(createHelper.createRichTextString("Porcentaje"));
-
+			Row rowGlobal = sheetGlobal.createRow((short) 0);
+			//Falta contenido a introducir
+			rowGlobal.createCell(0).setCellValue(createHelper.createRichTextString("Historico Global"));
+			rowGlobal.createCell(1).setCellValue(createHelper.createRichTextString("Producto"));
+			rowGlobal.createCell(2).setCellValue(createHelper.createRichTextString("Producto"));
+			rowGlobal.createCell(3).setCellValue(createHelper.createRichTextString("Fecha"));
+			rowGlobal.createCell(4).setCellValue(createHelper.createRichTextString("Porcentaje"));
+			
+			
+			for (int i = 0; i <5;i++) {
+				rowGlobal = sheetGlobal.createRow((short) i+1);
+				rowGlobal.createCell(0).setCellValue(createHelper.createRichTextString("Historico Global"));
+				rowGlobal.createCell(1).setCellValue(createHelper.createRichTextString("Producto"));
+				rowGlobal.createCell(2).setCellValue(createHelper.createRichTextString("Producto"));
+				rowGlobal.createCell(3).setCellValue(createHelper.createRichTextString("Fecha"));
+				rowGlobal.createCell(4).setCellValue(createHelper.createRichTextString("Porcentaje"));
+			}
+		
 			// Historico Local
 			Sheet sheetLocal = wb.createSheet("Historico Local");
 			for (int i = 0; i < 7; i++) {
 				sheetLocal.setColumnWidth(i, 4500);
 			}
-			// Create a row and put some cells in it. Rows are 0 based.
-			Row row1Local = sheetLocal.createRow((short) 0);
-			// Create a cell and put a value in it.
-			row1Local.createCell(0).setCellValue(createHelper.createRichTextString("Historico Local"));
-			row1Local.createCell(1).setCellValue(createHelper.createRichTextString("NIF Local"));
-			row1Local.createCell(2).setCellValue(createHelper.createRichTextString("NIF Local"));
-			row1Local.createCell(3).setCellValue(createHelper.createRichTextString("Producto"));
-			row1Local.createCell(4).setCellValue(createHelper.createRichTextString("Producto"));
-			row1Local.createCell(5).setCellValue(createHelper.createRichTextString("Fecha"));
-			row1Local.createCell(6).setCellValue(createHelper.createRichTextString("Porcentaje"));
+			Row rowLocal = sheetLocal.createRow((short) 0);
+			rowLocal.createCell(0).setCellValue(createHelper.createRichTextString("Historico Local"));
+			rowLocal.createCell(1).setCellValue(createHelper.createRichTextString("NIF Local"));
+			rowLocal.createCell(2).setCellValue(createHelper.createRichTextString("NIF Local"));
+			rowLocal.createCell(3).setCellValue(createHelper.createRichTextString("Producto"));
+			rowLocal.createCell(4).setCellValue(createHelper.createRichTextString("Producto"));
+			rowLocal.createCell(5).setCellValue(createHelper.createRichTextString("Fecha"));
+			rowLocal.createCell(6).setCellValue(createHelper.createRichTextString("Porcentaje"));
+			
+			for (int i = 0; i <7;i++) {
+				rowLocal = sheetLocal.createRow((short) i+1);
+				// Falta contenido a introducir
+				rowLocal.createCell(0).setCellValue(createHelper.createRichTextString("Historico Local"));
+				rowLocal.createCell(1).setCellValue(createHelper.createRichTextString("NIF Local"));
+				rowLocal.createCell(2).setCellValue(createHelper.createRichTextString("NIF Local"));
+				rowLocal.createCell(3).setCellValue(createHelper.createRichTextString("Producto"));
+				rowLocal.createCell(4).setCellValue(createHelper.createRichTextString("Producto"));
+				rowLocal.createCell(5).setCellValue(createHelper.createRichTextString("Fecha"));
+				rowLocal.createCell(6).setCellValue(createHelper.createRichTextString("Porcentaje"));
+			}
+			
 
+			
 			// Fecha para saber de cuando es el Historico
 			DateFormat dateFormat = new SimpleDateFormat("ddMMyyyyHHmmss");
 			Calendar cal = Calendar.getInstance();
