@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,7 +16,15 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class FicheroAnalisis {
+	private Modelo modelo;
+	public FicheroAnalisis(Modelo modelo) throws SQLException {
+		this.modelo = modelo;
+	}
 	public void crearFicheroHistorico() {
+		String codigoAlimento = null;
+		String niflocal = null;
+		this.modelo.getConsultasAnalisis().obtenerHistoricoLocal(codigoAlimento,niflocal);
+		this.modelo.getConsultasAnalisis().obtenerHistoricoGlobal(codigoAlimento);
 
 		try {
 			Path path = Paths.get("Historico");
