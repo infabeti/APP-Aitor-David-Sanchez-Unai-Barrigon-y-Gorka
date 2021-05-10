@@ -34,6 +34,9 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 		return new PanelAnalisis(controladorPanelAnalisis);
 	}
 	
+	public String[] cogerListaProductos() {
+		return this.getModelo().getListaProductos().getListaProductosString();}
+	
 	public String[] cogerListaPlatos() {
 		return this.getModelo().getListaPlatos().getListaPlatosString(); }
 }

@@ -24,13 +24,11 @@ public class PanelAnalisis extends JPanel{
 	private JButton btnVolver;
 	private JComboBox comboTipo;
 	private JComboBox comboLocales;
-	private JScrollPane scrollProductos1;
-	private JScrollPane scrollProductos2;
-	private JList listaProductos1;
-	private JList listaProductos2;
+	private JScrollPane scrollProductos;
+	private JScrollPane scrollPorcentajes;
+	private JList listaProductos;
+	private JList listaPorcentajes;
 	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField txtPorcentaje;
 	private JLabel lblSeleccionDeProductos;
 
 	public PanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
@@ -54,15 +52,15 @@ public class PanelAnalisis extends JPanel{
 		JLabel lblProductosAComparar = new JLabel("Productos a comparar");
 		lblProductosAComparar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProductosAComparar.setFont(new Font("Arial", Font.BOLD, 15));
-		lblProductosAComparar.setBounds(216, 142, 220, 32);
+		lblProductosAComparar.setBounds(60, 142, 220, 32);
 		add(lblProductosAComparar);
 		
 		JButton btnCalcular = new JButton("Calcular");
 		btnCalcular.setFont(new Font("Arial", Font.PLAIN, 13));
-		btnCalcular.setBounds(508, 522, 97, 23);
+		btnCalcular.setBounds(428, 412, 97, 23);
 		add(btnCalcular);
 		
-		JLabel lblInserteLos = new JLabel("* Inserte los códigos de producto a comparar");
+		JLabel lblInserteLos = new JLabel("*Seleccione el producto a comparar");
 		lblInserteLos.setFont(new Font("Arial", Font.PLAIN, 12));
 		lblInserteLos.setBounds(10, 45, 299, 32);
 		add(lblInserteLos);
@@ -77,89 +75,54 @@ public class PanelAnalisis extends JPanel{
 		comboLocales.setBounds(642, 66, 141, 22);
 		comboLocales.setVisible(false);
 		add(comboLocales);
-		
-		listaProductos1 = new JList();
 
-		scrollProductos1 = new JScrollPane();
-		scrollProductos1.setBounds(40, 185, 262, 192);
-		scrollProductos1.setViewportView(listaProductos1);
-		add(scrollProductos1);
+		scrollProductos = new JScrollPane();
+		scrollProductos.setBounds(40, 185, 262, 192);
+		add(scrollProductos);
 		
+		listaProductos = new JList();
+		scrollProductos.setViewportView(listaProductos);
 		
-		
-		listaProductos2 = new JList();
-
-		scrollProductos2 = new JScrollPane();
-		scrollProductos2.setBounds(343, 185, 262, 192);
-		scrollProductos2.setViewportView(listaProductos2);
-		add(scrollProductos2);
+				listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());	
 		
 		textField = new JTextField();
 		textField.setEditable(false);
-		textField.setBounds(40, 406, 262, 20);
+		textField.setBounds(40, 413, 262, 20);
 		add(textField);
 		textField.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setEditable(false);
-		textField_1.setColumns(10);
-		textField_1.setBounds(343, 406, 262, 20);
-		add(textField_1);
-		
-		JLabel lblProducto1 = new JLabel("Producto 1");
+		JLabel lblProducto1 = new JLabel("Producto seleccionado");
 		lblProducto1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProducto1.setBounds(95, 381, 141, 14);
+		lblProducto1.setBounds(103, 388, 141, 14);
 		add(lblProducto1);
-		
-		JLabel lblProducto2 = new JLabel("Producto 2");
-		lblProducto2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProducto2.setBounds(412, 381, 141, 14);
-		add(lblProducto2);
-		
-		txtPorcentaje = new JTextField();
-		txtPorcentaje.setBounds(761, 372, 41, 32);
-		add(txtPorcentaje);
-		txtPorcentaje.setColumns(10);
-		
-		JLabel lblPorcentaje = new JLabel("Porcentaje de compra conjunta: ");
-		lblPorcentaje.setHorizontalAlignment(SwingConstants.CENTER);
-		lblPorcentaje.setBounds(592, 326, 252, 32);
-		add(lblPorcentaje);
-		
+
 		lblSeleccionDeProductos = new JLabel("Selecci\u00F3n de productos:");
 		lblSeleccionDeProductos.setHorizontalAlignment(SwingConstants.CENTER);
 		lblSeleccionDeProductos.setBounds(460, 37, 172, 14);
 		add(lblSeleccionDeProductos);
+		
+		scrollPorcentajes = new JScrollPane();
+		scrollPorcentajes.setBounds(350, 185, 262, 192);
+		add(scrollPorcentajes);
+		
+		listaPorcentajes = new JList();
+		scrollPorcentajes.setViewportView(listaPorcentajes);
+		
+		JLabel lblNewLabel = new JLabel("Porcentaje de compra");
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(379, 151, 212, 14);
+		add(lblNewLabel);
+		
 
-		actualizarProductos();
-	
-		
-		
-		
+		listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());
+
 		
 		
 		initializeEvents();
 
 	}
 	
-	private void actualizarProductos() {
-		
-		if(comboTipo.equals("Global")) {
-			
-			listaProductos1.setListData(controladorPanelAnalisis.cogerListaPlatos());
-			listaProductos2.setListData(controladorPanelAnalisis.cogerListaPlatos());
-		}
-		else {
-			
-
-			
-			
-			
-		}
-		
-		
-
-	}
 	
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelAnalisis));
@@ -184,8 +147,9 @@ public class PanelAnalisis extends JPanel{
 				comboLocales.setVisible(true);
 			}
 			else if (comboTipo.getSelectedItem().equals("Global")) {
-				
+
 				comboLocales.setVisible(false);
+
 				
 			}
 				
