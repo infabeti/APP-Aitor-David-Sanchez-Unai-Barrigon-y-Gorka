@@ -21,7 +21,8 @@ public class Consultas {
 						.prepareStatement(sentenciasBBDD.CONSEGUIRLOCAL);) {
 			return this.modelo.getConseguirDatosBbdd().conseguirLocales(this.modelo.getEjecutarAccion().consultar(st));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("\nERROR \n Compruebe que no tiene otra instancia del programa ejecutandose.");
+			System.exit(0);
 		}
 		return null;
 	}
