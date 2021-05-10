@@ -18,6 +18,12 @@ public class ConseguirDatosBbdd {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return locales;
 	}

@@ -12,6 +12,7 @@ import Modelo.Consultas;
 import Modelo.FuncionesPlatos;
 import Modelo.FuncionesProductos;
 import Modelo.ListaPlatos;
+import Modelo.ListaProductos;
 import Modelo.Modelo;
 import Modelo.Validaciones;
 import Vista.Vista;
@@ -26,6 +27,8 @@ public class TestControladorPanelPoblacion {
 	private FuncionesProductos funcionesProductosMock = mock(FuncionesProductos.class);
 	private FuncionesPlatos funcionesPlatosMock = mock(FuncionesPlatos.class);
 	private ListaPlatos listaPlatosMock = mock(ListaPlatos.class);
+	private ListaProductos listaProductosMock = mock(ListaProductos.class);
+
 
 
 	private ControladorPanelPoblacion controladorPanelPoblacion;
@@ -173,5 +176,125 @@ public class TestControladorPanelPoblacion {
 		
 		assertArrayEquals(resultadoEsperado,resultado);
 
+	}
+	
+	@Test
+	public void testAccionadoBotonEliminarPlato() {
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		controladorPanelPoblacion = new ControladorPanelPoblacion(modeloMock, vistaMock, controladorMock);
+
+		int posicion = 1;
+		String eliminar = "3  - Filete de ternera con patatas 15.99€";
+		
+		
+		Double resultadoEsperado = 10.5;
+
+		
+		when(funcionesPlatosMock.funcionalidadeliminarPlato(posicion, eliminar, 0)).thenReturn(resultadoEsperado);
+		
+		String resultado = controladorPanelPoblacion.accionadoBotonEliminarPlato(posicion, eliminar);
+		
+		assertEquals(String.valueOf(resultadoEsperado),resultado);
+
+	}
+	
+	@Test
+	public void testExisteProducto() {
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+		when(modeloMock.getListaTemporal()).thenReturn(listaProductosMock);
+
+		controladorPanelPoblacion = new ControladorPanelPoblacion(modeloMock, vistaMock, controladorMock);
+
+		int resultadoEsperado = 99;
+		String nombreProducto = "Patatas Lays";
+		when(listaProductosMock.devolverPosProductoString(nombreProducto)).thenReturn(99);
+		
+		int resultado = controladorPanelPoblacion.existeProducto(nombreProducto);
+		
+		assertEquals(resultadoEsperado,resultado);
+
+	}
+	
+	@Test
+	public void testCambiarCantidadProductos() {
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		controladorPanelPoblacion = new ControladorPanelPoblacion(modeloMock, vistaMock, controladorMock);
+
+		
+		String nombreProductoAnadido = "2  - Coca-cola x 3.6€";
+		int cantidadAnadir= 1;
+		String nombreProducto = "Coca-cola";
+		String tipo = "producto";
+		
+		String[] resultadoEsperado = new String[] {"3  - Coca-cola x 4.8€","4.8"};
+		
+		when(funcionesProductosMock.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, 0, tipo)).thenReturn(
+				new String[] {"3  - Coca-cola x 4.8€","4.8"});
+
+		
+		String[] resultado = controladorPanelPoblacion.cambiarCantidadProductos(nombreProductoAnadido, cantidadAnadir, nombreProducto, tipo);
+				
+		assertArrayEquals(resultadoEsperado,resultado);
+
+	}
+	@Test
+	public void testAccionadoBotonAnnadirProducto() {
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		controladorPanelPoblacion = new ControladorPanelPoblacion(modeloMock, vistaMock, controladorMock);
+		
+		String producto = "Aquarius";
+		String cantidad = "10";
+		Double total = 0.0;
+		
+		when(funcionesProductosMock.funcionalidadAnadirProducto(producto, cantidad, total)).thenReturn(new String[] {
+				"10 - Aquarius 18€", "18"
+		});
+
+		
+		String[] resultado = controladorPanelPoblacion.accionadoBotonAnnadirProducto(producto, cantidad);
+				
+		String[] resultadoEsperado = new String[] {"10 - Aquarius 18€", "18"};
+				
+		assertArrayEquals(resultadoEsperado,resultado);
+
+	}
+	
+	@Test
+	public void testDevolverFechaFormateada() {
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		controladorPanelPoblacion = new ControladorPanelPoblacion(modeloMock, vistaMock, controladorMock);
+		
+		String input = "10/05/2021";
+		
+		String resultadoEsperado = "11/11/1111";
+		
+		when(validacionesMock.devolverFechaFormateada(input)).thenReturn(resultadoEsperado);
+		
+		String resultado = controladorPanelPoblacion.devolverFechaFormateada(input);
+		
+		assertEquals(resultadoEsperado,resultado);
+	}
+	
+	@Test
+	public void testConseguirStock() {
+		when(modeloMock.getConsultas()).thenReturn(consultasMock);
+
+		controladorPanelPoblacion = new ControladorPanelPoblacion(modeloMock, vistaMock, controladorMock);
+		
+		int selectedIndex = 3;
+		String producto = "Aquarius";
+		
+		when(consultasMock.obtenerStock(controladorPanelPoblacion.devolverNifLocal(selectedIndex), producto)).thenReturn(777);
+		
+
+		int resultado = controladorPanelPoblacion.conseguirStock(selectedIndex,producto);
+		int resultadoEsperado = 777;
+		
+		
+		assertEquals(resultadoEsperado,resultado);
 	}
 }
