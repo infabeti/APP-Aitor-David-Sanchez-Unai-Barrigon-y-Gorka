@@ -32,8 +32,8 @@ public class SentenciasBBDD {
 		protected final String CONSEGUIRLOCAL = "SELECT nif, nombre, tiponegocio FROM establecimiento";
 		protected final String LLAMARFUNCION = "select importetransacion(?, ?)";
 		protected final String ACTUALIZARTOTALOPERACION = "update actividad set totalOperacion = ? where transaccion = ?";
-
-
+		protected final String CONSULTAHISTORICOLOCAL = "SELECT * FROM historicolocal where CodigoAlimento1 = ? and NIF1 = ?";
+		protected final String CONSULTAHISTORICOGLOBAL = "SELECT * FROM historicoglobal where CodigoAlimento1 = ?";
 }
 
 	
