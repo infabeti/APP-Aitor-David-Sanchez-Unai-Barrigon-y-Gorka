@@ -48,29 +48,16 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 			return "Error de  lectura";
 		else
 		return locales.get(selectedIndex)[0]; }
-
-	public ArrayList<String[]> listaDePorcentajes(String nif, String producto) {
+	
+	public void cogerFechaAnalisis(String tipo) {
 		
-		String codProducto = this.getModelo().getConsultas().obtenerCodigoPlato(producto);
-		
-
-		
-		if(nif.equalsIgnoreCase("Global")) {
-			
-			this.getModelo().getConsultasAnalisis().obtenerHistoricoGlobal(codProducto);
 		}
-		else {
-			
-			this.getModelo().getConsultasAnalisis().obtenerHistoricoLocal(nif,codProducto);
-		}
-		
-
-		
-		return null;
+	
+	public void consultaListaPorcentaje(String nif, String codProducto,String tipoFecha) {
 		
 		
-
 	}
+	
 }
 
 	
