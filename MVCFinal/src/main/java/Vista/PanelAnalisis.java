@@ -1,3 +1,4 @@
+
 package Vista;
 
 import java.awt.Font;
@@ -203,7 +204,7 @@ public class PanelAnalisis extends JPanel{
 				}
 				
 				
-
+				controladorPanelAnalisis.listaDePorcentajes(nif,nombreAlimento);
 				
 				
 			}
@@ -213,4 +214,3 @@ public class PanelAnalisis extends JPanel{
 	
 	
 }
-
