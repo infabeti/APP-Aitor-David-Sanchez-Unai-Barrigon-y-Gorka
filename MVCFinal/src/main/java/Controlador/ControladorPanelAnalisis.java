@@ -48,7 +48,6 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 			return "Error de  lectura";
 		else
 		return locales.get(selectedIndex)[0]; }
-
 }
 
 	
