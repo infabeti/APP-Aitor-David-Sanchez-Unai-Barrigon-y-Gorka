@@ -50,7 +50,7 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 		return locales.get(selectedIndex)[0]; }
 	
 	public void cogerFechaAnalisis(String tipo) {
-		
+		this.getModelo().getFicheroAnalisis().crearFicheroHistorico(tipo);
 		}
 	
 	public void consultaListaPorcentaje(String nif, String codProducto,String tipoFecha) {

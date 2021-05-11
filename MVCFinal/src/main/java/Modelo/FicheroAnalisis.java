@@ -64,7 +64,7 @@ public class FicheroAnalisis {
 					row.createCell(3).setCellValue(createHelper.createRichTextString());//Fecha
 					row.createCell(4).setCellValue(createHelper.createRichTextString());//Porcentaje
 				}
-				FileOutputStream fileOut = new FileOutputStream("Historico\\BayesGlobal" + fecha + ".xls");
+				FileOutputStream fileOut = new FileOutputStream("Historico\\BayesGlobal"+tipo + fecha + ".xls");
 				wb.write(fileOut);
 				fileOut.close();
 
@@ -96,7 +96,7 @@ public class FicheroAnalisis {
 					row.createCell(6).setCellValue(createHelper.createRichTextString());//Porcentaje
 				}
 				FileOutputStream fileOut = new FileOutputStream(
-						"Historico\\BayesLocal" + niflocal + "" + fecha + ".xls");
+						"Historico\\BayesLocal" + niflocal + tipo + fecha + ".xls");
 				wb.write(fileOut);
 				fileOut.close();
 			}
