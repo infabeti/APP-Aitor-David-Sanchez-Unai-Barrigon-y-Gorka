@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -33,6 +34,9 @@ public class PanelAnalisis extends JPanel{
 	private JTextField productoSeleccionado;
 	private JLabel lblSeleccionDeProductos;
 	private JButton btnCalcular;
+	private JLabel lblRangoFechas;
+	private JComboBox comboFecha;
+	private JLabel lblLocal;
 
 	public PanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
 		setBackground(SystemColor.activeCaption);
@@ -41,7 +45,7 @@ public class PanelAnalisis extends JPanel{
 
 		setLayout(null);
 		
-		JLabel lblNombrePanel = new JLabel("Panel big data");
+		JLabel lblNombrePanel = new JLabel("Panel An\u00E1lisis");
 		lblNombrePanel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombrePanel.setFont(new Font("Arial", Font.BOLD, 30));
 		lblNombrePanel.setBounds(0, 0, 450, 45);
@@ -75,7 +79,7 @@ public class PanelAnalisis extends JPanel{
 		add(comboTipo);
 		
 		comboLocales = new JComboBox (controladorPanelAnalisis.conseguirLocales());
-		comboLocales.setBounds(642, 66, 141, 22);
+		comboLocales.setBounds(642, 99, 141, 22);
 		comboLocales.setVisible(false);
 		add(comboLocales);
 
@@ -116,6 +120,24 @@ public class PanelAnalisis extends JPanel{
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(379, 151, 212, 14);
 		add(lblNewLabel);
+		
+		lblLocal = new JLabel("Local:");
+		lblLocal.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblLocal.setBounds(496, 103, 116, 14);
+		lblLocal.setVisible(false);
+		add(lblLocal);
+		
+		 comboFecha = new JComboBox();
+		comboFecha.setBounds(642, 66, 141, 22);
+		comboFecha.setModel(new DefaultComboBoxModel(new String[] {"Diario", "Semanal","Mensual"}));
+		add(comboFecha);
+		
+		
+		
+		 lblRangoFechas = new JLabel("Rango de fechas: ");
+		lblRangoFechas.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblRangoFechas.setBounds(496, 70, 116, 14);
+		add(lblRangoFechas);
 		
 
 
@@ -170,10 +192,12 @@ public class PanelAnalisis extends JPanel{
 				}
 				
 				comboLocales.setVisible(true);
+				lblLocal.setVisible(true);
 			}
 			else if (comboTipo.getSelectedItem().equals("Global")) {
 				nif = "Global";
 				comboLocales.setVisible(false);
+				lblLocal.setVisible(false);
 
 				
 			}
@@ -187,30 +211,38 @@ public class PanelAnalisis extends JPanel{
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				int seleccionado = listaProductos.getSelectedIndex();
+
 				String nombreAlimento = (String) listaProductos.getSelectedValue();
 				productoSeleccionado.setText(nombreAlimento);
 				
 				String nif = "";
 				
-				if(comboTipo.getSelectedItem().equals("Local")) {
-				
-					nif = controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex());
-				}
-				else if (comboTipo.getSelectedItem().equals("Global")) {
+				if(nombreAlimento==null) {
 					
-					nif = "Global";
+					JOptionPane.showMessageDialog(null, "Debes seleccionar algún producto");
 					
 				}
+				else {
+					
+					if(comboTipo.getSelectedItem().equals("Local")) {
+						
+						nif = controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex());
+					}
+					else if (comboTipo.getSelectedItem().equals("Global")) {
+						
+						nif = "Global";
+						
+					}
+					
+					
+					controladorPanelAnalisis.listaDePorcentajes(nif,nombreAlimento);
+					
+				}
 				
 				
-				controladorPanelAnalisis.listaDePorcentajes(nif,nombreAlimento);
 				
 				
 			}
 		};
 	}
-	
-	
-	
 }
