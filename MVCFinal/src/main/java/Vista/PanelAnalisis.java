@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -28,8 +29,9 @@ public class PanelAnalisis extends JPanel{
 	private JScrollPane scrollPorcentajes;
 	private JList listaProductos;
 	private JList listaPorcentajes;
-	private JTextField textField;
+	private JTextField productoSeleccionado;
 	private JLabel lblSeleccionDeProductos;
+	private JButton btnCalcular;
 
 	public PanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
 		setBackground(SystemColor.activeCaption);
@@ -55,7 +57,7 @@ public class PanelAnalisis extends JPanel{
 		lblProductosAComparar.setBounds(60, 142, 220, 32);
 		add(lblProductosAComparar);
 		
-		JButton btnCalcular = new JButton("Calcular");
+		 btnCalcular = new JButton("Calcular");
 		btnCalcular.setFont(new Font("Arial", Font.PLAIN, 13));
 		btnCalcular.setBounds(428, 412, 97, 23);
 		add(btnCalcular);
@@ -85,11 +87,11 @@ public class PanelAnalisis extends JPanel{
 		
 				listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());	
 		
-		textField = new JTextField();
-		textField.setEditable(false);
-		textField.setBounds(40, 413, 262, 20);
-		add(textField);
-		textField.setColumns(10);
+		productoSeleccionado = new JTextField();
+		productoSeleccionado.setEditable(false);
+		productoSeleccionado.setBounds(40, 413, 262, 20);
+		add(productoSeleccionado);
+		productoSeleccionado.setColumns(10);
 		
 		JLabel lblProducto1 = new JLabel("Producto seleccionado");
 		lblProducto1.setHorizontalAlignment(SwingConstants.CENTER);
@@ -115,18 +117,31 @@ public class PanelAnalisis extends JPanel{
 		add(lblNewLabel);
 		
 
-		listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());
 
+		try {
+			actualizarDatos();
+		} catch (SQLException e) {
+
+			e.printStackTrace();
+		}
 		
 		
 		initializeEvents();
 
 	}
 	
+	private void actualizarDatos() throws SQLException {
+		
+		
+		controladorPanelAnalisis.getModelo().actualizarListaProductosLocal("12345678H");
+		listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());
+	}
+	
 	
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelAnalisis));
 		this.comboTipo.addActionListener(listenerComboTipo(this.controladorPanelAnalisis));
+		this.btnCalcular.addActionListener(listenerbotonCalcular(this.controladorPanelAnalisis));
 	}
 	
 	private ActionListener listenerBotonVolver(ControladorPanelAnalisis controladorPanelAnalisis) {
@@ -143,6 +158,15 @@ public class PanelAnalisis extends JPanel{
 			public void actionPerformed(ActionEvent arg0) {
 
 			if(comboTipo.getSelectedItem().equals("Local")) {
+				try {
+					controladorPanelAnalisis.getModelo().actualizarListaProductosLocal(
+							controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex()));
+					listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());
+					
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
 				
 				comboLocales.setVisible(true);
 			}
@@ -156,4 +180,36 @@ public class PanelAnalisis extends JPanel{
 			}
 		};
 	}
+	
+	private ActionListener listenerbotonCalcular(ControladorPanelAnalisis controladorPanelAnalisis) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				int seleccionado = listaProductos.getSelectedIndex();
+				String nombreAlimento = (String) listaProductos.getSelectedValue();
+				productoSeleccionado.setText(nombreAlimento);
+				
+				String nif = "";
+				
+				if(comboTipo.getSelectedItem().equals("Local")) {
+				
+					nif = controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex());
+				}
+				else if (comboTipo.getSelectedItem().equals("Global")) {
+					
+					nif = "Global";
+					
+				}
+				
+				
+
+				
+				
+			}
+		};
+	}
+	
+	
+	
 }
+
