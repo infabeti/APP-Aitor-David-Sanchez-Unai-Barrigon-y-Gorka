@@ -4,8 +4,10 @@ import java.io.FileOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,7 +17,14 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 public class FicheroAnalisis {
-	public void crearFicheroHistorico() {
+	private Modelo modelo;
+	public FicheroAnalisis() throws SQLException {
+		this.modelo = modelo;
+	}
+	public void crearFicheroHistorico(String codigoAlimento, String niflocal) {
+
+		ArrayList<String[]> HistoricoLocal = this.modelo.getConsultasAnalisis().obtenerHistoricoLocal(codigoAlimento,niflocal);
+		ArrayList<String[]> HistoricoGlobal = this.modelo.getConsultasAnalisis().obtenerHistoricoGlobal(codigoAlimento);
 
 		try {
 			Path path = Paths.get("Historico");
@@ -43,13 +52,13 @@ public class FicheroAnalisis {
 			rowGlobal.createCell(4).setCellValue(createHelper.createRichTextString("Porcentaje"));
 			
 			
-			for (int i = 0; i <5;i++) {
+			for (int i = 0; i <HistoricoGlobal.get(0).length;i++) {
 				rowGlobal = sheetGlobal.createRow((short) i+1);
-				rowGlobal.createCell(0).setCellValue(createHelper.createRichTextString("Historico Global"));
-				rowGlobal.createCell(1).setCellValue(createHelper.createRichTextString("Producto"));
-				rowGlobal.createCell(2).setCellValue(createHelper.createRichTextString("Producto"));
-				rowGlobal.createCell(3).setCellValue(createHelper.createRichTextString("Fecha"));
-				rowGlobal.createCell(4).setCellValue(createHelper.createRichTextString("Porcentaje"));
+				rowGlobal.createCell(0).setCellValue(i);
+				rowGlobal.createCell(1).setCellValue(createHelper.createRichTextString(HistoricoGlobal.get(0)[i]));
+				rowGlobal.createCell(2).setCellValue(createHelper.createRichTextString(HistoricoGlobal.get(1)[i]));
+				rowGlobal.createCell(3).setCellValue(createHelper.createRichTextString(HistoricoGlobal.get(2)[i]));
+				rowGlobal.createCell(4).setCellValue(createHelper.createRichTextString(HistoricoGlobal.get(3)[i]));
 			}
 		
 			// Historico Local
@@ -66,16 +75,16 @@ public class FicheroAnalisis {
 			rowLocal.createCell(5).setCellValue(createHelper.createRichTextString("Fecha"));
 			rowLocal.createCell(6).setCellValue(createHelper.createRichTextString("Porcentaje"));
 			
-			for (int i = 0; i <7;i++) {
+			for (int i = 0; i <HistoricoLocal.get(0).length;i++) {
 				rowLocal = sheetLocal.createRow((short) i+1);
 				// Falta contenido a introducir
-				rowLocal.createCell(0).setCellValue(createHelper.createRichTextString("Historico Local"));
-				rowLocal.createCell(1).setCellValue(createHelper.createRichTextString("NIF Local"));
-				rowLocal.createCell(2).setCellValue(createHelper.createRichTextString("NIF Local"));
-				rowLocal.createCell(3).setCellValue(createHelper.createRichTextString("Producto"));
-				rowLocal.createCell(4).setCellValue(createHelper.createRichTextString("Producto"));
-				rowLocal.createCell(5).setCellValue(createHelper.createRichTextString("Fecha"));
-				rowLocal.createCell(6).setCellValue(createHelper.createRichTextString("Porcentaje"));
+				rowLocal.createCell(0).setCellValue(i);
+				rowLocal.createCell(1).setCellValue(createHelper.createRichTextString(HistoricoLocal.get(0)[i]));
+				rowLocal.createCell(2).setCellValue(createHelper.createRichTextString(HistoricoLocal.get(1)[i]));
+				rowLocal.createCell(3).setCellValue(createHelper.createRichTextString(HistoricoLocal.get(2)[i]));
+				rowLocal.createCell(4).setCellValue(createHelper.createRichTextString(HistoricoLocal.get(3)[i]));
+				rowLocal.createCell(5).setCellValue(createHelper.createRichTextString(HistoricoLocal.get(4)[i]));
+				rowLocal.createCell(6).setCellValue(createHelper.createRichTextString(HistoricoLocal.get(5)[i]));
 			}
 			
 
@@ -85,7 +94,7 @@ public class FicheroAnalisis {
 			Calendar cal = Calendar.getInstance();
 			String fecha = dateFormat.format(cal.getTime());
 
-			FileOutputStream fileOut = new FileOutputStream("Historico\\Analisis" + fecha + ".xls");
+			FileOutputStream fileOut = new FileOutputStream("Historico\\Bayes" + fecha + ".xls");
 			wb.write(fileOut);
 			fileOut.close();
 			System.out.println("Archivo creado");
