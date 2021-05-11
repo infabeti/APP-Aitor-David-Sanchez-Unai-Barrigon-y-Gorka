@@ -156,11 +156,11 @@ public class PanelAnalisis extends JPanel{
 	private ActionListener listenerComboTipo(ControladorPanelAnalisis controladorPanelAnalisis) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
+				String nif;
 			if(comboTipo.getSelectedItem().equals("Local")) {
 				try {
 					controladorPanelAnalisis.getModelo().actualizarListaProductosLocal(
-							controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex()));
+						nif = 	controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex()));
 					listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());
 					
 				} catch (SQLException e) {
@@ -171,11 +171,12 @@ public class PanelAnalisis extends JPanel{
 				comboLocales.setVisible(true);
 			}
 			else if (comboTipo.getSelectedItem().equals("Global")) {
-
+				nif = "Global";
 				comboLocales.setVisible(false);
 
 				
 			}
+			
 				
 			}
 		};

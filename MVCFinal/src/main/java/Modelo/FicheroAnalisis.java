@@ -18,7 +18,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 
 public class FicheroAnalisis {
 	private Modelo modelo;
-	public FicheroAnalisis(Modelo modelo) throws SQLException {
+	public FicheroAnalisis() throws SQLException {
 		this.modelo = modelo;
 	}
 	public void crearFicheroHistorico(String codigoAlimento, String niflocal) {

@@ -26,6 +26,7 @@ public class Modelo {
 	private ConseguirDatosBbdd conseguirDatosBbdd;
 	private EjecutarAccion ejecutarAccion;
 	private ConsultasAnalisis conAnalisis;
+	private FicheroAnalisis ficheroAnalisis;
 
 	public FuncionalidadPoblacion getFuncionalidadPoblacion() {
 		return funcionalidadPoblacion;
@@ -62,7 +63,11 @@ public class Modelo {
 		conseguirDatosBbdd = new ConseguirDatosBbdd();
 		ejecutarAccion = new EjecutarAccion();
 		conAnalisis = new ConsultasAnalisis(this);
-
+		ficheroAnalisis = new FicheroAnalisis();
+	}
+	
+	public FicheroAnalisis getFicheroAnalisis() {
+		return ficheroAnalisis;
 	}
 	
 	public ConsultasAnalisis getConsultasAnalisis() {

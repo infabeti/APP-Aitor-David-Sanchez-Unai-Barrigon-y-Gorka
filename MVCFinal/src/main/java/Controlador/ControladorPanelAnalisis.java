@@ -48,6 +48,9 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 			return "Error de  lectura";
 		else
 		return locales.get(selectedIndex)[0]; }
+	public void cogerNIFLocalNIFPro(String NIFLocal) {
+		//this.getModelo().getFicheroAnalisis().crearFicheroHistorico(codigoAlimento, NIFLocal);
+	}
 }
 
 	
