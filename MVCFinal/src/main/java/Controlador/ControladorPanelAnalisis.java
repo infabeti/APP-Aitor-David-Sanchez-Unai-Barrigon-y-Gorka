@@ -53,7 +53,13 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 		this.getModelo().getFicheroAnalisis().crearFicheroHistorico();
 		}
 	
-	public void consultaListaPorcentaje(String nif, String codProducto,String tipoFecha) {
+	public String [] consultaListaPorcentaje(String nif, String codProducto) {
+		
+		
+		
+		
+		return null;
+		
 		
 		
 	}

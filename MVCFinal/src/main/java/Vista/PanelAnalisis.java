@@ -34,8 +34,6 @@ public class PanelAnalisis extends JPanel{
 	private JTextField productoSeleccionado;
 	private JLabel lblSeleccionDeProductos;
 	private JButton btnCalcular;
-	private JLabel lblRangoFechas;
-	private JComboBox comboFecha;
 	private JLabel lblLocal;
 
 	public PanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
@@ -79,7 +77,7 @@ public class PanelAnalisis extends JPanel{
 		add(comboTipo);
 		
 		comboLocales = new JComboBox (controladorPanelAnalisis.conseguirLocales());
-		comboLocales.setBounds(642, 99, 141, 22);
+		comboLocales.setBounds(642, 66, 141, 22);
 		comboLocales.setVisible(false);
 		add(comboLocales);
 
@@ -123,21 +121,9 @@ public class PanelAnalisis extends JPanel{
 		
 		lblLocal = new JLabel("Local:");
 		lblLocal.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLocal.setBounds(496, 103, 116, 14);
+		lblLocal.setBounds(490, 72, 116, 14);
 		lblLocal.setVisible(false);
 		add(lblLocal);
-		
-		 comboFecha = new JComboBox();
-		comboFecha.setBounds(642, 66, 141, 22);
-		comboFecha.setModel(new DefaultComboBoxModel(new String[] {"Diario", "Semanal","Mensual"}));
-		add(comboFecha);
-		
-		
-		
-		 lblRangoFechas = new JLabel("Rango de fechas: ");
-		lblRangoFechas.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblRangoFechas.setBounds(496, 70, 116, 14);
-		add(lblRangoFechas);
 		
 
 
@@ -214,11 +200,6 @@ public class PanelAnalisis extends JPanel{
 
 				String nombreAlimento = (String) listaProductos.getSelectedValue();
 				productoSeleccionado.setText(nombreAlimento);
-				
-	
-				
-				
-				
 				String nif = "";
 				
 				if(nombreAlimento==null) {
@@ -237,14 +218,8 @@ public class PanelAnalisis extends JPanel{
 						nif = "Global";
 						
 					}
-					
-													
-					
-					
-					
-					String tipoFecha = (String) comboFecha.getSelectedItem();
 
-					controladorPanelAnalisis.consultaListaPorcentaje(nif,controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento),tipoFecha);
+					listaPorcentajes.setListData(controladorPanelAnalisis.consultaListaPorcentaje(nif,controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento)));	
 					
 					//controladorPanelAnalisis.crearFicheros();
 				}
