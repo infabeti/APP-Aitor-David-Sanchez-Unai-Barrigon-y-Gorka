@@ -34,6 +34,8 @@ public class SentenciasBBDD {
 		protected final String ACTUALIZARTOTALOPERACION = "update actividad set totalOperacion = ? where transaccion = ?";
 		protected final String CONSULTAHISTORICOLOCAL = "SELECT * FROM historicolocal where CodigoAlimento1 = ? and NIF1 = ? and fecha = ?";
 		protected final String CONSULTAHISTORICOGLOBAL = "SELECT * FROM historicoglobal where CodigoAlimento1 = ? and fecha = ?";
+		protected final String BAYESLOCAL= "call retogrupo1.calculoProbabilidadesGlobal()";
+		protected final String BAYESGLOBAL ="call retogrupo1.calculoProbabilidadesLocal()";
 }
 
 	
