@@ -23,11 +23,16 @@ public class Modelo {
 	private ConsultasComprobaciones consultasComprobaciones;
 	private Utiles utiles;
 	private FuncionalidadPoblacion funcionalidadPoblacion;
+	private FuncionalidadAnalisis funcionalidadAnalisis;
 	private ConseguirDatosBbdd conseguirDatosBbdd;
 	private EjecutarAccion ejecutarAccion;
 	private ConsultasAnalisis conAnalisis;
 	private FicheroAnalisis ficheroAnalisis;
 
+	public FuncionalidadAnalisis getFuncionalidadAnalisis() {
+		return funcionalidadAnalisis;
+	}
+	
 	public FuncionalidadPoblacion getFuncionalidadPoblacion() {
 		return funcionalidadPoblacion;
 	}

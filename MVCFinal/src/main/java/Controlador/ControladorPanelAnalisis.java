@@ -1,5 +1,6 @@
 package Controlador;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Modelo.Modelo;
@@ -54,14 +55,18 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 		}
 	
 	
-	public String [] consultaListaPorcentaje(String nif, String codProducto) {
+	public ArrayList<String> consultaListaPorcentaje(String nif, String codProducto) throws SQLException {
 		
+		if (nif =="Global") {
+			
+			return this.getModelo().getFuncionalidadAnalisis().procedimientoBayesGlobal();
+		}
+		else {
+			
+			return this.getModelo().getFuncionalidadAnalisis().procedimientoBayesLocal();
+		}
 		
-		
-		
-		return null;
-		
-		
+				
 		
 	}
 	
