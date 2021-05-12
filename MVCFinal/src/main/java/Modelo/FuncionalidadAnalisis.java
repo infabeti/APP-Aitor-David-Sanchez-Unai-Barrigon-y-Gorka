@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.mysql.cj.jdbc.CallableStatement;
 
@@ -14,7 +15,9 @@ public class FuncionalidadAnalisis {
 		this.modelo = modelo;
 	}
 	
-	public String [] procedimientoBayesGlobal() throws SQLException {
+	public ArrayList<String> procedimientoBayesGlobal() throws SQLException {
+		
+		ArrayList<String> array = new ArrayList();
 		
 		conexionConn = this.modelo.getConexion().getConn();
 		
@@ -22,30 +25,40 @@ public class FuncionalidadAnalisis {
 		
 		java.sql.ResultSet rs = bayestm.executeQuery();
 		
-		if(rs.next()) {
+		while(rs.next()) {
 			
+			int i = 0;
 			
+			array.add(rs.getString(i));
+			
+			i++;
 		}
 		
 		
-		return null;
+		return array;
 	}
 	
-	public String [] procedimientoBayesLocal() throws SQLException {
+	public ArrayList<String> procedimientoBayesLocal() throws SQLException {
 		
 		conexionConn = this.modelo.getConexion().getConn();
+		
+		ArrayList<String> array = new ArrayList();
 		
 		java.sql.CallableStatement bayestm = conexionConn.prepareCall(sentenciasBBDD.BAYESLOCAL);
 		
 		java.sql.ResultSet rs = bayestm.executeQuery();
 		
-		if(rs.next()) {
+		while(rs.next()) {
 			
+			int i = 0;
 			
+			array.add(rs.getString(i));
+			
+			i++;
 		}
 		
 		
-		return null;
+		return array;
 	}
 	
 	
