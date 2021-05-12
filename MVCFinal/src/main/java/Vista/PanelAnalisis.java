@@ -239,24 +239,14 @@ public class PanelAnalisis extends JPanel{
 					}
 					
 													
-					if(comboFecha.getSelectedItem().equals("Diario")) {
-						
-						controladorPanelAnalisis.cogerFechaAnalisis("Diario");
-					}
-					else if(comboFecha.getSelectedItem().equals("Semanal")) {
-						
-						controladorPanelAnalisis.cogerFechaAnalisis("Semanal");
-					}
-					else if (comboFecha.getSelectedItem().equals("Mensual")) {
-						
-						controladorPanelAnalisis.cogerFechaAnalisis("Mensual");
-					}
+					
+					
 					
 					String tipoFecha = (String) comboFecha.getSelectedItem();
 
 					controladorPanelAnalisis.consultaListaPorcentaje(nif,controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento),tipoFecha);
 					
-					
+					//controladorPanelAnalisis.crearFicheros();
 				}
 				
 				

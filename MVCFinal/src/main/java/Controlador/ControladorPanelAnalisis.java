@@ -49,8 +49,8 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 		else
 		return locales.get(selectedIndex)[0]; }
 	
-	public void cogerFechaAnalisis(String tipo) {
-		this.getModelo().getFicheroAnalisis().crearFicheroHistorico(tipo);
+	public void crearFicheros() {
+		this.getModelo().getFicheroAnalisis().crearFicheroHistorico();
 		}
 	
 	public void consultaListaPorcentaje(String nif, String codProducto,String tipoFecha) {
