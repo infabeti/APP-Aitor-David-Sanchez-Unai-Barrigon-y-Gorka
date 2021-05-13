@@ -60,6 +60,28 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 		this.getModelo().getFicheroAnalisis().crearFicheroHistorico();
 	}
 	
+	public String[] devolverAnalisis(String codigoAlimento, String nif) {
+		
+		ArrayList<String> historico;
+		
+		
+		if(nif.equalsIgnoreCase("Global"))
+		{
+			historico = this.getModelo().getConsultasAnalisis().obtenerHistoricoGlobal(codigoAlimento);
+
+		}
+		else
+		{
+			historico = this.getModelo().getConsultasAnalisis().obtenerHistoricoLocal(codigoAlimento, nif);
+
+		}
+		String[] historicoString = new String[historico.size()];
+		for (int i = 0; i < historico.size(); i++) {
+			historicoString[i] = historico.get(i);
+		}
+		
+		return historicoString;
+	}
 	
 
 	/*

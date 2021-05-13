@@ -15,8 +15,9 @@ public class ConsultasAnalisis {
 		this.modelo = modelo;
 	}
 
-	public ArrayList<String[]> obtenerHistoricoLocal(String codigoAlimento, String codigoLocal) {
-		ArrayList<String[]> historicoLocal = new ArrayList<String[]>();
+	public ArrayList<String> obtenerHistoricoLocal(String codigoAlimento, String codigoLocal) {
+		System.out.println("******* " + codigoLocal);
+		ArrayList<String> historicoLocal = new ArrayList<String>();
 		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
 				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 						.prepareStatement(sentenciasBBDD.CONSULTAHISTORICOLOCAL);) {
@@ -24,13 +25,10 @@ public class ConsultasAnalisis {
 			st.setString(2, codigoLocal);
 			ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
 			while (rs.next()) {
-				String nif1 = rs.getString("NIF1");
-				String nif2 = rs.getString("NIF2");
-				String codigoAlimento1 = rs.getString("CodigoAlimento1");
-				String codigoAlimento2 = rs.getString("CodigoAlimento2");
-				String fecha = rs.getString("fecha");
+
+				String codigoAlimento2 = rs.getString("nombre");
 				String probabilidad = rs.getString("probabilidad");
-				historicoLocal.add(new String[] { nif1, nif2, codigoAlimento1, codigoAlimento2, fecha, probabilidad });
+				historicoLocal.add(codigoAlimento2 + " - " + probabilidad + "%");
 			}
 			rs.close();
 		} catch (SQLException sqlException) {
@@ -39,31 +37,32 @@ public class ConsultasAnalisis {
 		return historicoLocal;
 	}
 
-	public ArrayList<String[]> obtenerHistoricoGlobal(String codigoAlimento) {
-		ArrayList<String[]> historicoGlobal = new ArrayList<String[]>();
+	public ArrayList<String> obtenerHistoricoGlobal(String codigoAlimento) {
+		ArrayList<String> historicoGlobal = new ArrayList<String>();
 		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
 				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
 						.prepareStatement(sentenciasBBDD.CONSULTAHISTORICOGLOBAL);) {
 			st.setString(1, codigoAlimento);
 			ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
-			while (rs.next()) {
-				String codigoAlimento1 = rs.getString("CodigoAlimento1");
-				String codigoAlimento2 = rs.getString("CodigoAlimento2");
-				String fecha = rs.getString("fecha");
-				String probabilidad = rs.getString("probabilidad");
-				historicoGlobal.add(new String[] { codigoAlimento1, codigoAlimento2, fecha, probabilidad });
+			if (rs.next()) {
+				while (rs.next()) {
+					String codigoAlimento2 = rs.getString("nombre");
+					String probabilidad = rs.getString("probabilidad");
+					historicoGlobal.add(codigoAlimento2 + " - " + probabilidad + "%");
+				}
+				rs.close();
 			}
-			rs.close();
+
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
 		return historicoGlobal;
 	}
 
-	public void ejecutarAlgoritmosCalculoProbabilidades(){
+	public void ejecutarAlgoritmosCalculoProbabilidades() {
 		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
-				CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.PROCESOSANALISIS);
-				ResultSet rs = this.modelo.getEjecutarAccion().consultar(cStmt);) {
+				CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.PROCESOSANALISIS);) {
+			this.modelo.getEjecutarAccion().consultar(cStmt);
 
 		} catch (Exception e) {
 			e.printStackTrace();

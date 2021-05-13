@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -31,6 +32,8 @@ public class PanelAnalisis extends JPanel{
 	private JScrollPane scrollPorcentajes;
 	private JList listaProductos;
 	private JList listaPorcentajes;
+	private DefaultListModel<String> porcentajes = new DefaultListModel<String>();
+
 	private JTextField productoSeleccionado;
 	private JLabel lblSeleccionDeProductos;
 	private JButton btnCalcular;
@@ -111,7 +114,7 @@ public class PanelAnalisis extends JPanel{
 		scrollPorcentajes.setBounds(544, 185, 262, 192);
 		add(scrollPorcentajes);
 		
-		listaPorcentajes = new JList();
+		listaPorcentajes = new JList(porcentajes);
 		scrollPorcentajes.setViewportView(listaPorcentajes);
 		
 		JLabel lblNewLabel = new JLabel("Porcentaje de compra conjunta");
@@ -142,8 +145,17 @@ public class PanelAnalisis extends JPanel{
 	
 	private void actualizarDatos() throws SQLException {
 		
+		if(comboTipo.getSelectedItem().toString().equalsIgnoreCase("Global"))
+		{
+			controladorPanelAnalisis.getModelo().actualizarListaProductosLocal("12345678H");
+		}
+		else
+		{
+			controladorPanelAnalisis.getModelo().actualizarListaProductosLocal(controladorPanelAnalisis.devolverNifLocal(comboLocales.getSelectedIndex()));
+		}
 		
-		controladorPanelAnalisis.getModelo().actualizarListaProductosLocal("12345678H");
+		
+		
 		listaProductos.setListData(controladorPanelAnalisis.cogerListaProductos());
 	}
 	
@@ -151,6 +163,7 @@ public class PanelAnalisis extends JPanel{
 	private void initializeEvents() {
 		this.btnVolver.addActionListener(listenerBotonVolver(this.controladorPanelAnalisis));
 		this.comboTipo.addActionListener(listenerComboTipo(this.controladorPanelAnalisis));
+		this.comboLocales.addActionListener(listenerComboLocal(this.controladorPanelAnalisis));
 		this.btnCalcular.addActionListener(listenerbotonCalcular(this.controladorPanelAnalisis));
 	}
 	
@@ -163,9 +176,31 @@ public class PanelAnalisis extends JPanel{
 		};
 	}
 	
+	private ActionListener listenerComboLocal(ControladorPanelAnalisis controladorPanelAnalisis) {
+		return new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				porcentajes.removeAllElements();
+				productoSeleccionado.setText("");
+
+				try {
+					actualizarDatos();
+				} catch (SQLException e) {
+
+					e.printStackTrace();
+				}
+				
+
+				
+			}
+		};
+	}
+	
 	private ActionListener listenerComboTipo(ControladorPanelAnalisis controladorPanelAnalisis) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				porcentajes.removeAllElements();
+				productoSeleccionado.setText("");
+
 				String nif;
 			if(comboTipo.getSelectedItem().equals("Local")) {
 				try {
@@ -219,15 +254,12 @@ public class PanelAnalisis extends JPanel{
 						nif = "Global";
 						
 					}
-
-					//listaPorcentajes.setListData(controladorPanelAnalisis.consultaListaPorcentaje(nif,controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento)));	
-					
-					//controladorPanelAnalisis.crearFicheros();
+					String[] arrPorcentajesProductos = controladorPanelAnalisis.devolverAnalisis(controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento), nif);
+					for (int i = 0; i < arrPorcentajesProductos.length; i++) {
+						porcentajes.addElement(arrPorcentajesProductos[i]);
+					}
 				}
-				
-				
-				
-				
+		
 			}
 		};
 	}

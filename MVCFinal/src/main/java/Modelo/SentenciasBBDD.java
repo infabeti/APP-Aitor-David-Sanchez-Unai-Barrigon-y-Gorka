@@ -32,8 +32,8 @@ public class SentenciasBBDD {
 		protected final String CONSEGUIRLOCAL = "SELECT nif, nombre, tiponegocio FROM establecimiento";
 		protected final String LLAMARFUNCION = "select importetransacion(?, ?)";
 		protected final String ACTUALIZARTOTALOPERACION = "update actividad set totalOperacion = ? where transaccion = ?";
-		protected final String CONSULTAHISTORICOLOCAL = "SELECT * FROM historicolocal where CodigoAlimento1 = ? and NIF1 = ? and fecha = ?";
-		protected final String CONSULTAHISTORICOGLOBAL = "SELECT * FROM historicoglobal where CodigoAlimento1 = ? and fecha = ?";
+		protected final String CONSULTAHISTORICOLOCAL = "SELECT nombre,probabilidad FROM historicolocal,alimento where alimento.codigoalimento=historicolocal.codigoalimento2 and CodigoAlimento1 = ? and NIF1 = ? and fecha = (select max(fecha) from historicolocal) order by probabilidad desc";
+		protected final String CONSULTAHISTORICOGLOBAL = "SELECT nombre,probabilidad FROM historicoglobal,alimento where alimento.codigoalimento=historicoglobal.codigoalimento2 and CodigoAlimento1 = ? and fecha = (select max(fecha) from historicoglobal) order by probabilidad desc";
 		protected final String PROCESOSANALISIS= "call CalculoProbabilidadesGLOBAL()";
 }
 
