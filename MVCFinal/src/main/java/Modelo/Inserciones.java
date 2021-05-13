@@ -61,6 +61,8 @@ public class Inserciones {
 			st.setString(2, nif);
 
 			Calendar fecha = new GregorianCalendar();
+			
+			transaccion = this.modelo.getConsultas().leerNumTransBBDD();
 
 			int anio = fecha.get(Calendar.YEAR);
 			int mes = fecha.get(Calendar.MONTH);

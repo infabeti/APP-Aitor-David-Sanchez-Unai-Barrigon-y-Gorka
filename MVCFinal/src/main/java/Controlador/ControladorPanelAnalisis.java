@@ -1,13 +1,12 @@
 package Controlador;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import Modelo.Modelo;
 import Vista.PanelAnalisis;
 import Vista.Vista;
 
-public class ControladorPanelAnalisis extends ControladoresPaneles{
+public class ControladorPanelAnalisis extends ControladoresPaneles {
 
 	private PanelAnalisis panelAnalisis;
 	private ArrayList<String[]> locales;
@@ -20,57 +19,64 @@ public class ControladorPanelAnalisis extends ControladoresPaneles{
 	public void mostrarPanel() {
 		this.panelAnalisis = makePanelAnalisis(this);
 		super.getVista().mostrarPanel(this.panelAnalisis);
+		try {
+			this.getModelo().getConsultasAnalisis().ejecutarAlgoritmosCalculoProbabilidades();
+
+		} catch (Exception e) {
+			System.out.println("Los procedimientos no estan creados en la BBDD");
+		}
 	}
-	
+
 	public String[] conseguirLocales() {
 		String[] nombreLocales = new String[locales.size()];
 		int i = 0;
 		for (String[] array : locales) {
 			nombreLocales[i] = array[1];
-			i++; }
+			i++;
+		}
 		return nombreLocales;
 	}
 
 	public PanelAnalisis makePanelAnalisis(ControladorPanelAnalisis controladorPanelAnalisis) {
 		return new PanelAnalisis(controladorPanelAnalisis);
 	}
-	
+
 	public String[] cogerListaProductos() {
-		return this.getModelo().getListaProductos().getListaProductosString();}
-	
-	public String[] cogerListaPlatos() {
-		return this.getModelo().getListaPlatos().getListaPlatosString(); }
-	
+		return this.getModelo().getListaProductos().getListaProductosString();
+	}
+
 	public int conseguirStock(int indexSelected, String producto) {
-		return this.getModelo().getConsultas().obtenerStock(devolverNifLocal(indexSelected), producto); }
-	
+		return this.getModelo().getConsultas().obtenerStock(devolverNifLocal(indexSelected), producto);
+	}
+
 	public String devolverNifLocal(int selectedIndex) {
-		if(locales.size()<=0)
+		if (locales.size() <= 0)
 			return "Error de  lectura";
 		else
-		return locales.get(selectedIndex)[0]; }
-	
+			return locales.get(selectedIndex)[0];
+	}
+
 	public void crearFicheros() {
 		this.getModelo().getFicheroAnalisis().crearFicheroHistorico();
-		}
-	
-	
-	public ArrayList<String> consultaListaPorcentaje(String nif, String codProducto) throws SQLException {
-		
-		if (nif =="Global") {
-			
-			return this.getModelo().getFuncionalidadAnalisis().procedimientoBayesGlobal();
-		}
-		else {
-			
-			return this.getModelo().getFuncionalidadAnalisis().procedimientoBayesLocal();
-		}
-		
-				
-		
 	}
 	
-}
-
 	
 
+	/*
+	 * public ArrayList<String> consultaListaPorcentaje(String nif, String
+	 * codProducto) throws SQLException {
+	 * 
+	 * if (nif =="Global") {
+	 * 
+	 * return
+	 * this.getModelo().getFuncionalidadAnalisis().procedimientoBayesGlobal(); }
+	 * else {
+	 * 
+	 * return this.getModelo().getFuncionalidadAnalisis().procedimientoBayesLocal();
+	 * }
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
+}

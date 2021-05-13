@@ -14,6 +14,7 @@ public class FuncionalidadAnalisis {
 	public FuncionalidadAnalisis(Modelo modelo) {
 		this.modelo = modelo;
 	}
+	/*
 	
 	public ArrayList<String> procedimientoBayesGlobal() throws SQLException {
 		
@@ -60,6 +61,8 @@ public class FuncionalidadAnalisis {
 		
 		return array;
 	}
+	
+	*/
 	
 	
 }

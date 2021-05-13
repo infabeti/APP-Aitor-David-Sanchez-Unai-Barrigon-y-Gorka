@@ -1,5 +1,6 @@
 package Modelo;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,8 +14,8 @@ public class ConsultasAnalisis {
 	public ConsultasAnalisis(Modelo modelo) throws SQLException {
 		this.modelo = modelo;
 	}
-	
-	public  ArrayList<String[]> obtenerHistoricoLocal(String codigoAlimento, String codigoLocal) {
+
+	public ArrayList<String[]> obtenerHistoricoLocal(String codigoAlimento, String codigoLocal) {
 		ArrayList<String[]> historicoLocal = new ArrayList<String[]>();
 		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
 				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
@@ -37,8 +38,8 @@ public class ConsultasAnalisis {
 		}
 		return historicoLocal;
 	}
-	
-	public  ArrayList<String[]> obtenerHistoricoGlobal(String codigoAlimento) {
+
+	public ArrayList<String[]> obtenerHistoricoGlobal(String codigoAlimento) {
 		ArrayList<String[]> historicoGlobal = new ArrayList<String[]>();
 		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
 				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
@@ -50,7 +51,7 @@ public class ConsultasAnalisis {
 				String codigoAlimento2 = rs.getString("CodigoAlimento2");
 				String fecha = rs.getString("fecha");
 				String probabilidad = rs.getString("probabilidad");
-				historicoGlobal.add(new String[] {codigoAlimento1, codigoAlimento2, fecha, probabilidad });
+				historicoGlobal.add(new String[] { codigoAlimento1, codigoAlimento2, fecha, probabilidad });
 			}
 			rs.close();
 		} catch (SQLException sqlException) {
@@ -58,6 +59,15 @@ public class ConsultasAnalisis {
 		}
 		return historicoGlobal;
 	}
-	
+
+	public void ejecutarAlgoritmosCalculoProbabilidades(){
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.PROCESOSANALISIS);
+				ResultSet rs = this.modelo.getEjecutarAccion().consultar(cStmt);) {
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }

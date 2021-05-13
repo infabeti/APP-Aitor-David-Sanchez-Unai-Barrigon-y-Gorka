@@ -46,38 +46,38 @@ public class PanelAnalisis extends JPanel{
 		JLabel lblNombrePanel = new JLabel("Panel An\u00E1lisis");
 		lblNombrePanel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNombrePanel.setFont(new Font("Arial", Font.BOLD, 30));
-		lblNombrePanel.setBounds(0, 0, 450, 45);
+		lblNombrePanel.setBounds(121, 0, 450, 45);
 		add(lblNombrePanel);
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.setFont(new Font("Arial", Font.PLAIN, 13));
-		btnVolver.setBounds(40, 522, 83, 23);
+		btnVolver.setBounds(723, 567, 83, 23);
 		add(btnVolver);
 		
-		JLabel lblProductosAComparar = new JLabel("Productos a comparar");
+		JLabel lblProductosAComparar = new JLabel("Seleccionar producto a analizar");
 		lblProductosAComparar.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProductosAComparar.setFont(new Font("Arial", Font.BOLD, 15));
-		lblProductosAComparar.setBounds(60, 142, 220, 32);
+		lblProductosAComparar.setBounds(34, 151, 275, 32);
 		add(lblProductosAComparar);
 		
 		 btnCalcular = new JButton("Calcular");
 		btnCalcular.setFont(new Font("Arial", Font.PLAIN, 13));
-		btnCalcular.setBounds(428, 412, 97, 23);
+		btnCalcular.setBounds(107, 390, 97, 23);
 		add(btnCalcular);
 		
 		JLabel lblInserteLos = new JLabel("*Seleccione el producto a comparar");
-		lblInserteLos.setFont(new Font("Arial", Font.PLAIN, 12));
-		lblInserteLos.setBounds(10, 45, 299, 32);
+		lblInserteLos.setFont(new Font("Arial", Font.PLAIN, 15));
+		lblInserteLos.setBounds(34, 84, 299, 32);
 		add(lblInserteLos);
 		
 		comboTipo = new JComboBox();
 		comboTipo.setModel(new DefaultComboBoxModel(new String[] {"Global", "Local"}));
 		
-		comboTipo.setBounds(642, 33, 141, 22);
+		comboTipo.setBounds(665, 50, 141, 22);
 		add(comboTipo);
 		
 		comboLocales = new JComboBox (controladorPanelAnalisis.conseguirLocales());
-		comboLocales.setBounds(642, 66, 141, 22);
+		comboLocales.setBounds(665, 89, 141, 22);
 		comboLocales.setVisible(false);
 		add(comboLocales);
 
@@ -92,36 +92,37 @@ public class PanelAnalisis extends JPanel{
 		
 		productoSeleccionado = new JTextField();
 		productoSeleccionado.setEditable(false);
-		productoSeleccionado.setBounds(40, 413, 262, 20);
+		productoSeleccionado.setBounds(333, 212, 175, 20);
 		add(productoSeleccionado);
 		productoSeleccionado.setColumns(10);
 		
 		JLabel lblProducto1 = new JLabel("Producto seleccionado");
+		lblProducto1.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblProducto1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblProducto1.setBounds(103, 388, 141, 14);
+		lblProducto1.setBounds(333, 197, 175, 14);
 		add(lblProducto1);
 
-		lblSeleccionDeProductos = new JLabel("Selecci\u00F3n de productos:");
+		lblSeleccionDeProductos = new JLabel("Tipo de analisis:");
 		lblSeleccionDeProductos.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSeleccionDeProductos.setBounds(460, 37, 172, 14);
+		lblSeleccionDeProductos.setBounds(544, 56, 108, 14);
 		add(lblSeleccionDeProductos);
 		
 		scrollPorcentajes = new JScrollPane();
-		scrollPorcentajes.setBounds(350, 185, 262, 192);
+		scrollPorcentajes.setBounds(544, 185, 262, 192);
 		add(scrollPorcentajes);
 		
 		listaPorcentajes = new JList();
 		scrollPorcentajes.setViewportView(listaPorcentajes);
 		
-		JLabel lblNewLabel = new JLabel("Porcentaje de compra");
+		JLabel lblNewLabel = new JLabel("Porcentaje de compra conjunta");
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 15));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(379, 151, 212, 14);
+		lblNewLabel.setBounds(544, 160, 262, 14);
 		add(lblNewLabel);
 		
 		lblLocal = new JLabel("Local:");
 		lblLocal.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLocal.setBounds(490, 72, 116, 14);
+		lblLocal.setBounds(526, 94, 116, 14);
 		lblLocal.setVisible(false);
 		add(lblLocal);
 		
@@ -219,7 +220,7 @@ public class PanelAnalisis extends JPanel{
 						
 					}
 
-					listaPorcentajes.setListData(controladorPanelAnalisis.consultaListaPorcentaje(nif,controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento)));	
+					//listaPorcentajes.setListData(controladorPanelAnalisis.consultaListaPorcentaje(nif,controladorPanelAnalisis.getModelo().getConsultas().obtenerCodigoAlimentoProducto(nombreAlimento)));	
 					
 					//controladorPanelAnalisis.crearFicheros();
 				}
