@@ -232,7 +232,8 @@ public class PanelAnalisis extends JPanel{
 	private ActionListener listenerbotonCalcular(ControladorPanelAnalisis controladorPanelAnalisis) {
 		return new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				
+				porcentajes.removeAllElements();
+
 
 				String nombreAlimento = (String) listaProductos.getSelectedValue();
 				productoSeleccionado.setText(nombreAlimento);
