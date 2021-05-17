@@ -20,6 +20,14 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 		this.panelAnalisis = makePanelAnalisis(this);
 		super.getVista().mostrarPanel(this.panelAnalisis);
 		try {
+					
+			for (int j = 0; j < locales.size(); j++) {
+				
+				this.getModelo().getConsultasAnalisis().conseguirTopAlimentosLocal(locales.get(j)[0]);
+
+				
+			}
+			
 			this.getModelo().getConsultasAnalisis().ejecutarAlgoritmosCalculoProbabilidades();
 
 		} catch (Exception e) {
