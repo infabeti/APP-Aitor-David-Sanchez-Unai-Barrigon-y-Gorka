@@ -64,7 +64,7 @@ public class Modelo {
 		conseguirDatosBbdd = new ConseguirDatosBbdd();
 		ejecutarAccion = new EjecutarAccion();
 		conAnalisis = new ConsultasAnalisis(this);
-		ficheroAnalisis = new FicheroAnalisis();
+		ficheroAnalisis = new FicheroAnalisis(this);
 	}
 	
 	public FicheroAnalisis getFicheroAnalisis() {

@@ -20,14 +20,13 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 		this.panelAnalisis = makePanelAnalisis(this);
 		super.getVista().mostrarPanel(this.panelAnalisis);
 		try {
-					
+			ArrayList<String[]> historicoLocal = new ArrayList<String[]>();
 			for (int j = 0; j < locales.size(); j++) {
-				
-				ArrayList<String[]> historicoLocal = this.getModelo().getConsultasAnalisis().conseguirTopAlimentosLocal(locales.get(j)[0]);
-				ArrayList<String[]> historicoGlobal = this.getModelo().getConsultasAnalisis().conseguirTopAlimentosGlobal();
-				this.getModelo().getFicheroAnalisis().crearFicheroHistorico(historicoLocal,historicoGlobal);
-				
+				 
+				 this.getModelo().getFicheroAnalisis().crearFicheroHistorico(this.getModelo().getConsultasAnalisis().conseguirTopAlimentosLocal(locales.get(j)[0]));
 			}
+			
+			
 			
 			this.getModelo().getConsultasAnalisis().ejecutarAlgoritmosCalculoProbabilidades();
 

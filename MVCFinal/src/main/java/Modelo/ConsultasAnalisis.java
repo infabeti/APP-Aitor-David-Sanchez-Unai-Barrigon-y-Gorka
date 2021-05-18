@@ -66,6 +66,9 @@ public class ConsultasAnalisis {
 
 				i++;
 			}
+			for (int j = 0; j < arrTopAl.size()-1; j++) {
+				System.out.println(arrTopAl.get(j)[1]);
+			}
 			return arrTopAl;
 		} catch (Exception e) {
 			e.printStackTrace();

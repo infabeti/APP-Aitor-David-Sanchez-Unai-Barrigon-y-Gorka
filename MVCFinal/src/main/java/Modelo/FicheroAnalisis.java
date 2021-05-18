@@ -15,8 +15,12 @@ import java.util.Calendar;
 
 public class FicheroAnalisis {
 	private Modelo modelo;
-
-	public void crearFicheroHistorico(ArrayList<String[]> historicoLocal,ArrayList<String[]> historicoGlobal) {
+	
+	public FicheroAnalisis(Modelo modelo) {
+		this.modelo = modelo;
+	}
+	
+	public void crearFicheroHistorico(ArrayList<String[]> historicoLocal) {
 
 		try {
 
@@ -36,7 +40,7 @@ public class FicheroAnalisis {
 			DateFormat dateFormat1 = new SimpleDateFormat("dd/MM/yyyy");
 			String fecha1 = dateFormat1.format(cal.getTime());
 			
-			
+			ArrayList<String[]> historicoGlobal = this.modelo.getConsultasAnalisis().conseguirTopAlimentosGlobal();
 
 			FileWriter fich = new FileWriter("Historico\\BayesGlobal"+ fecha + ".csv");
 			String texto = "Probabilidad de compra global,,Fecha: "+fecha1+"\n";
@@ -50,14 +54,17 @@ public class FicheroAnalisis {
 			String texto1 = "Probabilidad de compra por Local,,Fecha: "+fecha1+"\n";
 			fich1.write(texto1);
 				int xi = 0;
+				System.out.println(historicoLocal.size());
 				for (int i = 0; i < historicoLocal.size(); i++) {
+					System.out.println("Escribe salto linea");
 					fich1.write(historicoLocal.get(i)[0]+"\n");
 					for(int ix = 1; ix<4;ix++) {
-					
+						System.out.println("Escribe " + historicoLocal.get(i)[1]);
 						fich1.write(historicoLocal.get(i)[1]+","+historicoLocal.get(i)[2]+","+historicoLocal.get(i)[3]+"\n");//Porcentaje
 					}
 					xi= xi + 4;
 				}
+				
 				fich1.close();
 			
 
