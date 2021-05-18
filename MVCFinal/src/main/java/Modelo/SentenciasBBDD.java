@@ -38,7 +38,7 @@ public class SentenciasBBDD {
 		protected final String CONSEGUIRNOMBREALIMENTO= "select nombre from alimento where CodigoAlimento = ?;";
 		protected final String CONSULTATOPALIMENTOPORLOCAL= "SELECT nif1,CodigoAlimento1,CodigoAlimento2,probabilidad FROM historicolocal "
 				+ "where nif1 = ? and fecha = (select max(fecha) from historicolocal) order by probabilidad desc limit 3;";
-		protected final String CONSULTAHISTOICOGLOBALFICHA = "select * from historicoglobal order by probabilidad desc limit 10";
+		protected final String CONSULTAHISTOICOGLOBALFICHA = "select * from historicoglobal where fecha = (select max(fecha) from historicoglobal)order by probabilidad desc limit 10";
 }
 
 	
