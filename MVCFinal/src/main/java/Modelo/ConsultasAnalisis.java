@@ -55,15 +55,11 @@ public class ConsultasAnalisis {
 				String nombreDos = rs.getString(3);
 				String porcentaje = Double.toString(rs.getDouble(4));
 
-				
-				
 				nombreUno = devolverNombreAlimento(Integer.parseInt(nombreUno));
 				nombreDos = devolverNombreAlimento(Integer.parseInt(nombreDos));
-
 				
 				System.out.println(niflocal + " " + nombreUno + " " + nombreDos + " " + porcentaje);
 
-				
 				String[] arrTop = { niflocal, nombreUno, nombreDos, porcentaje };
 
 				arrTopAl.add(i, arrTop);
@@ -119,6 +115,40 @@ public class ConsultasAnalisis {
 		}
 		return historicoGlobal;
 	}
+	
+	public ArrayList<String[]> conseguirTopAlimentosGlobal() {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSULTAHISTOICOGLOBALFICHA);) {
+
+			ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
+
+			ArrayList<String[]> arrTopAl = new ArrayList<String[]>();
+
+			int i = 0;
+			while (rs.next()) {
+				String nombreUno = rs.getString(1);
+				String nombreDos = rs.getString(2);
+				String porcentaje = Double.toString(rs.getDouble(4));
+
+				nombreUno = devolverNombreAlimento(Integer.parseInt(nombreUno));
+				nombreDos = devolverNombreAlimento(Integer.parseInt(nombreDos));
+				
+				
+				String[] arrTop = { nombreUno, nombreDos, porcentaje };
+
+				arrTopAl.add(i, arrTop);
+
+				i++;
+			}
+			return arrTopAl;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 
 	public void ejecutarAlgoritmosCalculoProbabilidades() {
 		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();

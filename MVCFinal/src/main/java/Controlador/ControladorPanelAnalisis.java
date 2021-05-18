@@ -23,8 +23,9 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 					
 			for (int j = 0; j < locales.size(); j++) {
 				
-				this.getModelo().getConsultasAnalisis().conseguirTopAlimentosLocal(locales.get(j)[0]);
-
+				ArrayList<String[]> historicoLocal = this.getModelo().getConsultasAnalisis().conseguirTopAlimentosLocal(locales.get(j)[0]);
+				ArrayList<String[]> historicoGlobal = this.getModelo().getConsultasAnalisis().conseguirTopAlimentosGlobal();
+				this.getModelo().getFicheroAnalisis().crearFicheroHistorico(historicoLocal,historicoGlobal);
 				
 			}
 			
@@ -62,10 +63,6 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 			return "Error de  lectura";
 		else
 			return locales.get(selectedIndex)[0];
-	}
-
-	public void crearFicheros() {
-		this.getModelo().getFicheroAnalisis().crearFicheroHistorico();
 	}
 	
 	public String[] devolverAnalisis(String codigoAlimento, String nif) {
