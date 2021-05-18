@@ -27,9 +27,7 @@ public class FicheroAnalisis {
 			Path path = Paths.get("Historico");
 			if (!Files.exists(path)) {
 				Files.createDirectory(path);
-				System.out.println("Carpeta creada");
 			}
-			System.out.println("Carpeta lista");
 
 	
 			// Fecha para saber de cuando es el Historico
@@ -54,12 +52,9 @@ public class FicheroAnalisis {
 			String texto1 = "Probabilidad de compra por Local,,Fecha: "+fecha1+"\n";
 			fich1.write(texto1);
 				int xi = 0;
-				System.out.println(historicoLocal.size());
 				for (int i = 0; i < historicoLocal.size(); i++) {
-					System.out.println("Escribe salto linea");
 					fich1.write(historicoLocal.get(i)[0]+"\n");
 					for(int ix = 1; ix<4;ix++) {
-						System.out.println("Escribe " + historicoLocal.get(i)[1]);
 						fich1.write(historicoLocal.get(i)[1]+","+historicoLocal.get(i)[2]+","+historicoLocal.get(i)[3]+"\n");//Porcentaje
 					}
 					xi= xi + 4;
@@ -68,13 +63,11 @@ public class FicheroAnalisis {
 				fich1.close();
 			
 
-			System.out.println("Archivo creado");
 
 		}catch(
 
 	Exception ioe)
 	{
-		System.out.println("Incompleto");
 		ioe.printStackTrace();
 	}
 	}
