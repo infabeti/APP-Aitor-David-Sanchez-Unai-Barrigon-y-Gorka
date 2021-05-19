@@ -1,6 +1,8 @@
 package App;
 
 
+import java.sql.SQLException;
+
 import Controlador.Controlador;
 import Modelo.Modelo;
 
@@ -14,8 +16,12 @@ public class Main {
 	@SuppressWarnings("unused")
 	private static Controlador controlador;
 	
-	public static void main(String[] args) {
-		modelo = new Modelo();    
+	public static void main(String[] args){
+		try {
+			modelo = new Modelo();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}    
 		vista = new Vista();              
 		controlador = new Controlador(modelo, vista);
 		

@@ -6,33 +6,27 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-import bbdd.Conexion;
-import bbdd.EjecutarAccion;
-
 public class InsercionesActividades {
 
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private java.sql.Connection conexionConn;
-	private EjecutarAccion ejecutarAccion;
+	private Modelo modelo;
 
-	public InsercionesActividades(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
-
+	public InsercionesActividades(Modelo modelo) throws SQLException {
+		this.modelo = modelo;
 	}
 
 	public void insertarActividad(int transaccion, String fecha, double totalOperacion, String tipo, String nif)
 			throws SQLException {
-		try {
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARACTIVIDAD);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARACTIVIDAD);) {
 			st.setInt(1, transaccion);
 			st.setString(2, fecha);
 			st.setDouble(3, totalOperacion);
 			st.setString(4, tipo);
 			st.setString(5, nif);
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -43,22 +37,21 @@ public class InsercionesActividades {
 	}
 
 	public void ejecutarFuncion(int numTrans, String tipo) throws SQLException {
-		try {
+		ResultSet rs = null;
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.LLAMARFUNCION);) {
 			boolean comanda = false;
 			if (tipo.equalsIgnoreCase("comanda"))
 				comanda = true;
 
-			CallableStatement cStmt = conexionConn.prepareCall(sentenciasBBDD.LLAMARFUNCION);
 			cStmt.setInt(1, numTrans);
 			cStmt.setBoolean(2, comanda);
-			ResultSet rs = ejecutarAccion.consultar(cStmt);
+			rs = this.modelo.getEjecutarAccion().consultar(cStmt);
 			Double output = 0.0;
 
-			if(rs.next())
-			{
+			if (rs.next()) {
 				output = rs.getDouble(1);
 			}
-			
 
 			PreparedStatement st = null;
 
@@ -68,28 +61,30 @@ public class InsercionesActividades {
 			st.setInt(2, numTrans);
 
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			rs.close();
 		}
 	}
 
 	public void insertarPedido(int transaccion, String domicilio) {
-		try {
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARPEDIDO);
-			try {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARPEDIDO);) {
 				st.setInt(1, transaccion);
+			try {
 				if (domicilio.equalsIgnoreCase("")) {
 					st.setNull(2, Types.NULL);
 				} else {
 					st.setString(2, domicilio);
 				}
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -99,13 +94,13 @@ public class InsercionesActividades {
 	}
 
 	public void insertarFactura(int transaccion, String nif) {
-		try {
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARFACTURA);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARFACTURA);) {
 			st.setInt(1, transaccion);
 			st.setString(2, nif);
 			try {
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -115,12 +110,12 @@ public class InsercionesActividades {
 	}
 
 	public boolean insertarComanda(int transaccion) {
-		try {
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARCOMANDA);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARCOMANDA);) {
 			try {
 				st.setInt(1, transaccion);
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -133,12 +128,12 @@ public class InsercionesActividades {
 	}
 
 	public boolean insertarAprovisionamiento(int transaccion) {
-		try {
-			PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.INSERTARAPROVISIONAMIENTO);) {
 			try {
 				st.setInt(1, transaccion);
-				ejecutarAccion.insertar(st);
+				this.modelo.getEjecutarAccion().insertar(st);
 				return true;
 			} catch (Exception e) {
 				e.printStackTrace();

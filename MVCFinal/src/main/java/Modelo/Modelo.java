@@ -1,6 +1,9 @@
 package Modelo;
 
-import bbdd.*;
+import java.sql.SQLException;
+
+import bbdd.Conexion;
+import bbdd.EjecutarAccion;
 
 public class Modelo {
 
@@ -13,7 +16,7 @@ public class Modelo {
 	private ConsultasListas consultasListas;
 	public InsercionesActividades insercionesActividades;
 	public Validaciones validaciones;
-	private Conexion conexion = new Conexion();
+	private Conexion conexion;
 	private ListaProductos listaTemporal = new ListaProductos();
 	private ListaPlatos listaTemporalPlatos = new ListaPlatos();
 	private TransformadorDatos transformadorDatos = new TransformadorDatos();
@@ -22,8 +25,10 @@ public class Modelo {
 	private FuncionalidadPoblacion funcionalidadPoblacion;
 	private ConseguirDatosBbdd conseguirDatosBbdd;
 	private EjecutarAccion ejecutarAccion;
+	private ConsultasAnalisis conAnalisis;
+	private FicheroAnalisis ficheroAnalisis;
 
-
+	
 	public FuncionalidadPoblacion getFuncionalidadPoblacion() {
 		return funcionalidadPoblacion;
 	}
@@ -44,19 +49,30 @@ public class Modelo {
 		return conseguirDatosBbdd;
 	}
 
-	public Modelo() {
+	public Modelo() throws SQLException {
+		conexion = new Conexion();
 		funProd = new FuncionesProductos(this);
 		funPlat = new FuncionesPlatos(this);
 		funcionalidadPoblacion = new FuncionalidadPoblacion(this);
-		inserciones = new Inserciones(conexion, ejecutarAccion);
-		consultasComprobaciones = new ConsultasComprobaciones(conexion, ejecutarAccion);
-		consultas = new Consultas(conexion, ejecutarAccion);
-		consultasListas = new ConsultasListas(conexion, ejecutarAccion);
-		insercionesActividades = new InsercionesActividades(conexion, ejecutarAccion);
+		inserciones = new Inserciones(this);
+		consultasComprobaciones = new ConsultasComprobaciones(this);
+		consultas = new Consultas(this);
+		consultasListas = new ConsultasListas(this);
+		insercionesActividades = new InsercionesActividades(this);
 		validaciones = new Validaciones();
 		utiles = new Utiles();
 		conseguirDatosBbdd = new ConseguirDatosBbdd();
-		ejecutarAccion = new EjecutarAccion(conexion);
+		ejecutarAccion = new EjecutarAccion();
+		conAnalisis = new ConsultasAnalisis(this);
+		ficheroAnalisis = new FicheroAnalisis(this);
+	}
+	
+	public FicheroAnalisis getFicheroAnalisis() {
+		return ficheroAnalisis;
+	}
+	
+	public ConsultasAnalisis getConsultasAnalisis() {
+		return conAnalisis;
 	}
 
 	public EjecutarAccion getEjecutarAccion() {
@@ -107,11 +123,11 @@ public class Modelo {
 		this.listaPlatos = listaPlatos;
 	}
 	
-	public void actualizarListaProductosLocal(String nif){
-		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(this.getConseguirDatosBbdd().cogerProductosLocal(consultasListas.cogerProductosLocal(nif)));		
+	public void actualizarListaProductosLocal(String nif) throws SQLException{
+		this.listaProductos = transformadorDatos.cambiarFormatoListaProductos(consultasListas.cogerProductosLocal(nif));		
 	}
 	
-	public void actualizarListaPlatosLocal(String nif){
-		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(this.getConseguirDatosBbdd().cogerListaPlatos(consultasListas.cogerListaPlatos(nif)));
+	public void actualizarListaPlatosLocal(String nif) throws SQLException{
+		this.listaPlatos = transformadorDatos.cambiarFormatoListaPlatos(consultasListas.cogerListaPlatos(nif));
 	}
 }

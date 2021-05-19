@@ -11,7 +11,7 @@ public class ControladorPanelPoblacion extends ControladoresPaneles {
 
 	public ControladorPanelPoblacion(Modelo modelo, Vista vista, Controlador controlador) {
 		super(modelo, vista, controlador);
-		this.locales = this.getModelo().getConseguirDatosBbdd().conseguirLocales(this.getModelo().getConsultas().conseguirLocales());
+		this.locales = this.getModelo().getConsultas().conseguirLocales();
 	}
 
 	public void mostrarPanel() {

@@ -32,6 +32,7 @@ public class FuncionalidadPoblacion {
 		//Insertamos los productos
 		for (int i = 0; i < lista.getSize(); i++) {
 			String textoSpliteado[] = lista.get(i).split(" ");
+
 			insertarProductoActividad(i, transaccion, Integer.parseInt(textoSpliteado[0]), nif);
 		}
 		if (tipo.equalsIgnoreCase("Aprovisionamiento")) {

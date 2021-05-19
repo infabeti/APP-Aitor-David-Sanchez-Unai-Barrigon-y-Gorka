@@ -3,66 +3,59 @@ package Modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import bbdd.Conexion;
-import bbdd.EjecutarAccion;
+import java.util.ArrayList;
 
 public class ConsultasListas {
 
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private EjecutarAccion ejecutarAccion;
 
-
-	public ConsultasListas(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public ConsultasListas(Modelo modelo) throws SQLException {
+		this.modelo = modelo;
 	}
 
-	public ResultSet cogerProductosLocal(String NIFLocal) {
+	public ArrayList<String[]> cogerProductosLocal(String NIFLocal) throws SQLException {
 		ResultSet rs = null;
-		try {
-			PreparedStatement st = null;
-
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.CONSULTAPRODUCTOLOCAL);
+		ArrayList<String[]> productos = new ArrayList<String[]>();
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSULTAPRODUCTOLOCAL);) {
 			st.setString(1, NIFLocal);
-			rs = ejecutarAccion.consultar(st);
+			rs = this.modelo.getEjecutarAccion().consultar(st);
+			if (!rs.isBeforeFirst()) {
+				System.out.println("No hay productos disponibles en la bbdd");
+			} else {
+				productos = this.modelo.getConseguirDatosBbdd().cogerProductosLocal(rs);
 
-			
+			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			rs.close();
 		}
-		return rs;
+		return productos;
 	}
 
-	public ResultSet cogerProductosAprovisionamiento() {
+	public ArrayList<String[]> cogerListaPlatos(String NIFLocal) throws SQLException {
 		ResultSet rs = null;
-		try {
-			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.ALIMENTOORDENADO);
-			rs = ejecutarAccion.consultar(st);
-			
-		} catch (SQLException sqlException) {
-			sqlException.printStackTrace();
-		}
-		return rs;
-	}
-	
-	public ResultSet cogerListaPlatos(String NIFLocal) {
-		ResultSet rs = null;
-		try {
-			PreparedStatement st = null;
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn)
-					.prepareStatement(sentenciasBBDD.PLATOJOINCARTA);
+		ArrayList<String[]> platos = new ArrayList<String[]>();
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.PLATOJOINCARTA);) {
 			st.setString(1, NIFLocal);
-			rs = ejecutarAccion.consultar(st);
-			
+			rs = this.modelo.getEjecutarAccion().consultar(st);
+			if (!rs.isBeforeFirst()) {
+				System.out.println("No hay platos disponibles en la bbdd");
+			} else {
+				platos = this.modelo.getConseguirDatosBbdd().cogerListaPlatos(rs);
+
+			}
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
+		} finally {
+			rs.close();
 		}
-		return rs;
+		return platos;
 	}
 
 }

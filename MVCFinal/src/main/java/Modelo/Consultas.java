@@ -3,39 +3,36 @@ package Modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import bbdd.Conexion;
-import bbdd.EjecutarAccion;
+import java.util.ArrayList;
 
 public class Consultas {
 
-	private java.sql.Connection conexionConn;
+	private Modelo modelo;
 	private final SentenciasBBDD sentenciasBBDD = new SentenciasBBDD();
-	private EjecutarAccion ejecutarAccion;
 
-	public Consultas(Conexion conexion, EjecutarAccion ejecutarAccion) {
-		this.conexionConn = conexion.getConn();
-		this.ejecutarAccion = new EjecutarAccion(conexion);
+	public Consultas(Modelo modelo) throws SQLException {
+		this.modelo = modelo;
 	}
 
-	public PreparedStatement conseguirPreparedStatement(String sentenciaBbdd) {
-		PreparedStatement st = null;
-		try {
-			st = (PreparedStatement) ((java.sql.Connection) conexionConn).prepareStatement(sentenciaBbdd);
+	public ArrayList<String[]> conseguirLocales() {
+
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSEGUIRLOCAL);) {
+			return this.modelo.getConseguirDatosBbdd().conseguirLocales(this.modelo.getEjecutarAccion().consultar(st));
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.out.println("\nERROR \n Compruebe que no tiene otra instancia del programa ejecutandose.");
+			System.exit(0);
 		}
-		return st;
-	}
-
-	public ResultSet conseguirLocales() {
-		return ejecutarAccion.consultar(conseguirPreparedStatement(sentenciasBBDD.CONSEGUIRLOCAL));
+		return null;
 	}
 
 	public int leerNumTransBBDD() {
-		ResultSet rs = ejecutarAccion.consultar(conseguirPreparedStatement(sentenciasBBDD.CONSULTAACTIVIDAD));
 		int numero = 1;
-		try {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSULTAACTIVIDAD);
+				ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);) {
 			while (rs.next()) {
 				numero++;
 			}
@@ -48,23 +45,28 @@ public class Consultas {
 
 	public int obtenerStock(String nif, String codigoAlimento) {
 		int cantidadActual = 0;
-		try {
-			PreparedStatement st = conseguirPreparedStatement(sentenciasBBDD.CONSEGUIRCANTIDADSTOCK);
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSEGUIRCANTIDADSTOCK);) {
 			st.setString(1, codigoAlimento);
 			st.setString(2, nif);
-			ResultSet rs = ejecutarAccion.consultar(st);
+			ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);
 			while (rs.next()) {
 				cantidadActual = rs.getInt("cantidad");
 			}
+			rs.close();
 		} catch (SQLException sqlException) {
 			sqlException.printStackTrace();
 		}
+
 		return cantidadActual;
 	}
 
 	public String obtenerCodigoAlimentoProducto(String producto) {
-		ResultSet rs = ejecutarAccion.consultar(conseguirPreparedStatement(sentenciasBBDD.CONSULTAALIMENTO));
-		try {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSULTAALIMENTO);
+				ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);) {
 			while (rs.next()) {
 				if (rs.getString("nombre").equalsIgnoreCase(producto)) {
 					return rs.getString("codigoalimento");
@@ -77,8 +79,10 @@ public class Consultas {
 	}
 
 	public String obtenerCodigoPlato(String plato) {
-		ResultSet rs = ejecutarAccion.consultar(conseguirPreparedStatement(sentenciasBBDD.CONSULTAPLATO));
-		try {
+		try (java.sql.Connection conexionConn = this.modelo.getConexion().getConn();
+				PreparedStatement st = (PreparedStatement) ((java.sql.Connection) conexionConn)
+						.prepareStatement(sentenciasBBDD.CONSULTAPLATO);
+				ResultSet rs = this.modelo.getEjecutarAccion().consultar(st);) {
 			while (rs.next()) {
 				if (rs.getString("nombre").equalsIgnoreCase(plato)) {
 					return rs.getString("codigoplato");
