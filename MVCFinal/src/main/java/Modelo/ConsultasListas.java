@@ -23,7 +23,7 @@ public class ConsultasListas {
 			st.setString(1, NIFLocal);
 			rs = this.modelo.getEjecutarAccion().consultar(st);
 			if (!rs.isBeforeFirst()) {
-				System.out.println("No hay datos disponibles en la bbdd");
+				System.out.println("No hay productos disponibles en la bbdd");
 			} else {
 				productos = this.modelo.getConseguirDatosBbdd().cogerProductosLocal(rs);
 
@@ -45,7 +45,7 @@ public class ConsultasListas {
 			st.setString(1, NIFLocal);
 			rs = this.modelo.getEjecutarAccion().consultar(st);
 			if (!rs.isBeforeFirst()) {
-				System.out.println("No hay datos disponibles en la bbdd");
+				System.out.println("No hay platos disponibles en la bbdd");
 			} else {
 				platos = this.modelo.getConseguirDatosBbdd().cogerListaPlatos(rs);
 
