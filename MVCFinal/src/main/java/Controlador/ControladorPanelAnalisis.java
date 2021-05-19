@@ -21,6 +21,7 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 		super.getVista().mostrarPanel(this.panelAnalisis);
 		try {
 			ArrayList<String[]> historicoLocal = new ArrayList<String[]>();
+			this.getModelo().getConsultasAnalisis().ejecutarAlgoritmosCalculoProbabilidades();
 			for (int j = 0; j < locales.size(); j++) {
 				 
 				 this.getModelo().getFicheroAnalisis().crearFicheroHistorico(this.getModelo().getConsultasAnalisis().conseguirTopAlimentosLocal(locales.get(j)[0]));
@@ -28,7 +29,7 @@ public class ControladorPanelAnalisis extends ControladoresPaneles {
 			
 			
 			
-			this.getModelo().getConsultasAnalisis().ejecutarAlgoritmosCalculoProbabilidades();
+	
 
 		} catch (Exception e) {
 			System.out.println("Los procedimientos no estan creados en la BBDD");

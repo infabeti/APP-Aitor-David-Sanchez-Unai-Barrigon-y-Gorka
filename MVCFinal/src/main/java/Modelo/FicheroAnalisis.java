@@ -11,6 +11,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import javax.swing.JOptionPane;
+
+import Controlador.ControladorPanelPoblacion;
+
 
 
 public class FicheroAnalisis {
@@ -44,8 +48,17 @@ public class FicheroAnalisis {
 			String texto = "Probabilidad de compra global,,Fecha: "+fecha1+"\n";
 			fich.write(texto);
 				for (int i = 0; i < 10; i++) {
-						fich.write(historicoGlobal.get(i)[0]+","+historicoGlobal.get(i)[1]+","+historicoGlobal.get(i)[2]+"\n");
+						try {
+							
+
+							fich.write(historicoGlobal.get(i)[0]+","+historicoGlobal.get(i)[1]+","+historicoGlobal.get(i)[2]+"\n");
+						}
+						catch(Exception E) {
+							JOptionPane.showMessageDialog(null, "No se puede acceder a Analisis, no hay transacciones disponibles");
+							System.out.println("No se ha podido entrar, no hay transacciones para realizar Analisis");
+						}
 				}
+				
 				fich.close();
 		
 			FileWriter fich1 = new FileWriter("Historico\\BayesLocal"+ fecha + ".csv");
